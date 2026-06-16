@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Local Info" description="Essential local knowledge for visiting Cali: culture, weather, etiquette, and tips.">
+    <section class="section-light" style="padding-top: 120px; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 3rem; margin-bottom: 16px;">Local Knowledge</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 48px;">Master the art of living like a local in Cali. From etiquette and weather to the unwritten rules of the city.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Cultural Etiquette -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="margin-bottom: 32px; color: var(--cct-primary);">The "Caleño" Way</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+                    <div style="padding: 32px; background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <h4>Greeting Culture</h4>
+                        <p>A "Hola" or "Buenos días" goes a long way. We appreciate every effort to speak Spanish, no matter how small.</p>
+                    </div>
+                    <div style="padding: 32px; background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <h4>Transport Etiquette</h4>
+                        <p>When using apps (Uber/Cabify), riding in the front seat is appreciated. Also, our car doors are lighter—no need to slam them!</p>
+                    </div>
+                    <div style="padding: 32px; background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <h4>The Indirect "No"</h4>
+                        <p>Caleños are rarely straightforward with a "no." If someone is being vague, it's often their way of being polite.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather & Style -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: center; background: #fafafa; padding: 60px; border-radius: 24px;">
+                <div>
+                    <h2>Weather & Style</h2>
+                    <p style="font-size: 1.1rem;">Cali is "The Eternal Warm." There are no seasons, only warm days and refreshing tropical rains that clear as quickly as they arrive.</p>
+                    <div style="margin-top: 24px;">
+                        <h4>Club Dress Code</h4>
+                        <p>While we love summer weather, we take nightlife style seriously. Tank tops and sandals are often sent back home—dress to impress for salsa clubs!</p>
+                    </div>
+                </div>
+                <div style="background: white; padding: 40px; border-radius: 20px; border: 1px solid #eee;">
+                    <h3 style="color: var(--cct-primary);">"No Dar Papaya"</h3>
+                    <p>The golden rule of Colombia: don't put yourself at risk. Keep tech and jewelry low-profile, take Ubers after dark, and trust your guide's intuition.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px; text-align: center;">
+                <h3 style="margin-bottom: 24px;">Need a Local Opinion?</h3>
+                <p style="max-width: 600px; margin: 0 auto 32px;">Unsure about a neighborhood or a specific event? Message us for a quick check-in anytime.</p>
+                <a class="btn btn-primary" href="https://wa.me/573162543554" target="_blank">Ask via WhatsApp</a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

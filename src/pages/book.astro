@@ -1,0 +1,378 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/site_content_skeleton.json';
+import paymentLinks from '../data/payment_links.json';
+
+const { tours } = content;
+
+// We extract base prices by removing non-numeric characters for calculation purposes
+const tourData = tours.map(t => {
+    // Extract numbers: "From 95,000 COP" -> 95000
+    const priceStr = t.price.replace(/[^0-9]/g, '');
+    return {
+        id: t.id,
+        title: t.title,
+        price: parseInt(priceStr, 10) || 0
+    };
+});
+---
+
+<BaseLayout title="Book Your Tour" description="Secure your spot in 3 easy steps">
+    <section class="section section-light" style="background: #fafafa; min-height: 80vh;">
+        <div class="container reveal">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h1 class="text-serif" style="font-size: 3rem; margin-bottom: 8px;">Book Your <span style="color: var(--cct-primary);">Tour</span></h1>
+                <p style="color: var(--cct-text-light); font-size: 1.15rem;">Secure your spot in 3 easy steps</p>
+
+                <!-- Stepper -->
+                <div class="stepper-container">
+                    <div class="step active" id="step-id-1">1</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-id-2">2</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-id-3">3</div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="booking-card">
+                <!-- STEP 1: Experience -->
+                <div id="form-step-1" class="form-step active">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 24px; font-family: var(--font-serif);">Select Your Experience</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tour</label>
+                        <select id="tour-select" class="form-control">
+                            <option value="" disabled selected>Select a tour...</option>
+                            {tourData.map(tour => (
+                                <option value={tour.id} data-price={tour.price}>{tour.title} — ${tour.price.toLocaleString('es-CO')} COP/person</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Date</label>
+                            <input type="date" id="tour-date" class="form-control" />
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Time</label>
+                            <select id="tour-time" class="form-control">
+                                <option value="Morning (9:00 AM)">Morning (9:00 AM)</option>
+                                <option value="Afternoon (2:00 PM)">Afternoon (2:00 PM)</option>
+                                <option value="Evening (7:00 PM)">Evening (7:00 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Number of Guests (Max 10)</label>
+                        <div class="guest-counter">
+                            <button type="button" class="qty-btn" id="qty-minus">-</button>
+                            <input type="number" id="tour-guests" value="1" min="1" max="10" readonly />
+                            <button type="button" class="qty-btn" id="qty-plus">+</button>
+                        </div>
+                    </div>
+
+                    <div class="total-box">
+                        <span>Total:</span>
+                        <span id="total-price" style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-serif);">$0 COP</span>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-block" id="btn-next-1" style="padding: 16px; font-size: 1.1rem;">Continue</button>
+                </div>
+
+                <!-- STEP 2: Details -->
+                <div id="form-step-2" class="form-step">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 24px; font-family: var(--font-serif);">Your Details</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="user-name" class="form-control" placeholder="John Doe" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="user-email" class="form-control" placeholder="john@example.com" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp Number</label>
+                        <input type="tel" id="user-phone" class="form-control" placeholder="+1 234 567 8900" />
+                    </div>
+
+                    <div class="form-row-buttons">
+                        <button type="button" class="btn btn-outline" id="btn-back-1" style="flex: 1;">Back</button>
+                        <a href="https://checkout.bold.co/payment/LNK_DHS068ZFQQ" class="btn btn-primary" id="btn-pay" style="flex: 1;" target="_blank">Proceed to Payment</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .stepper-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 300px;
+        margin: 0 auto;
+        gap: 16px;
+    }
+    .step {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #eee;
+        color: #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    .step.active {
+        background: var(--cct-primary);
+        color: white;
+        box-shadow: 0 4px 10px rgba(232, 0, 90, 0.3);
+    }
+    .step-line {
+        height: 2px;
+        flex: 1;
+        background: #eee;
+    }
+    
+    .booking-card {
+        background: white;
+        max-width: 600px;
+        margin: 0 auto;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+    
+    .form-step {
+        display: none;
+        animation: fadeIn 0.4s ease forwards;
+    }
+    .form-step.active {
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+    }
+    .form-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .form-row-buttons {
+        display: flex;
+        gap: 16px;
+        margin-top: 32px;
+    }
+    
+    .form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--cct-text-main);
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: var(--font-body);
+        color: var(--cct-text-main);
+        background: #fafafa;
+        transition: border-color 0.2s ease;
+    }
+    .form-control:focus {
+        outline: none;
+        border-color: var(--cct-primary);
+        background: white;
+    }
+    
+    .guest-counter {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .qty-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--cct-text-main);
+    }
+    .qty-btn:hover {
+        border-color: var(--cct-primary);
+        color: var(--cct-primary);
+    }
+    #tour-guests {
+        width: 50px;
+        text-align: center;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: transparent;
+    }
+    
+    .total-box {
+        background: #fdf2f7;
+        padding: 20px 24px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        border: 1px solid #fae3ef;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 600px) {
+        .booking-card {
+            padding: 24px;
+        }
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+
+<script define:vars={{ paymentLinks }}>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Elements
+        const tourSelect = document.getElementById("tour-select");
+        const qtyMinus = document.getElementById("qty-minus");
+        const qtyPlus = document.getElementById("qty-plus");
+        const tourGuests = document.getElementById("tour-guests");
+        const totalPriceEl = document.getElementById("total-price");
+
+        const btnNext1 = document.getElementById("btn-next-1");
+        const btnBack1 = document.getElementById("btn-back-1");
+        const btnPay = document.getElementById("btn-pay");
+
+        const step1 = document.getElementById("form-step-1");
+        const step2 = document.getElementById("form-step-2");
+
+        const dot1 = document.getElementById("step-id-1");
+        const dot2 = document.getElementById("step-id-2");
+        const dot3 = document.getElementById("step-id-3");
+
+        // Set initial date to tomorrow
+        const dateInput = document.getElementById("tour-date");
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+
+        // Read URL query parameter "?tour=street-food"
+        const urlParams = new URLSearchParams(window.location.search);
+        const tourQuery = urlParams.get('tour');
+        if (tourQuery) {
+            tourSelect.value = tourQuery;
+        }
+
+        // Calculation logic
+        function calculateTotal() {
+            const guests = parseInt(tourGuests.value, 10) || 1;
+            const selectedOption = tourSelect.options[tourSelect.selectedIndex];
+
+            if (!selectedOption || !selectedOption.dataset.price) {
+                totalPriceEl.textContent = "$0 COP";
+                return;
+            }
+
+            const pricePerPerson = parseInt(selectedOption.dataset.price, 10);
+            const total = guests * pricePerPerson;
+            totalPriceEl.textContent = `$${total.toLocaleString('es-CO')} COP`;
+        }
+
+        tourSelect.addEventListener("change", calculateTotal);
+
+        qtyMinus.addEventListener("click", () => {
+            let val = parseInt(tourGuests.value, 10);
+            if (val > 1) {
+                tourGuests.value = (val - 1).toString();
+                calculateTotal();
+            }
+        });
+
+        qtyPlus.addEventListener("click", () => {
+            let val = parseInt(tourGuests.value, 10);
+            if (val < 10) {
+                tourGuests.value = (val + 1).toString();
+                calculateTotal();
+            }
+        });
+
+        // Initialize total
+        calculateTotal();
+
+        // -------------------------
+        // Steps Navigation
+        // -------------------------
+        btnNext1.addEventListener("click", () => {
+            if (!tourSelect.value) {
+                alert("Please select a tour to continue.");
+                return;
+            }
+            step1.classList.remove("active");
+            step2.classList.add("active");
+            dot2.classList.add("active");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        btnBack1.addEventListener("click", () => {
+            step2.classList.remove("active");
+            step1.classList.add("active");
+            dot2.classList.remove("active");
+        });
+
+        // Upon click "Proceed to Payment" we pretend it moves to step 3 while opening the checkout link
+        btnPay.addEventListener("click", () => {
+            const name = document.getElementById("user-name").value;
+            if(!name) {
+                alert("Please enter your name.");
+                return;
+            }
+
+            // Get dynamic payment link based on tour and guests
+            const tourId = tourSelect.value;
+            const guests = tourGuests.value;
+            let paymentUrl = "https://checkout.bold.co/payment/LNK_DHS068ZFQQ"; // Default fallback
+
+            if (paymentLinks && paymentLinks[tourId] && paymentLinks[tourId][guests]) {
+                paymentUrl = paymentLinks[tourId][guests];
+            }
+
+            // Update the button href dynamically
+            btnPay.href = paymentUrl;
+
+            dot3.classList.add("active");
+            // The link acts normally due to the `href` and `target="_blank"` attributes.
+            // In a real app we'd capture data and send to a webhook here.
+        });
+    });
+</script>

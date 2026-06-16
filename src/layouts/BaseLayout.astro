@@ -1,0 +1,141 @@
+---
+import '../styles/main.css';
+const { title, description, ogImage = '/images/logo.jpg' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, 'https://www.caliculturaltours.com').toString();
+const fullTitle = `${title} | Cali Cultural Tours`;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{fullTitle}</title>
+    <meta name="description" content={description}>
+    <meta name="theme-color" content="#E8005A">
+    <link rel="canonical" href={canonicalUrl}>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle}>
+    <meta property="og:description" content={description}>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={canonicalUrl}>
+    <meta property="og:image" content={new URL(ogImage, 'https://www.caliculturaltours.com').toString()}>
+    <meta property="og:site_name" content="Cali Cultural Tours">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Cali Cultural Tours",
+      "description": "Discover Cali, Colombia with Juan Camilo licensed local tour guide. Food tours, salsa experiences, nature adventures & more.",
+      "url": "https://www.caliculturaltours.com",
+      "telephone": "+57-316-254-3554",
+      "email": "info@caliculturaltours.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cali",
+        "addressRegion": "Valle del Cauca",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "3.4516",
+        "longitude": "-76.5320"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Cali, Colombia"
+      },
+      "priceRange": "$ - $$$",
+      "sameAs": [
+        "https://www.instagram.com/caliculturaltours/"
+      ]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="navbar-brand">
+                <img src="/images/logo.jpg" alt="Cali Cultural Tours Logo" width="40" height="40">
+                <span class="navbar-brand-name">Cali Cultural Tours</span>
+            </a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/tours">Tours</a></li>
+                <li><a href="/safety">Safety</a></li>
+                <li><a href="/local-info">Local Info</a></li>
+                <li><a href="/map">Recommendations Map</a></li>
+                <li><a href="/activities">Daily Activities</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="https://www.instagram.com/caliculturaltours/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="/book" class="nav-cta">Book Now</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <slot />
+    </main>
+
+    <a href="https://wa.me/573162543554" class="wa-float" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer class="footer">
+        <h3 style="color: white; margin-bottom: 8px;">Cali Cultural Tours</h3>
+        <p>"Showing Cali's true soul 🇨🇴 one tour at a time"</p>
+        
+        <div class="footer-social">
+            <a href="https://wa.me/573162543554" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/caliculturaltours/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:info@caliculturaltours.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 32px;">
+            ©2024 Cali Cultural Tours · RNT 196165 · Proudly showing Cali's soul.
+        </div>
+    </footer>
+
+    <script is:inline>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Scroll Reveal Animation Engine
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal--visible');
+                }
+            });
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

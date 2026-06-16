@@ -1,0 +1,17 @@
+{
+  "street-food": {
+    "1": "https://checkout.bold.co/payment/LNK_HCHR7Q5GJZ",
+    "2": "https://checkout.bold.co/payment/LNK_9ER73BCVU8",
+    "3": "https://checkout.bold.co/payment/LNK_CNWHMEKJHD"
+  },
+  "waterfalls": {
+    "1": "https://checkout.bold.co/payment/LNK_0NGV02WS5V",
+    "2": "https://checkout.bold.co/payment/LNK_OTTUNTD8SU",
+    "3": "https://checkout.bold.co/payment/LNK_ZRCBGTW26L"
+  },
+  "cristo-rey": {
+    "1": "https://checkout.bold.co/payment/LNK_7F0NXA31JA",
+    "2": "https://checkout.bold.co/payment/LNK_XJG2MFT3CX",
+    "3": "https://checkout.bold.co/payment/LNK_3H8FQ0AF4J"
+  }
+}

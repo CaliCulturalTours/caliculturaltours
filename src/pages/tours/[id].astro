@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import content from '../../data/site_content_skeleton.json';
+
+export function getStaticPaths() {
+  const { tours } = content;
+  return tours.map((tour) => ({
+    params: { id: tour.id },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const { business, tours: allTours } = content;
+
+// Logic to pick 2 related tours (exclude current)
+const relatedTours = allTours.filter(t => t.id !== tour.id).slice(0, 2);
+---
+
+<BaseLayout title={`${tour.title} | Cali Cultural Tours`} description={tour.description}>
+    <section class="section section-light" style="background: white;">
+        <div class="container">
+            <nav class="reveal" style="margin-bottom: 40px;">
+                <a href="/tours" class="back-link" style="margin: 0;">
+                    <i class="fas fa-arrow-left"></i> Back to Tours
+                </a>
+            </nav>
+
+            <div class="tour-detail-grid">
+                
+                <!-- 1. GALLERY (Area: gallery) -->
+                <div class="tour-gallery-area">
+                    <img id="mainImage" src={`/${tour.image}`} alt={tour.title} class="main-tour-img" />
+                    <div class="tour-thumbnails" id="thumbnailContainer">
+                        {(tour.gallery || [tour.image]).map((img, idx, arr) => {
+                            const isMainImage = img === tour.image || `/${img}` === `/${tour.image}`;
+                            return (
+                                <img 
+                                    src={`/${img}`} 
+                                    alt={`thumbnail ${idx + 1}`} 
+                                    class={`thumb-img ${isMainImage ? 'active' : ''}`}
+                                    data-src={`/${img}`}
+                                    onclick="setActiveThumb(this)"
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <!-- 2. HEADER & PRICE (Area: info) -->
+                <div class="tour-info-area">
+                    <div class="conversion-sticky-wrapper">
+                        <div class="tour-info-header">
+                            <span class="tour-category-tag">{tour.category}</span>
+                            <h1 class="text-serif">{tour.title}</h1>
+                            <div class="tour-meta-row">
+                                <span><i class="fas fa-star"></i> {tour.rating}</span>
+                                <span><i class="fas fa-clock"></i> {tour.duration}</span>
+                            </div>
+                            {(tour.physical_level || tour.languages || tour.meeting_point || tour.discount) && (
+                                <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; color: var(--cct-text-light);">
+                                    {tour.physical_level && <span><i class="fas fa-hiking" style="width:16px; color: var(--cct-primary);"></i> {tour.physical_level}</span>}
+                                    {tour.languages && <span><i class="fas fa-language" style="width:16px; color: var(--cct-primary);"></i> {tour.languages}</span>}
+                                    {tour.meeting_point && <span><i class="fas fa-map-marker-alt" style="width:16px; color: var(--cct-primary);"></i> {tour.meeting_point}</span>}
+                                    {tour.discount && <span><i class="fas fa-tag" style="width:16px; color: var(--cct-primary);"></i> {tour.discount}</span>}
+                                </div>
+                            )}
+                        </div>
+
+                        <div class="price-card-floating">
+                            <div class="price-content">
+                                <span class="price-label">Price from</span>
+                                <span class="price-value">{tour.price}</span>
+                                <span class="price-label">per person</span>
+                            </div>
+                            <a href={`/book?tour=${tour.id}`} class="btn btn-primary btn-block">
+                                Book This Tour
+                            </a>
+                            <p class="price-footer-note">
+                                Secure online payment.
+                            </p>
+                        </div>
+                        
+                        <div class="tour-description-box reveal">
+                            <p>{tour.description}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. INCLUSIONS & ITINERARY (Area: details) -->
+                <div class="tour-details-area">
+                    <div class="inclusions-grid-v2 reveal">
+                        <div class="inclusion-block">
+                            <h4>What's Included</h4>
+                            <ul class="inclusion-list">
+                                {(tour.included || []).map((item: string) => (
+                                    <li><i class="fas fa-check"></i> {item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div class="inclusion-block">
+                            <h4>Not Included</h4>
+                            <ul class="inclusion-list">
+                                {(tour.not_included || []).map((item: string) => (
+                                    <li><i class="fas fa-times"></i> {item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-section reveal">
+                        <h4>Itinerary</h4>
+                        <ul class="itinerary-list">
+                            {(tour.itinerary || []).map((step: string, idx: number) => (
+                                <div class="itinerary-item">
+                                    <span class="itinerary-time">Step {idx + 1}</span>
+                                    <span class="itinerary-desc">{step}</span>
+                                </div>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {tour.notes && tour.notes.length > 0 && (
+                        <div class="itinerary-section reveal" style="margin-top: 24px;">
+                            <h4>Good to Know</h4>
+                            <ul class="inclusion-list" style="list-style: none; padding: 0;">
+                                {(tour.notes as string[]).map((note: string) => (
+                                    <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; color: var(--cct-text-light);">
+                                        <i class="fas fa-info-circle" style="color: var(--cct-primary); margin-right: 8px;"></i>{note}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- RELATED TOURS SECTION -->
+    <section class="section section-light" style="border-top: 1px solid #eaeaea;">
+        <div class="container reveal">
+            <h2 class="text-serif" style="text-align: center; margin-bottom: 48px; font-size: 2.5rem;">You may also like</h2>
+            
+            <div class="tours-grid" style="max-width: 800px; margin: 0 auto;">
+                {relatedTours.map((relatedTour, index) => (
+                    <a href={`/tours/${relatedTour.id}`} class={`tour-card reveal delay-${index + 1}`}>
+                        <div class="tour-card-img">
+                            <img src={`/${relatedTour.image}`} alt={relatedTour.title} />
+                            {relatedTour.popular && <span class="tour-badge">Popular</span>}
+                        </div>
+                        <div class="tour-card-body">
+                            <span class="tour-category-tag" style="font-size: 0.65rem; padding: 4px 8px; margin-bottom: 8px;">{relatedTour.category}</span>
+                            <h3>{relatedTour.title}</h3>
+                            <div class="tour-card-meta">
+                                <span><i class="fas fa-clock"></i> {relatedTour.duration}</span>
+                                <span><i class="fas fa-star"></i> {relatedTour.rating}</span>
+                            </div>
+                            <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{relatedTour.description}</p>
+                            <div class="tour-card-footer">
+                                <span class="tour-price">{relatedTour.price}</span>
+                                <span class="tour-card-link" style="color: var(--cct-primary); font-weight: 600; font-size: 0.9rem;">View Details <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="/tours" class="btn btn-outline">Explore All Tours</a>
+            </div>
+        </div>
+    </section>
+
+    <script is:inline>
+        function setActiveThumb(thumb) {
+            const mainImage = document.getElementById('mainImage');
+            const container = document.getElementById('thumbnailContainer');
+            
+            // Update main image with smooth transition
+            mainImage.style.opacity = '0.8';
+            setTimeout(() => {
+                mainImage.src = thumb.dataset.src;
+                mainImage.style.opacity = '1';
+            }, 150);
+            
+            // Remove active class from all thumbs
+            container.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked thumb
+            thumb.classList.add('active');
+        }
+    </script>
+</BaseLayout>

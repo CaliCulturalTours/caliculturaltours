@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/site_content_skeleton.json';
+
+const { business, content: siteContent, tours } = content;
+---
+
+<BaseLayout title="Home" description={business.description}>
+    <section class="hero section">
+        <div class="container hero-content">
+            <h1>Cali, <span class="text-serif">Colombia</span>.</h1>
+            <p>{siteContent.hero.subheading}</p>
+            
+            <div class="hero-ctas">
+                <a href="/tours" class="btn btn-primary">Browse Tours</a>
+                <a href={business.contact.wa_link} target="_blank" class="btn btn-outline-white"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="trust-bar">
+                {siteContent.trust_bar.map((item) => (
+                    <div class="trust-item">{item}</div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container" style="text-align: center;">
+            <h2 class="reveal" style="font-size: 3rem; margin-bottom: 12px;">Everything <span class="text-serif">You Need</span></h2>
+            <p class="reveal delay-1" style="font-size: 1.15rem; color: var(--cct-text-light); margin-bottom: 60px;">Your complete guide to making the most of your time in Cali</p>
+            
+            <div class="features-grid">
+                <a href="/tours" class="feature-card reveal delay-1">
+                    <div class="feature-icon f-pink"><i class="fas fa-compass"></i></div>
+                    <div>
+                        <h4>Tours</h4>
+                        <p>Food, nature, salsa & culture tours</p>
+                    </div>
+                </a>
+                <a href="/safety" class="feature-card reveal delay-2">
+                    <div class="feature-icon f-green"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4>Safety</h4>
+                        <p>Stay safe with our expert tips</p>
+                    </div>
+                </a>
+                <a href="/map" class="feature-card reveal delay-3">
+                    <div class="feature-icon f-orange"><i class="fas fa-map-marked-alt"></i></div>
+                    <div>
+                        <h4>Map</h4>
+                        <p>Our favorite local spots on a map</p>
+                    </div>
+                </a>
+                <a href="/local-info" class="feature-card reveal delay-4">
+                    <div class="feature-icon f-purple"><i class="fas fa-info-circle"></i></div>
+                    <div>
+                        <h4>Local Info</h4>
+                        <p>Everything you need to know</p>
+                    </div>
+                </a>
+                <a href="/activities" class="feature-card reveal delay-1">
+                    <div class="feature-icon f-blue"><i class="far fa-calendar-alt"></i></div>
+                    <div>
+                        <h4>Activities</h4>
+                        <p>Weekly events & things to do</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; align-items: center;">
+            <div class="reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Authentic Experiences by <span class="text-serif">{business.guide}</span></h2>
+                {siteContent.about.paragraphs.map(p => (
+                    <p style="font-size: 1.1rem; margin-bottom: 16px;">{p}</p>
+                ))}
+            </div>
+            <div style="text-align: center;" class="reveal delay-2">
+                <div class="about-image-container">
+                    <img src="/images/about-image.jfif" alt={business.guide} style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);" />
+                    <div class="about-badge">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="label">500+ Happy Clients</span>
+                        <span class="sub">Verified Reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2 class="text-serif">Ready to Explore Cali?</h2>
+                <p>Have another idea or want a personalized itinerary? Let's create a custom adventure together.</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/contact" class="btn btn-white">Book Your Tour</a>
+                    <a href={business.contact.wa_link} target="_blank" class="btn btn-outline-white">Chat on WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

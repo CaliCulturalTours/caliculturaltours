@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Daily Activities" description="Cali Cultural Calendar: Stay on the know with different activities going on everyday.">
+    <section class="section section-light" style="text-align: center; background: white;">
+        <div class="container reveal">
+            <h1 class="text-serif" style="font-size: 3rem; margin-bottom: 16px;">Cali Cultural <span class="text-serif" style="color: var(--cct-primary);">Calendar</span></h1>
+            <p style="font-size: 1.15rem; max-width: 700px; margin: 0 auto 48px; color: #555;">
+                Stay in the know with different activities going on everyday, every week.
+            </p>
+
+            <div style="width: 100%; max-width: 1000px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.1); background: #fff; padding: 10px;">
+                <!-- We make the iframe responsive for mobile -->
+                <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden;">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=e36bf6f2b2e2451f1c72fc6e9f9f6dc5ca390232df6522eeeb90f456c6c97687%40group.calendar.google.com&ctz=America%2FBogota&mode=AGENDA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <a href="/contact" class="btn btn-primary">Join One of Our Tours</a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

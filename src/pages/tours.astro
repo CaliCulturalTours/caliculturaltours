@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/site_content_skeleton.json';
+
+const { tours } = content;
+---
+
+<BaseLayout title="Explore Tours | Cali Cultural Tours" description="Authentic and small-group cultural experiences in Cali, Colombia.">
+    <section class="section section-light">
+        <div class="container">
+            <header class="tour-page-header reveal">
+                <h1 style="font-size: 3.5rem; margin-bottom: 16px;">Our <span class="text-serif">Tours</span></h1>
+                <p style="font-size: 1.2rem; color: var(--cct-text-light);">Discover the best of Cali with our curated experiences.</p>
+            </header>
+
+            <div class="filter-bar reveal delay-1">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th-large"></i> All Tours
+                </button>
+                <button class="filter-btn" data-filter="Food & Drink">
+                    <i class="fas fa-utensils"></i> Food & Drink
+                </button>
+                <button class="filter-btn" data-filter="Nature">
+                    <i class="fas fa-leaf"></i> Nature & Wildlife
+                </button>
+                <button class="filter-btn" data-filter="Cultural">
+                    <i class="fas fa-landmark"></i> Cultural & History
+                </button>
+            </div>
+
+            <div class="tours-grid" id="tours-grid">
+                {tours.map((tour, index) => (
+                    <a href={`/tours/${tour.id}`} class={`tour-card reveal delay-${(index % 3) + 1}`} data-category={tour.category}>
+                        <div class="tour-card-img">
+                            <img src={tour.image} alt={tour.title} />
+                            {tour.popular && <span class="tour-badge">Popular</span>}
+                        </div>
+                        <div class="tour-card-body">
+                            <span class="tour-category-tag" style="font-size: 0.65rem; padding: 4px 8px; margin-bottom: 8px;">{tour.category}</span>
+                            <h3>{tour.title}</h3>
+                            <div class="tour-card-meta">
+                                <span><i class="fas fa-clock"></i> {tour.duration}</span>
+                                <span><i class="fas fa-star"></i> {tour.rating}</span>
+                            </div>
+                            <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{tour.description}</p>
+                            <div class="tour-card-footer">
+                                <span class="tour-price">{tour.price}</span>
+                                <span class="tour-card-link" style="color: var(--cct-primary); font-weight: 600; font-size: 0.9rem;">View Details <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const tourCards = document.querySelectorAll('.tour-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filter = button.getAttribute('data-filter');
+
+            tourCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filter === 'all' || category === filter || (filter === 'Nature' && category === 'Seasonal Nature')) {
+                    (card as HTMLElement).style.display = 'block';
+                    // Trigger a small reveal animation when reappearing
+                    card.classList.remove('reveal');
+                    void (card as HTMLElement).offsetWidth; // trigger reflow
+                    card.classList.add('reveal');
+                } else {
+                    (card as HTMLElement).style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

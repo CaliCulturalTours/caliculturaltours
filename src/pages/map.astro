@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Recommendations Map" description="Curated map of Cali's best spots, restaurants, and salsa clubs.">
+    <section class="section section-light" style="text-align: center; background: white;">
+        <div class="container reveal">
+            <h1 class="text-serif" style="font-size: 3rem; margin-bottom: 16px;">Cali Colombia <span class="text-serif" style="color: var(--cct-primary);">Recommendations Map</span></h1>
+            <p style="font-size: 1.15rem; max-width: 700px; margin: 0 auto 16px; color: #555;">
+                Points of interest, salsa schools, nightlife, restaurants... all here, curated by us. We love to add new places. Any feedback, let us know!
+            </p>
+            <p style="font-size: 0.95rem; font-style: italic; color: var(--cct-text-light); max-width: 700px; margin: 0 auto 48px;">
+                Tip: slide the top black bar from right to left, you will see in the top right corner a "fullscreen" icon. It will add the map to your Google Maps app.
+            </p>
+
+            <div style="width: 100%; max-width: 1000px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.1);">
+                <iframe src="https://www.google.com/maps/d/u/2/embed?mid=17hPTQkZvT8DJfQPd_ozs_8qcom2vbcg&ehbc=2E312F" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <a href="/contact" class="btn btn-primary">Book a Tour to Explore These Places</a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

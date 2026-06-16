@@ -1,0 +1,73 @@
+{
+  "payment_links": {
+    "street-food": {
+      "1": "https://checkout.bold.co/payment/LNK_HCHR7Q5GJZ",
+      "2": "https://checkout.bold.co/payment/LNK_9ER73BCVU8",
+      "3": "https://checkout.bold.co/payment/LNK_CNWHMEKJHD"
+    },
+    "waterfalls": {
+      "1": "https://checkout.bold.co/payment/LNK_0NGV02WS5V",
+      "2": "https://checkout.bold.co/payment/LNK_OTTUNTD8SU",
+      "3": "https://checkout.bold.co/payment/LNK_ZRCBGTW26L"
+    },
+    "cristo-rey": {
+      "1": "https://checkout.bold.co/payment/LNK_7F0NXA31JA",
+      "2": "https://checkout.bold.co/payment/LNK_XJG2MFT3CX",
+      "3": "https://checkout.bold.co/payment/LNK_3H8FQ0AF4J"
+    }
+  },
+  "pricing_matrix": {
+    "coffee-farm": {
+      "1": 660000,
+      "2": 680000,
+      "3": 700000
+    },
+    "chocotour": {
+      "1": 376000,
+      "2": 401000,
+      "3": 426000
+    },
+    "waterfalls": {
+      "1": 249500,
+      "2": 289000,
+      "3": 375000,
+      "4": 470000,
+      "5": 505000,
+      "6": 550000,
+      "7": 595000
+    },
+    "sanci": {
+      "1": 970900,
+      "2": 1138800,
+      "3": 1306700,
+      "4": 1766600,
+      "5": 1934500,
+      "6": 2102400,
+      "7": 2270300
+    },
+    "hummingbirds": {
+      "1": 306000,
+      "2": 392000,
+      "3": 518000,
+      "4": 654000,
+      "5": 780000,
+      "6": 866000,
+      "7": 952000,
+      "8": 1018000,
+      "9": 1124000,
+      "10": 1190000
+    },
+    "cristo-rey": {
+      "1": 76147,
+      "2": 128865,
+      "3": 152295,
+      "4": 175725,
+      "5": 199155,
+      "6": 222585,
+      "7": 246015,
+      "8": 269445,
+      "9": 292875,
+      "10": 316305
+    }
+  }
+}
