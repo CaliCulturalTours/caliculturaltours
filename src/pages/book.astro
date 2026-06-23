@@ -369,6 +369,22 @@ const tourData = tours.map(t => {
                 alert("Please enter your name.");
                 return;
             }
+fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        tour: tourSelect.value,
+        date: document.getElementById("tour-date").value,
+        time: document.getElementById("tour-time").value,
+        guests: tourGuests.value,
+        name: document.getElementById("user-name").value,
+        email: document.getElementById("user-email").value,
+        phone: document.getElementById("user-phone").value,
+        total: totalPriceEl.textContent
+    })
+});
 
             // Get dynamic payment link based on tour and guests
             const tourId = tourSelect.value;
