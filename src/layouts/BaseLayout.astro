@@ -1,5 +1,6 @@
 ---
 import '../styles/main.css';
+import Analytics from '@vercel/analytics/astro';
 const { title, description, ogImage = '/images/logo.jpg' } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, 'https://www.caliculturaltours.com').toString();
 const fullTitle = `${title} | Cali Cultural Tours`;
@@ -7,6 +8,7 @@ const fullTitle = `${title} | Cali Cultural Tours`;
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <Analytics />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{fullTitle}</title>
