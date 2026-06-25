@@ -285,6 +285,7 @@ const tourData = tours.map(t => {
         const qtyPlus = document.getElementById("qty-plus");
         const tourGuests = document.getElementById("tour-guests");
         const totalPriceEl = document.getElementById("total-price");
+        let pricing = {};
 
         const btnNext1 = document.getElementById("btn-next-1");
         const btnBack1 = document.getElementById("btn-back-1");
@@ -309,21 +310,49 @@ const tourData = tours.map(t => {
         if (tourQuery) {
             tourSelect.value = tourQuery;
         }
+        
+         fetch("https://script.google.com/macros/s/AKfycbz99eR5GUnp9OslA4WboWQOZsJm_oywU3xq7C1kF5X9ZKp3OOeoH1w2D3LvsR7CPCMD/exec")
+    .then(response => response.json())
+    .then(data => {
+        pricing = data;
+        calculateTotal();
+        console.log("Pricing loaded:", pricing);
+    })
+    .catch(error => {
+        console.error("Pricing API failed:", error);
+    });
 
-        // Calculation logic
-        function calculateTotal() {
-            const guests = parseInt(tourGuests.value, 10) || 1;
-            const selectedOption = tourSelect.options[tourSelect.selectedIndex];
+       function calculateTotal() {
+    const guests = parseInt(tourGuests.value, 10) || 1;
+    const tourId = tourSelect.value;
 
-            if (!selectedOption || !selectedOption.dataset.price) {
-                totalPriceEl.textContent = "$0 COP";
-                return;
-            }
+    // Try dynamic pricing first
+    if (
+        pricing[tourId] &&
+        pricing[tourId][guests]
+    ) {
+        const total = pricing[tourId][guests];
 
-            const pricePerPerson = parseInt(selectedOption.dataset.price, 10);
-            const total = guests * pricePerPerson;
-            totalPriceEl.textContent = `$${total.toLocaleString('es-CO')} COP`;
-        }
+        totalPriceEl.textContent =
+            `$${total.toLocaleString('es-CO')} COP`;
+
+        return;
+    }
+
+    // Fallback to original pricing logic
+    const selectedOption = tourSelect.options[tourSelect.selectedIndex];
+
+    if (!selectedOption || !selectedOption.dataset.price) {
+        totalPriceEl.textContent = "$0 COP";
+        return;
+    }
+
+    const pricePerPerson = parseInt(selectedOption.dataset.price, 10);
+    const total = guests * pricePerPerson;
+
+    totalPriceEl.textContent =
+        `$${total.toLocaleString('es-CO')} COP`;
+}
 
         tourSelect.addEventListener("change", calculateTotal);
 
