@@ -55,9 +55,17 @@ const tourData = tours.map(t => {
                         <div class="form-group" style="flex: 1;">
                             <label class="form-label">Date</label>
                             <input type="date" id="tour-date" class="form-control" />
+
+<small style="color: var(--cct-text-light); display:block; margin-top:8px;">
+    Need a tour today?
+    <a href="https://wa.me/573157716218" target="_blank">
+        Contact us on WhatsApp
+    </a>
+    to confirm availability.
+</small>
                         </div>
                        <div class="form-group" style="flex: 1;">
-    <label class="form-label">Start Time</label>
+    <label class="form-label">Preferred Start Time</label>
     <select id="tour-time" class="form-control">
         <option value="" disabled selected>Select a start time...</option>
 
@@ -73,7 +81,7 @@ const tourData = tours.map(t => {
     </select>
 
     <small style="color: var(--cct-text-light); display:block; margin-top:8px;">
-        Choose your preferred start time. Exact timing may vary slightly depending on logistics.
+        Exact timing may vary slightly depending on logistics.
     </small>
 </div>
                     </div>
