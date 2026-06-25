@@ -46,7 +46,7 @@ const tourData = tours.map(t => {
                         <select id="tour-select" class="form-control">
                             <option value="" disabled selected>Select a tour...</option>
                             {tourData.map(tour => (
-                                <option value={tour.id} data-price={tour.price}>{tour.title} — ${tour.price.toLocaleString('es-CO')} COP/person</option>
+                                <option value={tour.id} data-price={tour.price}>{tour.title}</option>
                             ))}
                         </select>
                     </div>
@@ -375,7 +375,7 @@ fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        tour: tourSelect.value,
+        tour: tourSelect.options[tourSelect.selectedIndex].text,
     date: document.getElementById("tour-date").value,
     time: document.getElementById("tour-time").value,
     guests: tourGuests.value,
