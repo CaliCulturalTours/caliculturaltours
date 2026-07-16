@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
-import paymentLinks from '../data/payment_links.json';
 
 const { tours } = content;
 
@@ -277,7 +276,7 @@ const tourData = tours.map(t => {
     }
 </style>
 
-<script define:vars={{ paymentLinks }}>
+<script>
     document.addEventListener("DOMContentLoaded", () => {
         // Elements
         const tourSelect = document.getElementById("tour-select");
@@ -321,7 +320,7 @@ const tourData = tours.map(t => {
     .catch(error => {
         console.error("Pricing API failed:", error);
     });
-
+        let currentTotal = 0;
        function calculateTotal() {
     const guests = parseInt(tourGuests.value, 10) || 1;
     const tourId = tourSelect.value;
@@ -332,6 +331,7 @@ const tourData = tours.map(t => {
         pricing[tourId][guests]
     ) {
         const total = pricing[tourId][guests];
+        currentTotal = total;
 
         totalPriceEl.textContent =
             `$${total.toLocaleString('es-CO')} COP`;
@@ -349,6 +349,7 @@ const tourData = tours.map(t => {
 
     const pricePerPerson = parseInt(selectedOption.dataset.price, 10);
     const total = guests * pricePerPerson;
+    currentTotal = total;
 
     totalPriceEl.textContent =
         `$${total.toLocaleString('es-CO')} COP`;
@@ -396,7 +397,9 @@ const tourData = tours.map(t => {
         });
 
         // Upon click "Proceed to Payment" we pretend it moves to step 3 while opening the checkout link
-        btnPay.addEventListener("click", () => {
+        btnPay.addEventListener("click", async (event) => {
+            event.preventDefault();
+
             const name = document.getElementById("user-name").value;
             if(!name) {
                 alert("Please enter your name.");
@@ -416,22 +419,23 @@ fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
     name: document.getElementById("user-name").value,
     email: document.getElementById("user-email").value,
     phone: document.getElementById("user-phone").value,
-    total: totalPriceEl.textContent
+    total: currentTotal
     })
 });
 
-            // Get dynamic payment link based on tour and guests
-            const tourId = tourSelect.value;
-            const guests = tourGuests.value;
-            let paymentUrl = "https://checkout.bold.co/payment/LNK_DHS068ZFQQ"; // Default fallback
+            const response = await fetch("/api/create-payment-link", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        amount: currentTotal
+    })
+});
 
-            if (paymentLinks && paymentLinks[tourId] && paymentLinks[tourId][guests]) {
-                paymentUrl = paymentLinks[tourId][guests];
-            }
+const data = await response.json();
 
-            // Update the button href dynamically
-            btnPay.href = paymentUrl;
-
+window.open(data.payload.url, "_blank");
             dot3.classList.add("active");
             // The link acts normally due to the `href` and `target="_blank"` attributes.
             // In a real app we'd capture data and send to a webhook here.

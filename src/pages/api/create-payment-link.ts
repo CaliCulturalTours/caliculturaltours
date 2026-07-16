@@ -1,9 +1,8 @@
 import type { APIRoute } from "astro";
-
+export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { amount } = await request.json();
-
     const response = await fetch(
       "https://integrations.api.bold.co/online/link/v1",
       {
@@ -32,19 +31,21 @@ export const POST: APIRoute = async ({ request }) => {
       }
     });
 
-  } catch (error) {
+  } catch (error: any) {
 
-    return new Response(
-      JSON.stringify({
-        error: "Unable to create payment link"
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json"
-        }
+  console.error(error);
+
+  return new Response(
+    JSON.stringify({
+      error: error?.message || String(error)
+    }),
+    {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    }
+  );
 
-  }
+}
 };
