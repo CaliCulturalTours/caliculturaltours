@@ -400,6 +400,13 @@ const tourData = tours.map(t => {
         btnPay.addEventListener("click", async (event) => {
             event.preventDefault();
 
+            const paymentWindow = window.open("", "_blank");
+
+if (!paymentWindow) {
+    alert("Please allow pop-ups to continue to payment.");
+    return;
+}
+
             const name = document.getElementById("user-name").value;
             if(!name) {
                 alert("Please enter your name.");
@@ -429,13 +436,14 @@ fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        amount: currentTotal
-    })
+    amount: currentTotal,
+    name: document.getElementById("user-name").value
+})
 });
 
 const data = await response.json();
 
-window.open(data.payload.url, "_blank");
+paymentWindow.location.href = data.payload.url;
             dot3.classList.add("active");
             // The link acts normally due to the `href` and `target="_blank"` attributes.
             // In a real app we'd capture data and send to a webhook here.
