@@ -7,6 +7,8 @@ export const POST: APIRoute = async ({ request }) => {
   name?.trim().toLowerCase() === "cct-test"
     ? 1000
     : amount;
+    const bookingReference =
+  `CCT-${new Date().toISOString().slice(0,10).replace(/-/g,"")}-${Date.now().toString().slice(-4)}`;
     const response = await fetch(
       "https://integrations.api.bold.co/online/link/v1",
       {
@@ -21,7 +23,9 @@ export const POST: APIRoute = async ({ request }) => {
             currency: "COP",
             total_amount: finalAmount,
             tip_amount: 0
-          }
+          },
+          callback_url: "https://caliculturaltours.com/booking-confirmed",
+          reference: bookingReference,
         })
       }
     );
