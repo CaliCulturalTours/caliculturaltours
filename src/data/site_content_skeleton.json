@@ -3,9 +3,9 @@
     "name": "Cali Cultural Tours",
     "guide": "Juan Camilo",
     "rnt": "196165",
-    "description": "Discover Cali, Colombia with Juan Camilo licensed local tour guide. Food tours, salsa experiences, nature adventures & more.",
+    "description": "Discover Cali, Colombia with us. Food tours, salsa experiences, nature adventures & more.",
     "slogan": "Cali is COOLtural",
-    "tagline": "Showing Cali's true soul 🇨🇴 one tour at a time",
+    "tagline": "Showing Cali's true soul one tour at a time",
     "contact": {
       "whatsapp": "+57 316 254 3554",
       "wa_link": "https://wa.me/573162543554",
@@ -15,21 +15,19 @@
   },
   "content": {
     "hero": {
-      "heading": "Cali is Soul. Book the real thing.",
+      "heading": "Cali is soul. Book the real thing.",
       "subheading": "Experience authentic Colombian culture with us. Personalised tours, local secrets, and unforgettable memories."
     },
     "about": {
       "heading": "Heritage, Passion & Local Soul",
       "paragraphs": [
-        "We are Juan Camilo and the Cali Cultural Tours team, born and raised in the heart of Cali. Since 2022, we've dedicated our lives to sharing the vibrant spirit of our home with the world.",
-        "Tourism isn't just our job; it's our bridge to global cultures. We melt at the sight of a dog, chase hidden waterfalls, and believe that the best way to know a city is through its people and its food.",
+        "We are Cali Cultural Tours, born and raised in the heart of Cali. Since 2022, we've dedicated our lives to sharing the vibrant spirit of our home with the world.",
+        "Tourism isn't just our job; it's our bridge to global cultures. We believe that the best way to know a city is through its people and its food.",
         "Cali is COOLtural. Let us show you why."
       ],
       "stats": [
-        { "value": "200+", "label": "Tours" },
-        { "value": "2022", "label": "Since" },
-        { "value": "10", "label": "Tours" },
-        { "value": "★ 4.9", "label": "Rating" }
+        { "value": "20+", "label": "Tours designed by us" },
+        { "value": "2022", "label": "Since" }
       ]
     },
     "trust_bar": [

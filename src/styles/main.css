@@ -1032,3 +1032,169 @@ img {
     padding: 10px 16px;
   }
 }
+
+/* ---------- Reservation Loading Overlay ---------- */
+
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    background:#ffffff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+
+    opacity:0;
+    visibility:hidden;
+    transition:.35s ease;
+}
+
+.loading-overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.loading-logo{
+    width:110px;
+    margin-bottom:30px;
+}
+
+.loading-spinner{
+    width:54px;
+    height:54px;
+    border:5px solid #ececec;
+    border-top-color:#ff228c;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin-bottom:24px;
+}
+
+.loading-title{
+    font-size:26px;
+    font-weight:700;
+    color:#111;
+    margin-bottom:10px;
+}
+
+.loading-text{
+    color:#666;
+    font-size:16px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ===== Reservation Summary ===== */
+
+.summary-card{
+    background:#fff;
+    border-radius:20px;
+    padding:34px;
+    margin:40px 0;
+
+    border:1px solid #ececec;
+
+    box-shadow:
+        0 1px 2px rgba(0,0,0,.03),
+        0 8px 28px rgba(0,0,0,.06);
+}
+
+.summary-card h2{
+    font-size:30px;
+    margin-bottom:28px;
+    color:#111;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    padding:16px 0;
+    margin:0;
+    border-bottom:1px solid #ececec;
+}
+
+.summary-row:last-of-type{
+    border-bottom:none;
+    padding-bottom:8px;
+}
+
+.summary-row strong{
+    font-weight:600;
+    color:#666;
+}
+
+.summary-row span{
+    font-size:18px;
+    font-weight:700;
+    color:#111;
+}
+
+/* ===== Cash Price Card ===== */
+
+.price-card{
+    margin-top:36px;
+    background:#fff8fb;
+    border:2px solid #ffd5e8;
+    border-radius:22px;
+    padding:34px;
+}
+
+.price-card h2{
+    margin-bottom:28px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    font-size:18px;
+}
+
+.price-row span{
+    color:#666;
+}
+
+.price-row strong{
+    font-size:20px;
+    color:#111;
+}
+
+.price-row.savings strong{
+    color:#0f9d58;
+    font-weight:700;
+}
+
+.price-card hr{
+    margin:26px 0;
+    border:none;
+    border-top:1px solid #f0c6d9;
+}
+
+.final-label{
+    text-align:center;
+    color:#666;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.final-price{
+    text-align:center;
+    font-size:56px;
+    line-height:1;
+    color:#ff228c;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.cash-note{
+    text-align:center;
+    color:#666;
+    line-height:1.6;
+}

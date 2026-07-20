@@ -1,0 +1,167 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Booking Confirmed | Cali Cultural Tours">
+
+<section class="container" style="max-width:850px; margin:60px auto; text-align:center; padding:20px;">
+
+    <h1>🎉 Your Booking Is Confirmed!</h1>
+
+    <p style="font-size:1.2rem;">
+        Thank you for choosing <strong>Cali Cultural Tours</strong>.
+    </p>
+
+   <div
+    class="cash-summary summary-card"
+>
+    <h2>Reservation Summary</h2>
+
+    <p class="summary-row">
+    <strong>📍 Tour</strong>
+    <span id="summary-tour"></span>
+</p>
+
+    <p class="summary-row">
+    <strong>👥 Guests</strong>
+    <span id="summary-guests"></span>
+</p>
+
+   <p class="summary-row">
+    <strong>📅 Date</strong>
+    <span id="summary-date"></span>
+</p>
+
+    <p class="summary-row">
+    <strong>🕕 Start Time</strong>
+    <span id="summary-time"></span>
+</p>
+
+    <hr>
+
+    <h2>Your 10% Cash Discount Has Been Applied</h2>
+
+   <div class="price-card">
+
+    <h2>Your 10% Cash Discount Has Been Applied</h2>
+
+    <div class="price-row">
+        <span>Original tour price</span>
+        <strong id="summary-original"></strong>
+    </div>
+
+    <div class="price-row savings">
+        <span>Your savings (10% discount)</span>
+        <strong id="summary-discount"></strong>
+    </div>
+
+    <hr>
+
+    <p class="final-label">
+        Your cash price
+    </p>
+
+    <h1 class="final-price" id="summary-final"></h1>
+
+    <p class="cash-note">
+        Pay in pesos cash on the day of your tour. No advance payment required.
+    </p>
+
+</div>
+
+<script>
+const reservation = JSON.parse(
+    sessionStorage.getItem("cashReservation") || "{}"
+);
+
+const formatCOP = value =>
+    `$${Number(value).toLocaleString("es-CO")} COP`;
+
+document.getElementById("summary-tour").textContent =
+    reservation.tour || "";
+
+document.getElementById("summary-guests").textContent =
+    reservation.guests || "";
+
+document.getElementById("summary-date").textContent =
+    reservation.date || "";
+
+document.getElementById("summary-time").textContent =
+    reservation.time || "";
+
+document.getElementById("summary-original").textContent =
+    formatCOP(reservation.originalPrice);
+
+document.getElementById("summary-discount").textContent =
+    "-" + formatCOP(reservation.discount);
+
+document.getElementById("summary-final").textContent =
+    formatCOP(reservation.finalPrice);
+</script>
+
+    <div style="margin:50px 0;">
+
+        <a
+            href="https://wa.me/573162543554"
+            class="btn btn-primary"
+            style="margin:10px;"
+        >
+            Need anything? Chat with us on WhatsApp
+        </a>
+
+        <br><br>
+
+        <div class="instagram-card">
+
+    <div class="instagram-icon">
+        📸
+    </div>
+
+    <h2>
+        See Cali Through Our Travelers
+    </h2>
+
+    <p>
+        Hundreds of guests have shared unforgettable moments with us.
+        Explore real photos, videos and stories from our tours.
+    </p>
+
+    <a
+        href="https://www.instagram.com/caliculturaltours/"
+        target="_blank"
+        class="instagram-button"
+    >
+        Follow @caliculturaltours
+    </a>
+
+</div>
+
+        <a
+            href="/tours"
+            class="btn btn-outline"
+        >
+            Discover More Experiences
+        </a>
+
+    </div>
+
+    <hr style="margin:40px 0;">
+
+    <p>
+        ⭐ Highly rated by travelers on Google.
+    </p>
+
+    <a
+        href="https://maps.app.goo.gl/jvgZ52gAqTxW51TN7"
+        target="_blank"
+    >
+        Read Our Google Reviews
+    </a>
+
+    <p style="margin-top:60px;">
+        <strong>We look forward to meeting you soon!</strong>
+    </p>
+
+</section>
+
+</BaseLayout>
