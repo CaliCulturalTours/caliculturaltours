@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
 
-const { tours } = content;
+const tours = [...content.tours].sort(
+  (a, b) => a.display_order - b.display_order
+);
 ---
 
 <BaseLayout title="Explore Tours | Cali Cultural Tours" description="Authentic and small-group cultural experiences in Cali, Colombia.">
@@ -39,9 +41,21 @@ const { tours } = content;
                             <span class="tour-category-tag" style="font-size: 0.65rem; padding: 4px 8px; margin-bottom: 8px;">{tour.category}</span>
                             <h3>{tour.title}</h3>
                             <div class="tour-card-meta">
-                                <span><i class="fas fa-clock"></i> {tour.duration}</span>
-                                <span><i class="fas fa-star"></i> {tour.rating}</span>
-                            </div>
+    <span>
+        <i class="fas fa-person-walking"></i>
+        {tour.type}
+    </span>
+
+    <span>
+        <i class="fas fa-clock"></i>
+        {tour.duration}
+    </span>
+
+    <span>
+        <i class="fas fa-wand-magic-sparkles"></i>
+        {tour.feature}
+    </span>
+</div>
                             <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{tour.description}</p>
                             <div class="tour-card-footer">
                                 <span class="tour-price">{tour.price}</span>

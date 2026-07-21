@@ -13,8 +13,25 @@ export function getStaticPaths() {
 const { tour } = Astro.props;
 const { business, tours: allTours } = content;
 
-// Logic to pick 2 related tours (exclude current)
-const relatedTours = allTours.filter(t => t.id !== tour.id).slice(0, 2);
+// Related tours: prioritize same category, then fill with others
+const relatedTours = [
+  ...allTours
+    .filter(
+      t =>
+        t.id !== tour.id &&
+        t.category === tour.category
+    )
+    .sort((a, b) => a.display_order - b.display_order),
+
+  ...allTours
+    .filter(
+      t =>
+        t.id !== tour.id &&
+        t.category !== tour.category
+    )
+    .sort((a, b) => a.display_order - b.display_order)
+
+].slice(0, 2);
 ---
 
 <BaseLayout title={`${tour.title} | Cali Cultural Tours`} description={tour.description}>
@@ -54,9 +71,31 @@ const relatedTours = allTours.filter(t => t.id !== tour.id).slice(0, 2);
                             <span class="tour-category-tag">{tour.category}</span>
                             <h1 class="text-serif">{tour.title}</h1>
                             <div class="tour-meta-row">
-                                <span><i class="fas fa-star"></i> {tour.rating}</span>
-                                <span><i class="fas fa-clock"></i> {tour.duration}</span>
-                            </div>
+    <span>
+        <i class="fas fa-person-walking"></i>
+        {tour.type}
+    </span>
+
+    <span>
+        <i class="fas fa-clock"></i>
+        {tour.duration}
+    </span>
+
+    <span>
+        <i class="fas fa-wand-magic-sparkles"></i>
+        {tour.feature}
+    </span>
+</div>
+{tour.highlight && (
+    <div class="tour-highlight">
+        <div class="tour-highlight-title">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            Tour Highlight
+        </div>
+
+        <p>{tour.highlight}</p>
+    </div>
+)}
                             {(tour.physical_level || tour.languages || tour.meeting_point || tour.discount) && (
                                 <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; color: var(--cct-text-light);">
                                     {tour.physical_level && <span><i class="fas fa-hiking" style="width:16px; color: var(--cct-primary);"></i> {tour.physical_level}</span>}
@@ -154,9 +193,21 @@ const relatedTours = allTours.filter(t => t.id !== tour.id).slice(0, 2);
                             <span class="tour-category-tag" style="font-size: 0.65rem; padding: 4px 8px; margin-bottom: 8px;">{relatedTour.category}</span>
                             <h3>{relatedTour.title}</h3>
                             <div class="tour-card-meta">
-                                <span><i class="fas fa-clock"></i> {relatedTour.duration}</span>
-                                <span><i class="fas fa-star"></i> {relatedTour.rating}</span>
-                            </div>
+    <span>
+        <i class="fas fa-person-walking"></i>
+        {relatedTour.type}
+    </span>
+
+    <span>
+        <i class="fas fa-clock"></i>
+        {relatedTour.duration}
+    </span>
+
+    <span>
+        <i class="fas fa-wand-magic-sparkles"></i>
+        {relatedTour.feature}
+    </span>
+</div>
                             <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{relatedTour.description}</p>
                             <div class="tour-card-footer">
                                 <span class="tour-price">{relatedTour.price}</span>

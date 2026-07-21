@@ -39,13 +39,14 @@
   "tours": [
     {
       "id": "street-food",
+      "display_order": 10,
       "title": "Street Food Tour in Cali",
       "category": "Food & Drink",
-      "rating": "4.9",
-      "description": "Taste authentic street food while discovering the stories that give Cali its flavor — from the riverside boulevard to bohemian San Antonio.",
-      "duration": "2h",
+      "description": "Taste authentic street food snacks while discovering the stories and monuments that make Cali unique.",
+      "duration": "2 hours",
       "type": "Walking",
-      "price": "From 85,000 COP",
+      "feature": "+10 tasting options",
+      "price": "From 105,000 COP",
       "image": "images/tours/Street Food Tour/IMG_20240210_150501488.webp",
       "gallery": [
         "images/tours/Street Food Tour/20230115_172916.webp",
@@ -57,42 +58,49 @@
         "images/tours/Street Food Tour/IMG_20240104_172340978.webp",
         "images/tours/Street Food Tour/IMG_20240210_150501488.webp"
       ],
+      "highlight": "Come hungry and ready to eat! You will be full by the end of the tour.",
       "physical_level": "Easy walk",
-      "languages": "English & Spanish (bilingual guide)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Subway Sandwich store on Boulevard del Río (Calle 8 crossing)",
+      "meeting_point_map": "https://maps.app.goo.gl/b5dD1nQnCME2vFDD9",
       "included": [
-        "Bilingual local guide",
-        "Fritanga plate & champús drink at Fabiola's",
-        "Viche (artisanal moonshine) tasting",
-        "Quinta con Quinta Bakery tasting",
-        "Lengua de Mariposa dessert"
+        "Local guide",
+        "Fritanga stop (fried snacks) empanadas, marranitas, aborrajados, papa rellena.",
+        "Bakery stop: pandebono, buñuelos, empanada de cambray, almojábana, hot coffee.",
+        "Shaved ice with fruits stop: cholado, raspado, lulada, champús and more.",
+        "Some surprises along the way!"
       ],
       "not_included": [
-        "Additional food & drinks",
-        "Personal purchases (souvenirs, vinyl records, etc.)",
+        "More than 3 items per person per stop (promise you will be full!)",
+        "Personal purchases (souvenirs, water)",
+        "Transportation",
         "Gratuities / Tips"
       ],
       "itinerary": [
         "Boulevard del Río — Cali's most iconic riverside walk. Local vendors, street art, and city life; the perfect introduction to the rhythm of the city.",
-        "Calle de la Escopeta — a street with layers of Cali's past. Learn how the community redefined the area and enjoy a snack from a nearby vendor.",
-        "Casa Chila Gamboa — heritage house turned cultural landmark; reveals stories of everyday life, social movements, and the neighborhood's evolution.",
-        "Quinta con Quinta Bakery — beloved local bakery; try fresh, hot baked goods straight from the oven.",
-        "Barrio San Antonio — cobblestone streets, colorful facades, a blend of artists, cafés, and street vendors.",
-        "Fritanga & Champús at Fabiola's — a plate of fritanga (fried snacks) paired with champús, a traditional refreshing drink from the Pacific coast.",
-        "Viche (Moonshine) Tasting — artisanal sugarcane spirit, traditionally made by Afro-Colombian communities.",
-        "La Linterna Poster Workshop — one of Colombia's last traditional printing houses; iconic posters of Cali's cultural identity.",
-        "Lengua de Mariposa — unique local dessert/snack; the perfect final bite before saying goodbye."
+        "Café Boulevard — We will show you one of the most active spots in the city; a place where locals gather to dance, socialize, and enjoy salsa music.",
+        "Fritanga Los Paisas — Our first food stop is hearty and warm, with plenty of fried snacks to choose from.",
+        "La Curva Bar — Decorated with a mural of 3 of the most legendary salsa musicians, because this tour is much more than just food; it's a cultural experience.",
+        "La Calle del Sabor — calle de la salsa? salsa street? calle del sabor? What's the difference? Let us show you.",
+        "BuoPan — Second food stop to choose amongst different local breads, or even a hot coffee.",
+        "Plaza Cayzedo — a historical stop at what used to be Cali's main square.",
+        "Historical Downtown — Teatro Jorge Isaacs, Edificio Coltabaco, Parque de los Poetas, Iglesia La Ermita, Puente Ortiz and some modern nightlife recommendations.",
+        "Cholados Nancy — Our final stop for a refreshing treat."
+      ],
+      "notes": [
+        "We can adapt to most dietary restrictions, except veganism — just let us know in advance."
       ]
     },
     {
       "id": "market-tour",
+      "display_order": 30,
       "title": "Galería Alameda Market Tour",
       "category": "Food & Drink",
-      "rating": "4.9",
       "description": "A full sensory journey through Cali's most iconic market — exotic fruits, local cheeses, flowers, and a peek into the city's esoteric traditions.",
-      "duration": "2h",
+      "duration": "2 hours",
       "type": "Walking",
-      "price": "From 85,000 COP",
+      "feature": "+7 exotic fruits tasting",
+      "price": "From 105,000 COP",
       "image": "images/tours/Galeria Alameda Exotic Market Tour/Cali_MarketTour_23_SherTakesCare-6.webp",
       "gallery": [
         "images/tours/Galeria Alameda Exotic Market Tour/20230127_143312.webp",
@@ -107,19 +115,22 @@
         "images/tours/Galeria Alameda Exotic Market Tour/IMG_20231029_151500237.webp",
         "images/tours/Galeria Alameda Exotic Market Tour/IMG_20231029_152434875.webp"
       ],
-      "physical_level": "Easy",
-      "languages": "English & Spanish (bilingual guide)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "highlight": "Come hungry! People comment: 'I just ate more fruit than for 1 year back home'",
+      "physical_level": "Easy walk",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Front of 'Artesanías La Caleñita'",
+      ",meeting_point_map": "https://maps.app.goo.gl/jcZb3Ppq6knefDhi7",
       "included": [
-        "Bilingual local guide",
-        "~10 exotic fruit tastings (\"Taste the Rainbow\")",
+        "Local guide",
+        "+7 exotic fruit tastings (\"Taste the Rainbow\")",
         "2 Colombian cheeses",
-        "Coconut water or coconut ice cream",
+        "Coconut water or coconut/fruit ice cream",
         "1 traditional fried snack (e.g. empanada)",
-        "Flowers market visit",
-        "Esoteric & souvenir section stops"
+        "Flowers section visit",
+        "Witchcraft & souvenir stops"
       ],
       "not_included": [
+        "Transportation",
         "Personal purchases",
         "Additional food & drinks",
         "Gratuities / Tips"
@@ -132,17 +143,21 @@
         "Flowers Aisle — Colombia is the world's second largest flower exporter; meet heliconia, roses, orchids, and more, straight from the growers.",
         "Witchcraft / Esoteric Zone — stalls where locals buy traditional remedies, amulets, and ritual tools. A unique glimpse into Colombian beliefs.",
         "Souvenir Stands — optional browsing before wrapping up."
+      ],
+      "notes": [
+        "We can adapt to most dietary restrictions — just let us know in advance."
       ]
     },
     {
       "id": "coffee-tasting",
-      "title": "Cali Coffee Tasting",
+      "display_order": 90,
+      "title": "Coffee Tasting in Cali",
       "category": "Food & Drink",
-      "rating": "4.9",
       "description": "A guided specialty coffee tasting led by a professional barista — learn, taste, and brew Colombian coffee without leaving the city.",
-      "duration": "1.5h",
+      "duration": "1.5 hours",
       "type": "Seated",
-      "price": "From 120,000 COP",
+      "feature": "World-class coffee",
+      "price": "From 160,000 COP",
       "image": "images/tours/Coffee tasting experience/IMG_20241218_174242.webp",
       "gallery": [
         "images/tours/Coffee tasting experience/20230124_161318.webp",
@@ -153,41 +168,44 @@
         "images/tours/Coffee tasting experience/IMG_20241218_174242.webp",
         "images/tours/Coffee tasting experience/IMG_20241218_180042.webp"
       ],
-      "physical_level": "Easy (seated experience, no walking)",
-      "languages": "English & Spanish (bilingual guide)",
+      "physical_level": "Easy (seated experience, no walking, A/C room)",
+      "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Centro Comercial Centenario",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "meeting_point_map": "https://maps.app.goo.gl/va6XNLc9uyUKzKA8A",
+      "highlight": "A hands on coffee experience to delight your senses — learn to taste, smell, and brew like a pro.",
       "included": [
-        "Professional barista guide",
-        "2–3 specialty Colombian coffee tastings",
-        "Traditional pandebono pairing",
-        "Coffee preparation demonstration"
+        "Private professional barista-led tasting & brewing",
+        "Private translator (guide)",
+        "Taste 2 different specialty colombian coffees",
+        "Learn everything about coffee: from bean to cup, flavor profiles, and brewing methods"
       ],
       "not_included": [
         "Coffee beans or products to take home (available for purchase)",
-        "Gratuities / Tips"
+        "Transportation",
+        "Gratuities / Tips",
+        "Food"
       ],
       "itinerary": [
         "Welcome & Introduction — meet at the designated spot; intro to the world of specialty coffee.",
         "Choose Your Coffee — select your preferred flavor profile based on your taste preferences.",
         "Preparation Demo — the barista prepares each coffee in front of you using different extraction methods.",
         "Guided Tasting — taste, compare, and learn to identify flavor notes, acidity, body, and finish.",
-        "Traditional Pandebono — paired with the tasting for a complete local experience.",
-        "Q&A with the Expert — ask about processes, regions, and how to recognize great coffee anywhere."
+        "Q&A with the barista — ask about processes, regions, and how to recognize great coffee anywhere."
       ],
       "notes": [
-        "You'll learn: what makes a coffee excellent, why Colombian coffee is world-famous, caffeine vs. over-roasting, flavor profiles, SCA scoring, processing methods (washed, honey, natural), and brewing methods (V60, Chemex, etc.)"
+        "You'll learn: what makes a coffee excellent, why Colombian coffee is world-famous, caffeine vs. over-roasting, flavor profiles, SCA scoring, processing methods (washed, honey, natural), and brewing methods (V60, Chemex, etc.). Don't be afraid to drink 2 cups straight: good coffee is actually healthy."
       ]
     },
     {
       "id": "coffee-farm",
-      "title": "CAFETAL: Coffee Farm Visit in Andes",
+      "display_order": 80,
+      "title": "CAFETAL: Coffee Farm Visit in the Andes",
       "category": "Nature",
-      "rating": "4.9",
       "description": "A full-day journey into Colombia's coffee culture — visit a working farm in Sevilla, pick your own beans, and taste the difference from crop to cup.",
-      "duration": "Full Day (~11h)",
-      "type": "Transport",
-      "price": "From 929,900 COP",
+      "duration": "10 hours",
+      "type": "Private vehicle",
+      "feature": "From seed to cup",
+      "price": "From 940,500 COP",
       "image": "images/tours/CAFETAL/IMG_20241125_125138989.webp",
       "gallery": [
         "images/tours/CAFETAL/IMG_20241125_111355678.webp",
@@ -213,20 +231,24 @@
         "images/tours/CAFETAL/IMG_20241125_133018827.webp",
         "images/tours/CAFETAL/IMG_20241125_133746213.webp"
       ],
-      "physical_level": "Easy (all ages) or moderate with optional mountain hiking",
-      "languages": "English & Spanish (bilingual guide)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "highlight": "Excellent for travellers with no plans to visit coffee regions — this is a full coffee experience in one day, with a bilingual guide and private transport.",
+      "physical_level": "Easy — farm walk + standing + seating",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Pickup inside urban Cali (hotel, Airbnb, etc.)",
       "included": [
-        "Private round-trip transport",
-        "Bilingual guide",
-        "All entries",
-        "Traditional Colombian breakfast (arepas, huevos pericos, cheese, tinto)",
+        "Private round-trip transportation",
+        "Traditional light Colombian breakfast",
+        "Visit a family-run, non-commercial coffee farm",
+        "'Coffee collector' experience: pick your own coffee beans, from the tree, with your own hands",
         "Local lunch (vegetarian & vegan options available)",
-        "Guided coffee tasting session with local barista"
+        "Guided local coffee tasting session with a professional barista",
+        "Stunning views from local viewpoint 'the balcony of the valley'",
+        "Bilingual guide",
+        "All entries"
       ],
       "not_included": [
         "Traditional jeep (jeepeta) ride — available as add-on",
-        "Personal purchases",
+        "Personal purchases, souvenirs, or additional food & drinks",
         "Gratuities / Tips"
       ],
       "itinerary": [
@@ -234,22 +256,24 @@
         "Coffee Plantation Experience — arrive at an active coffee farm. Walk through the plantation, learn about the crops, and pick your own coffee beans.",
         "Bean to Cup — follow the complete process: harvesting, drying, roasting, and brewing. Understand the care and craft behind every cup.",
         "Authentic Local Lunch — regional flavors of Valle del Cauca at a local restaurant. Vegetarian and vegan options available.",
-        "Guided Coffee Cupping — led by a local barista; taste different methods and discover the notes, aromas, and flavors that make Colombian coffee world-famous.",
+        "Guided Coffee Tasting — led by a local barista; taste different methods and discover the notes, aromas, and flavors that make Colombian coffee world-famous.",
         "Balcón del Valle Viewpoint — panoramic views of Sevilla and its coffee-covered hills. Perfect for photos before heading back.",
         "Return to Cali (~3h) — comfortable drive back through the mountains."
       ],
       "notes": [
-        "Time breakdown: 3h to town · 20min to farm · 1h 20min at farm · 20min back to town for lunch · 1h lunch · 1h cupping · ~25min at the viewpoint · 3h back to Cali"
+        "Time breakdown: 3h to town · 20min to farm · 1h 20min at farm · 20min back to town for lunch · 1h lunch · 1h cupping · ~25min at the viewpoint · 3h back to Cali",
+        "Our destination, Sevilla, is a small town in the coffee region of Colombia. Expect lower temperatures than Cali."
       ]
     },
     {
       "id": "chocotour",
-      "title": "ChocoTour: Make Your Own Chocolate on a Cacao Farm",
-      "category": "Food & Drink",
-      "rating": "4.9",
-      "description": "Visit a cacao farm and learn to make your own chocolate from bean to bar — a relaxed, bilingual experience perfect for chocolate lovers and families.",
-      "duration": "6h",
-      "type": "Transport",
+      "display_order": 70,
+      "title": "ChocoTour: Make Your Own Chocolate Bar on a Cacao Farm",
+      "category": "Nature",
+      "description": "What we eat as chocolate is the processed seed of a fruit. Learn everything about it with this Cacao farm visit.",
+      "duration": "6 hours",
+      "type": "Private vehicle",
+      "feature": "From seed to bar",
       "price": "From 680,000 COP",
       "image": "images/tours/CHOCO_TOUR/IMG_20250727_143832105_HDR_AE.webp",
       "gallery": [
@@ -263,88 +287,96 @@
         "images/tours/CHOCO_TOUR/IMG_20250727_154000503_HDR_AE.webp",
         "images/tours/CHOCO_TOUR/IMG_20250727_154842807_HDR_AE.webp"
       ],
-      "physical_level": "Easy — farm walk + standing during the activity",
-      "languages": "English & Spanish (bilingual guide)",
-      "meeting_point": "Pickup in Cali",
+      "physical_level": "Easy — farm walk + standing + seating",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Pickup inside urban Cali (hotel, Airbnb, etc.)",
       "discount": "10% cash COP discount · 5% USD/EUR cash discount",
       "included": [
-        "Round-trip transport",
-        "Bilingual guide",
         "Farm entry & cacao tour",
-        "Hands-on chocolate workshop",
+        "Hands-on chocolate bar workshop",
         "Your own DIY chocolate bar to take home",
-        "Hydration"
+        "Round-trip transport",
+        "Bilingual guide"        
       ],
       "not_included": [
         "Additional food & drinks",
+        "Water",
         "Gratuities / Tips"
       ],
       "itinerary": [
-        "Pickup in Cali — comfortable vehicle, brief introduction and safety tips.",
-        "Scenic Drive (~1.5h) — rolling hills and panoramic views; short coffee/snack stop on request.",
+        "Pickup in Cali",
+        "Scenic Drive (~1.5h)",
         "Farm Arrival & Tour — cacao trees, pod harvesting demo, fermentation, and drying process.",
-        "Hands-On Chocolate Workshop — roast, grind, mix flavors, pour into molds, decorate, and wait for the chocolate to set. You take home your own personalized chocolate bar.",
-        "Tasting & Q&A — try local chocolate treats and learn about sustainable cacao farming practices.",
+        "Hands-On Chocolate Bar Workshop — Design and create your own chocolate bar using fresh cacao and flavorful toppings.",
+        "Tasting & Q&A — try local chocolate (from 90% cacao to a commercial chocolate bar) and learn about what really is chocolate.",
         "Return to Cali — drop-off at your accommodation or agreed meeting point."
       ],
       "notes": [
-        "~1.5h drive from Cali. Kids and pets welcome (family & pet-friendly). Bring sunscreen and comfortable shoes — hydration is provided."
+        "~1.5h drive from Cali. Kids and pets welcome (family & pet-friendly). Bring sunscreen and comfortable clothes and shoes.",
+        "We're going to a farm, insects are expected."
       ]
     },
     {
       "id": "salsa-tour",
+      "display_order": 50,
       "title": "Cali Salsa Tour — Dance, Culture & History",
-      "category": "Cultural",
-      "rating": "4.9",
+      "category": "Salsa",
       "description": "Experience the world capital of salsa with dance lessons and cultural immersion.",
-      "duration": "5h",
-      "type": "Dance",
-      "price": "From 259,900 COP",
+      "duration": "5.5 hours",
+      "type": "Standing + Taxi + Seated + Dancing",
+      "feature": "Interactive museum & dance class",
+      "price": "From 285,846 COP",
       "image": "images/tours/SALSA TOUR/IMG_20230802_205625659.webp",
-      "popular": true,
       "gallery": [
         "images/tours/SALSA TOUR/IMG_20230802_205625659.webp",
         "images/tours/SALSA TOUR/IMG_20250430_193710.webp",
         "images/tours/SALSA TOUR/IMG_20250430_201239.webp",
         "images/tours/SALSA TOUR/IMG_20250430_201246.webp"
       ],
+      "highlight": "Dancing-friendly museums, a local old records shop, and a 2-hour group salsa class at the city's best salsa club.",
       "physical_level": "Easy or moderate depending on your willingness to dance",
-      "languages": "English & Spanish (bilingual guide)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Trumpets monument at the Plazoleta Jairo Varela",
+      "meeting_point_map": "https://maps.app.goo.gl/hAgBLDQgWxz8UZvn8",
       "included": [
-        "Round-trip transport",
-        "Bilingual local guide",
-        "Museo Jairo Varela entry",
-        "Museo de la Salsa entry (incl. 1 beer or water)",
-        "Local snack (empanadas, aborrajados, champús, lulada, etc.)",
-        "2-hour group salsa class at Topa Tolondra",
-        "Hydration",
-        "Souvenir"
+        "Visit & explanation of the Niche Trumpets monument",
+        "Entry & tour of the Jairo Varela Museum",
+        "Taxi to the Obrero neighborhood",
+        "Visit a local vinyl records shop",
+        "Entry & tour of the Salsa Museum",
+        "Taxi to La Topa Tolondra",
+        "Entry & 2-hour group salsa class at La Topa Tolondra",
+        "Bilingual local guide"
       ],
       "not_included": [
+        "Transportation to and from the meeting point",
         "Private salsa lessons (available on request)",
-        "Additional drinks",
+        "Hydration or food",
+        "Souvenirs",
         "Gratuities / Tips"
       ],
       "itinerary": [
-        "Plazoleta Jairo Varela — meet at the starting point next to the iconic \"Salsa Trumpets\" monument.",
-        "Museo Jairo Varela — guided visit (entry included); learn about the regional impact of Grupo Niche.",
-        "Local Snack Break — choose from sweet, savory, or refreshing options.",
-        "Vinyl Record Store — browse and listen to salsa (and other genres); free time to buy records.",
-        "Museo de la Salsa in Barrio Obrero — guided visit by passionate locals (entry + 1 beer or water included).",
-        "Group Salsa Class at Topa Tolondra — 2-hour class at the city's best salsa club, suitable for all levels. Private lessons available on request.",
-        "Optional (weekends): Visit to the Salsa Street."
+        "Niche Trumpets monument at 3:30pm — meet at the starting point and dive into this musical monument.",
+        "Museo Jairo Varela at 4pm — guided visit (entry included); learn about the regional impact of Grupo Niche.",
+        "4:30pm - Taxi to the Obrero neighborhood",
+        "Vinyl Record Store at 4:50pm — browse and listen to salsa (and other genres); free time to buy records or souvenirs.",
+        "Museo de la Salsa in Barrio Obrero 5pm — guided visit by passionate locals (entry included).",
+        "6:45pm - Taxi to La Topa Tolondra",
+        "Group Salsa Class at Topa Tolondra at 7pm — 2-hour class at the city's best salsa club, suitable for all levels. Private lessons available on request.",
+        "Past 9pm - Optional social dancing at La Topa Tolondra — practice your new moves and enjoy the lively atmosphere by yourself",
+        "Optional (fridays): Courtesy visit to the Salsa Street."
       ]
     },
     {
       "id": "cristo-rey",
+      "display_order": 60,
       "title": "Cristo Rey Viewpoint + Downtown Cali City Tour",
-      "category": "Cultural",
-      "rating": "4.9",
+      "category": "City Tour",
       "description": "Get panoramic views from Cristo Rey and explore historic downtown Cali — the best overview of the city in half a day.",
-      "duration": "4h",
-      "type": "Transport",
-      "price": "From 359,000 COP",
+      "duration": "4 hours",
+      "type": "Private vehicle",
+      "feature": "Panoramic views",
+      "price": "From 269,445 COP",
       "image": "images/tours/City_Tour/IMG_20250728_123113487_HDR_AE.webp",
       "gallery": [
         "images/tours/City_Tour/IMG_20230418_163221209_HDR.webp",
@@ -359,12 +391,12 @@
         "images/tours/City_Tour/IMG_3983.webp",
         "images/tours/City_Tour/IMG_3993.webp"
       ],
+      "highlight": "Go to all the must visit spots of Cali with this comprehensive city tour — from the iconic Cristo Rey statue to the charming streets of Barrio San Antonio.",
       "physical_level": "Easy — vehicle + short walks",
-      "languages": "English & Spanish (bilingual guide)",
+      "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup anywhere within urban Cali",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
       "included": [
-        "Round-trip transport",
+        "Private round-trip transportation",
         "Bilingual guide"
       ],
       "not_included": [
@@ -375,23 +407,25 @@
       "itinerary": [
         "Cristo Rey — drive up the mountain to visit the iconic 26m statue (1,440 m altitude). Panoramic views of the city, the Cauca River, and the valley. Outdoor sculptures, lush vegetation, and local snack vendors. Discussion of the hill's spiritual importance and its role during Colombia's internal conflict.",
         "Sebastián de Belalcázar — stop near the statue of Cali's Spanish founder. Additional city views and historical context about his controversial legacy and the pre-existing indigenous cultures.",
+        "Parque del Gato de Tejada — visit the famous cat sculpture and learn about its history, symbolism, and the local artist who created it.",
         "Barrio San Antonio — charming colonial neighborhood known for craft shops, colorful streets, and a relaxed vibe. Walk through the park, enjoy city views, and visit the historic church.",
-        "Túnel Mundialista — urban tunnel transformed with creative lighting and art; connects different parts of the city in a unique, modern way.",
+        "Túnel Mundialista — Colombia's longest urban tunnel transformed with creative lighting and art; connects different parts of the city in a unique, modern way.",
         "Loma de la Cruz — open-air craft market where you can find traditional Colombian crafts, jewelry, and local souvenirs."
       ],
       "notes": [
-        "Start time is fully customizable. Also visits (customizable): Trompetas de Niche, Plaza Cayzedo, El Gato de Tejada, Museo La Tertulia, and others on request."
+        "Our itinerary is a suggestion but we give you the benefit of fully customizable experiences. You may request modifications to suit your preferences."
       ]
     },
     {
       "id": "hummingbirds",
+      "display_order": 40,
       "title": "Hummingbird Paradise Tour — Finca Alejandría",
       "category": "Nature",
-      "rating": "4.9",
       "description": "Visit a hummingbird paradise and observe dozens of species flying freely around you in the cloud forest above Cali.",
-      "duration": "4h",
-      "type": "Transport",
-      "price": "From 329,900 COP",
+      "duration": "4 hours",
+      "type": "Private vehicle",
+      "feature": "Dozens of hummingbirds",
+      "price": "From 376,052 COP",
       "image": "images/tours/Colibríes - hummingbird/IMG_20240818_133159009_HDR.webp",
       "gallery": [
         "images/tours/Colibríes - hummingbird/IMG_20240818_130847430.webp",
@@ -406,10 +440,10 @@
         "images/tours/Colibríes - hummingbird/IMG_4824.webp",
         "images/tours/Colibríes - hummingbird/IMG_4827.webp"
       ],
-      "physical_level": "Easy (all ages) or moderate with optional mountain walk",
-      "languages": "English & Spanish (bilingual guide)",
-      "meeting_point": "Pickup at your accommodation in Cali",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "highlight": "Watch hummingbirds in numbers and proximity that you won't find anywhere else in the world — a unique experience for nature lovers and photographers.",
+      "physical_level": "Easy (seating)(all ages) or moderate with optional mountain walk",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Pickup anywhere within urban Cali",
       "included": [
         "Round-trip transport",
         "Bilingual guide",
@@ -424,9 +458,8 @@
       "itinerary": [
         "Pickup at your accommodation in Cali.",
         "Scenic 1h Drive — mountain route into the western Andes (last stretch on an unpaved road).",
-        "15-min Baby Goat Stop — pet and bottle-feed adorable baby goats.",
-        "1h 30min at the Paradise — dozens of hummingbirds at feeders, other forest species at banana feeders, photography opportunities, and relaxation in the mountain climate with welcome coffee.",
-        "15-min Local Dessert Stop — on the way back.",
+        "1h 45min at the Paradise — dozens of hummingbirds at feeders, other forest species at banana feeders, photography opportunities, and relaxation in the mountain climate with welcome coffee.",
+        "15-min Local Dessert Stop — on the way back, as well as pet baby goats.",
         "1h Drive Back — drop-off at your accommodation."
       ],
       "notes": [
@@ -436,15 +469,15 @@
     },
     {
       "id": "waterfalls",
+      "display_order": 20,
       "title": "Pance River Waterfall Tour — Chorrera del Indio",
       "category": "Nature",
-      "rating": "4.9",
       "description": "Escape Cali's heat and swim in the crystal-clear pools of Chorrera del Indio — just minutes from the city.",
-      "duration": "~4h",
-      "type": "Transport",
-      "price": "From 306,900 COP",
+      "duration": "4 hours",
+      "type": "Private vehicle",
+      "feature": "Natural pools & waterfall",
+      "price": "From 265,718 COP",
       "image": "images/tours/Cali_River_Waterfall/1000119545.webp",
-      "popular": true,
       "gallery": [
         "images/tours/Cali_River_Waterfall/1000119545.webp",
         "images/tours/Cali_River_Waterfall/1000119555.webp",
@@ -454,83 +487,76 @@
         "images/tours/Cali_River_Waterfall/20221228_102446.webp",
         "images/tours/Cali_River_Waterfall/20221229_094319.webp"
       ],
-      "physical_level": "Easy — flat irregular trails with some stairs; optional steep climb to second waterfall",
-      "languages": "English & Spanish (bilingual guide)",
-      "meeting_point": "Pickup in Cali (morning or afternoon departure)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
+      "highlight": "Refreshing clean water straight from the Andes — perfect for a half-day escape from the city.",
+      "physical_level": "Easy stairs down; optional steep climb to second waterfall",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Pickup anywhere within urban Cali",
       "included": [
         "Round-trip transport",
         "Bilingual guide",
-        "Park entry",
-        "Local snacks",
-        "Hydration",
+        "Waterfall entry",
         "Medical insurance coverage"
       ],
       "not_included": [
-        "Drone video — 280,000 COP (~68 USD) add-on",
-        "Traditional breakfast — 80,000 COP (~20 USD) add-on, +1h",
-        "Traditional lunch — 200,000 COP (~50 USD) add-on, +1.5h (max 3 people)",
+        "Drone video — 320,000 COP add-on",
+        "Food or beverages (we can stop on the way if you want to purchase some)",
         "Gratuities / Tips"
       ],
       "itinerary": [
-        "Pickup in Cali — 25–60 min transfer (last stretch on an unpaved road).",
-        "Río Pance Public Park (1h) — experience the river like a local caleño; walk through lush nature.",
-        "Time at the Waterfall (1h) — swim in natural pools, explore the main Chorrera del Indio waterfall, and hike to the hidden second waterfall (~5-min uphill climb, optional).",
-        "Return to Cali — 1h transfer back."
+        "Pickup in Cali — 25–75 min transfer depending on your location (last stretch on an unpaved road).",
+        "Time at the Waterfall (90-120 min) — swim in natural pools, explore the main Chorrera del Indio waterfall, and hike to the hidden second waterfall (~5-min uphill climb, optional).",
+        "Return to Cali — 25-75 min transfer back."
       ],
       "notes": [
-        "The hike to the second waterfall is short but includes a steeper section — entirely optional if you prefer to stay at the first pool.",
-        "Bring: swimwear, towel, water shoes or hiking sandals, change of clothes, hat, eco-friendly repellent, waterproof phone case (optional)."
+        "The main waterfall is visible from the parking. It is very accesible even for people with reduced mobility. The second waterfall is a short uphill climb and entirely optional.",
+        "Swimming and getting wet is entirely optional. You can enjoy the waterfall and pools without getting wet.",
+        "However if you want to get wet, bring: swimwear, towel, water shoes or hiking sandals, change of clothes, plastic bag to store wet items, eco-friendly repellent.",
+        "Please make sure to get dry before getting back in the car to avoid discomfort during the drive."
       ]
     },
     {
       "id": "whale-watching",
-      "title": "Whale Watching in Bahía Málaga",
-      "category": "Seasonal Nature",
-      "rating": "4.9",
+      "display_order": 100,
+      "title": "Whale Watching in the Colombian Pacific",
+      "category": "Nature. Season: Jul–Oct",
       "description": "Witness magnificent humpback whales during their annual migration along Colombia's Pacific coast — a full-day adventure from Cali.",
-      "duration": "Full Day (~12–14h)",
-      "type": "Jul–Oct",
-      "price": "From 581,700 COP",
+      "duration": "11 hours",
+      "type": "Private vehicle + public boat",
+      "feature": "Humpback whales",
+      "price": "From 981,700 COP",
       "image": "images/tours/whale-watching-thumb.jpg",
       "gallery": [
         "images/tours/whale-watching/IMG-20250723-WA0107.webp"
       ],
-      "physical_level": "Moderate — long travel day; not suitable for people with reduced mobility. Babies not permitted.",
-      "languages": "English & Spanish (bilingual guide)",
-      "meeting_point": "Pickup in Cali (early morning)",
-      "discount": "10% cash COP discount · 5% USD/EUR cash discount",
-      "pricing_tiers": [
-        "Solo traveler: 1,660,200 COP",
-        "Couples (34% OFF): 1,084,950 COP/person (2,169,900 COP total)",
-        "Families 3–4 people (51% OFF): 813,498 COP/person",
-        "Groups 5+ people (65% OFF): 581,700 COP/person"
-      ],
+      "highlight": "A once-in-a-lifetime experience to see humpback whales in their natural habitat, with a bilingual guide and a local captain.",
+      "physical_level": "Moderate — long travel day; not suitable for people with reduced mobility or spine problems. Babies not permitted.",
+      "languages": "Guides available in English, Spanish & Portuguese",
+      "meeting_point": "Pickup anywhere within urban Cali",
       "included": [
         "Round-trip transport Cali–Buenaventura",
-        "Bilingual guide",
+        "Bilingual personal guide",
         "Fast boat to Bahía Málaga National Natural Park",
-        "1h whale watching on a boat with certified local captain",
-        "1h free time at a tropical beach"
+        "1h whale watching on a boat with a local captain",
+        "1h free time at a beach",
+        "Local lunch (seafood is typical, vegetarian and other meat options available)"
       ],
       "not_included": [
-        "Meals (bring snacks and water)",
+        "Water or snacks",
         "Waterproof phone case (recommended)",
         "Seasickness pills (optional)",
         "Gratuities / Tips"
       ],
       "itinerary": [
         "Pickup in Cali (early morning) — 3h transfer through the western Andes to Buenaventura.",
-        "Fast Boat to the Pacific Coast (1h) — board a speedboat from the tourist port toward Bahía Málaga Natural National Park.",
-        "Whale Watching Tour (1h) — on a boat with a certified local captain. Watch humpback whales leap, slap their tails, and, if lucky, spot calves.",
-        "Free Time at the Beach (1h) — swim, relax, snack, or simply listen to the sound of the ocean on a tropical beach.",
+        "Fast Boat on the Pacific Coast (1h) — board a speedboat from the tourist port toward Bahía Málaga Natural National Park.",
+        "Whale Watching Tour (1h) — on a boat with a local captain. Watch humpback whales leap, slap their tails, and, if lucky, spot calves. (warning: whales are wild animals, sightings are not guaranteed).",
+        "Free Time at the Beach (1h) — swim, relax, snack, or simply listen to the sound of the ocean on a local beach.",
         "Return Boat to Port (1h) — back to Buenaventura.",
-        "Return to Cali (evening) — 3h drive back, arriving at night."
+        "Return to Cali (late afternoon) — 3h drive back, arriving at night."
       ],
       "notes": [
-        "Choose your own adventure (one route per day): Route A — Cultural & Community: visit a nearby Afro-Colombian community; music, crafts, local gastronomy, and community-based tourism. Route B — Raw Untouched Nature: explore the rugged coast of Bahía Málaga with no tourist infrastructure — just you, nature, and the whales.",
-        "Season: July to October. Babies not permitted. Not suitable for people with reduced mobility.",
-        "What to bring: light comfortable clothes + light waterproof jacket, sandals or water shoes, sunscreen and repellent, hat, seasickness pills (optional), waterproof phone case, reusable water bottle, light snacks or fruit."
+        "Season: July to October. Babies not permitted. Not suitable for people with reduced mobility or spine problems.",
+        "What to bring: clothing you can get wet with, light comfortable clothes + light waterproof jacket, sandals or water shoes, sunscreen and repellent, hat, seasickness pills (optional), waterproof phone case, reusable water bottle, light snacks or fruit."
       ]
     }
   ]
