@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
+import { getPricing, getTourDisplayPrice } from '../lib/pricing';
+
+const pricing = await getPricing();
 
 const tours = [...content.tours].sort(
   (a, b) => a.display_order - b.display_order
@@ -58,7 +61,10 @@ const tours = [...content.tours].sort(
 </div>
                             <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{tour.description}</p>
                             <div class="tour-card-footer">
-                                <span class="tour-price">{tour.price}</span>
+                                <span class="tour-price">
+ <span class="tour-price">
+  {getTourDisplayPrice(tour, pricing)}
+</span>
                                 <span class="tour-card-link" style="color: var(--cct-primary); font-weight: 600; font-size: 0.9rem;">View Details <i class="fas fa-arrow-right"></i></span>
                             </div>
                         </div>

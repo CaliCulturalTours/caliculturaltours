@@ -35,3 +35,6 @@ coverage/
 .cache/
 
 .astro/
+
+# Vercel build output
+.vercel

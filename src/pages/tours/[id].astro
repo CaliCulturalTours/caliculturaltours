@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import content from '../../data/site_content_skeleton.json';
+import {
+  getPricing,
+  getTourDisplayPrice
+} from '../../lib/pricing';
 
 export function getStaticPaths() {
   const { tours } = content;
@@ -12,6 +16,7 @@ export function getStaticPaths() {
 
 const { tour } = Astro.props;
 const { business, tours: allTours } = content;
+const pricing = await getPricing();
 
 // Related tours: prioritize same category, then fill with others
 const relatedTours = [
@@ -109,7 +114,9 @@ const relatedTours = [
                         <div class="price-card-floating">
                             <div class="price-content">
                                 <span class="price-label">Price from</span>
-                                <span class="price-value">{tour.price}</span>
+                                <span class="price-value">
+                                {getTourDisplayPrice(tour, pricing)}
+                                                                    </span>
                                 <span class="price-label">per person</span>
                             </div>
                             <a href={`/book?tour=${tour.id}`} class="btn btn-primary btn-block">

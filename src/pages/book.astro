@@ -90,10 +90,95 @@ const tourData = tours.map(t => {
                         </div>
                     </div>
 
-                    <div class="total-box">
-                        <span>Total:</span>
-                        <span id="total-price" style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-serif);">$0 COP</span>
-                    </div>
+                    <div
+    id="price-breakdown"
+    style="
+        display:none;
+        background:#fafafa;
+        border:1px solid #e6e6e6;
+        border-radius:12px;
+        padding:18px;
+        margin-bottom:24px;
+    ">
+
+    <div
+        style="
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:8px;
+        ">
+        <span>Price per person</span>
+        <span id="breakdown-base-value"></span>
+    </div>
+
+    <div
+        id="breakdown-discount-row"
+        style="
+            display:none;
+            justify-content:space-between;
+            color:#198754;
+            margin-bottom:12px;
+        ">
+        <span>Group discount</span>
+        <span id="breakdown-discount"></span>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #ddd;margin:12px 0;">
+
+    <div
+        id="breakdown-total-row"
+        style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        ">
+        <strong id="breakdown-total-label">
+            Total
+        </strong>
+
+        <span
+            id="breakdown-total"
+            style="
+                font-size:1.5rem;
+                font-family:var(--font-serif);
+                font-weight:800;
+                color:var(--cct-primary);
+            ">
+        </span>
+    </div>
+
+    <div
+        id="breakdown-per-person"
+        style="
+            display:none;
+            text-align:center;
+            margin-top:20px;
+        ">
+
+        <div
+            style="
+                font-size:.82rem;
+                color:#777;
+                text-transform:uppercase;
+                letter-spacing:.08em;
+            ">
+            Your price per person
+        </div>
+
+        <div
+            id="breakdown-per-person-value"
+            style="
+                font-size:2rem;
+                font-family:var(--font-serif);
+                font-weight:800;
+                color:var(--cct-primary);
+                margin-top:4px;
+            ">
+        </div>
+
+    </div>
+
+</div>
 
                     <button type="button" class="btn btn-primary btn-block" id="btn-next-1" style="padding: 16px; font-size: 1.1rem;">Continue</button>
                 </div>
@@ -316,7 +401,19 @@ const tourData = tours.map(t => {
         const qtyMinus = document.getElementById("qty-minus");
         const qtyPlus = document.getElementById("qty-plus");
         const tourGuests = document.getElementById("tour-guests");
-        const totalPriceEl = document.getElementById("total-price");
+        const breakdown = document.getElementById("price-breakdown");
+
+const baseLabel = document.getElementById("breakdown-base-label");
+const baseValue = document.getElementById("breakdown-base-value");
+
+const discountRow = document.getElementById("breakdown-discount-row");
+const discountValue = document.getElementById("breakdown-discount");
+
+const totalLabel = document.getElementById("breakdown-total-label");
+const totalValue = document.getElementById("breakdown-total");
+
+const perPersonSection = document.getElementById("breakdown-per-person");
+const perPersonValue = document.getElementById("breakdown-per-person-value");
         let pricing = {};
 
         const btnNext1 = document.getElementById("btn-next-1");
@@ -356,37 +453,82 @@ const tourData = tours.map(t => {
     });
         let currentTotal = 0;
        function calculateTotal() {
+
     const guests = parseInt(tourGuests.value, 10) || 1;
     const tourId = tourSelect.value;
 
-    // Try dynamic pricing first
-    if (
-        pricing[tourId] &&
-        pricing[tourId][guests]
-    ) {
+    // ---------- Dynamic pricing ----------
+    if (pricing[tourId] && pricing[tourId][guests]) {
+
         const total = pricing[tourId][guests];
         currentTotal = total;
 
-        totalPriceEl.textContent =
-            `$${total.toLocaleString('es-CO')} COP`;
+        const regularPerPerson = pricing[tourId][1];
+
+        breakdown.style.display = "block";
+
+        baseValue.textContent =
+            `${regularPerPerson.toLocaleString("en-US")} pesos`;
+
+        if (guests === 1) {
+
+            document.getElementById("breakdown-total-row").style.display = "flex";
+perPersonSection.style.display = "none";
+            discountRow.style.display = "none";
+            perPersonSection.style.display = "none";
+
+            totalLabel.textContent = "Total";
+
+        } else {
+
+            document.getElementById("breakdown-total-row").style.display = "flex";
+perPersonSection.style.display = "block";
+
+            const newPerPerson =
+                Math.round(total / guests);
+
+            const savingsPerPerson =
+                regularPerPerson - newPerPerson;
+
+            discountRow.style.display = "flex";
+
+            perPersonSection.style.display = "block";
+
+            discountValue.textContent =
+                `− ${savingsPerPerson.toLocaleString("en-US")} pesos per person`;
+
+            perPersonValue.textContent =
+                `${newPerPerson.toLocaleString("en-US")} pesos`;
+
+            totalLabel.textContent =
+                `Total for ${guests} guests`;
+
+        }
+
+        totalValue.textContent =
+            `${total.toLocaleString("en-US")} pesos`;
 
         return;
     }
 
-    // Fallback to original pricing logic
-    const selectedOption = tourSelect.options[tourSelect.selectedIndex];
+    // ---------- Fallback ----------
+    const selectedOption =
+        tourSelect.options[tourSelect.selectedIndex];
 
     if (!selectedOption || !selectedOption.dataset.price) {
-        totalPriceEl.textContent = "$0 COP";
+
+        breakdown.style.display = "none";
         return;
+
     }
 
-    const pricePerPerson = parseInt(selectedOption.dataset.price, 10);
-    const total = guests * pricePerPerson;
+    const total =
+        guests * parseInt(selectedOption.dataset.price, 10);
+
     currentTotal = total;
 
-    totalPriceEl.textContent =
-        `$${total.toLocaleString('es-CO')} COP`;
+    breakdown.style.display = "none";
+
 }
 
         tourSelect.addEventListener("change", calculateTotal);
