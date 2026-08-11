@@ -441,7 +441,7 @@ const perPersonValue = document.getElementById("breakdown-per-person-value");
             tourSelect.value = tourQuery;
         }
         
-         fetch("https://script.google.com/macros/s/AKfycbz99eR5GUnp9OslA4WboWQOZsJm_oywU3xq7C1kF5X9ZKp3OOeoH1w2D3LvsR7CPCMD/exec")
+        fetch("/api/pricing")
     .then(response => response.json())
     .then(data => {
         pricing = data;

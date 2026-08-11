@@ -1,0 +1,57 @@
+---
+interface Item {
+    number: string;
+    title: string;
+    href: string;
+}
+
+interface Props {
+    kicker?: string;
+    title: string;
+    description?: string;
+    items: Item[];
+}
+
+const {
+    kicker = "YOUR ROADMAP TO CALI",
+    title,
+    description,
+    items
+} = Astro.props;
+---
+
+<section class="table-of-contents">
+
+    <div class="section-header">
+
+        <span class="section-kicker">
+            {kicker}
+        </span>
+
+        <h2>
+            {title}
+        </h2>
+
+        {description && <p>{description}</p>}
+
+    </div>
+
+    <nav class="toc-grid">
+
+        {
+            items.map(item => (
+
+                <a href={item.href}>
+
+                    <span>{item.number}</span>
+
+                    {item.title}
+
+                </a>
+
+            ))
+        }
+
+    </nav>
+
+</section>

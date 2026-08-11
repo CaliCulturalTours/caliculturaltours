@@ -1,0 +1,71 @@
+---
+import InfoCard from "./InfoCard.astro";
+
+interface Item {
+    icon: string;
+    label: string;
+    value: string;
+}
+
+interface Props {
+    title: string;
+    description?: string;
+    items: Item[];
+}
+
+const {
+    title,
+    description,
+    items
+} = Astro.props;
+---
+
+<section class="quick-facts">
+
+    <div class="section-header">
+
+        <span class="section-kicker">
+
+            QUICK FACTS
+
+        </span>
+
+        <h2>
+
+            {title}
+
+        </h2>
+
+        {
+
+            description &&
+
+            <p>{description}</p>
+
+        }
+
+    </div>
+
+    <div class="quick-facts__grid">
+
+        {
+
+            items.map(item => (
+
+                <InfoCard
+
+                    icon={item.icon}
+
+                    label={item.label}
+
+                    value={item.value}
+
+                />
+
+            ))
+
+        }
+
+    </div>
+
+</section>

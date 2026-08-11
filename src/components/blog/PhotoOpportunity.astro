@@ -1,0 +1,31 @@
+---
+interface Props{
+    title?:string;
+}
+
+const{
+    title="Photo Opportunity"
+}=Astro.props;
+---
+
+<div class="photo-opportunity">
+
+    <div class="photo-opportunity__icon">
+
+        📸
+
+    </div>
+
+    <div class="photo-opportunity__content">
+
+        <span class="photo-opportunity__label">
+
+            {title}
+
+        </span>
+
+        <slot />
+
+    </div>
+
+</div>

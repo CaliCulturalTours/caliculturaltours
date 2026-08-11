@@ -1,0 +1,31 @@
+---
+interface Props{
+    title?:string;
+}
+
+const{
+    title="Good to Know"
+}=Astro.props;
+---
+
+<div class="good-to-know">
+
+    <div class="good-to-know__icon">
+
+        💡
+
+    </div>
+
+    <div class="good-to-know__content">
+
+        <span class="good-to-know__label">
+
+            {title}
+
+        </span>
+
+        <slot />
+
+    </div>
+
+</div>

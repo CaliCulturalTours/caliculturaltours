@@ -1,0 +1,95 @@
+---
+interface Props {
+  image: string;
+  imageAlt: string;
+
+  kicker: string;
+
+  title: string;
+
+  description: string;
+
+  updated: string;
+
+  readTime: string;
+
+  author: string;
+}
+
+const {
+  image,
+  imageAlt,
+  kicker,
+  title,
+  description,
+  updated,
+  readTime,
+  author
+} = Astro.props;
+---
+
+<header class="blog-hero">
+
+    <img
+        class="blog-hero__image"
+        src={image}
+        alt={imageAlt}
+    />
+
+    <div class="blog-hero__overlay"></div>
+
+    <div class="blog-hero__inner container">
+
+        <div class="blog-hero__content">
+
+            <span class="blog-kicker">
+
+                {kicker}
+
+            </span>
+
+            <h1>
+
+                {title}
+
+            </h1>
+
+            <p>
+
+                {description}
+
+            </p>
+
+            <div class="blog-meta">
+
+                <span>
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    Updated {updated}
+
+                </span>
+
+                <span>
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    {readTime}
+
+                </span>
+
+                <span>
+
+                    <i class="fa-regular fa-user"></i>
+
+                    {author}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

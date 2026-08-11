@@ -1,0 +1,47 @@
+---
+interface Props {
+
+icon:string;
+
+label:string;
+
+value:string;
+
+}
+
+const {
+
+icon,
+
+label,
+
+value
+
+}=Astro.props;
+---
+
+<div class="info-card">
+
+    <div class="info-card__icon">
+
+        <i class={icon}></i>
+
+    </div>
+
+    <div>
+
+        <span class="info-card__label">
+
+            {label}
+
+        </span>
+
+        <strong class="info-card__value">
+
+            {value}
+
+        </strong>
+
+    </div>
+
+</div>
