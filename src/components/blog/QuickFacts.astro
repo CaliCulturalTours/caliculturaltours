@@ -25,23 +25,16 @@ const {
     <div class="section-header">
 
         <span class="section-kicker">
-
             QUICK FACTS
-
         </span>
 
         <h2>
-
             {title}
-
         </h2>
 
         {
-
             description &&
-
             <p>{description}</p>
-
         }
 
     </div>
@@ -49,21 +42,15 @@ const {
     <div class="quick-facts__grid">
 
         {
-
             items.map(item => (
 
                 <InfoCard
-
                     icon={item.icon}
-
                     label={item.label}
-
                     value={item.value}
-
                 />
 
             ))
-
         }
 
     </div>

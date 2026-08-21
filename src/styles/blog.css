@@ -3,8 +3,8 @@
 ========================================================== */
 
 .article-content{
-    max-width:820px;
-    margin:auto;
+    width:min(89vw,760px);
+    margin-inline:auto;
 }
 
 .article-lead{
@@ -970,58 +970,6 @@ QUICK FACTS
 }
 
 /* ==========================================================
-   SECTION HEADER
-========================================================== */
-
-.section-header{
-
-    max-width:760px;
-
-    margin:0 auto 60px;
-
-    text-align:center;
-
-}
-
-.section-kicker{
-
-    display:inline-block;
-
-    margin-bottom:18px;
-
-    color:var(--cct-primary);
-
-    text-transform:uppercase;
-
-    letter-spacing:.16em;
-
-    font-size:.82rem;
-
-    font-weight:800;
-
-}
-
-.section-header h2{
-
-    font-size:clamp(2rem,4vw,3.3rem);
-
-    margin-bottom:18px;
-
-}
-
-.section-header p{
-
-    color:#666;
-
-    font-size:1.15rem;
-
-    line-height:1.8;
-
-    margin:0;
-
-}
-
-/* ==========================================================
    TRAVEL QUOTE
 ========================================================== */
 
@@ -1249,7 +1197,7 @@ SECTION HEADER
 
     max-width:780px;
 
-    margin:0 auto 70px;
+    margin:0 auto 46px;
 
     text-align:center;
 
@@ -2272,5 +2220,375 @@ TABLE OF CONTENTS
     margin-right:20px;
 
     flex-shrink:0;
+
+}
+
+/*======================================================
+EXPERIENCE GRID
+======================================================*/
+
+.experience-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+gap:22px;
+
+margin-top:50px;
+
+}
+
+.experience-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:22px;
+
+aspect-ratio:4/5;
+
+display:block;
+
+color:white;
+
+text-decoration:none;
+
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+transition:.35s;
+
+}
+
+.experience-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.experience-card img{
+
+position:absolute;
+
+inset:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+transition:.4s;
+
+}
+
+.experience-card:hover img{
+
+transform:scale(1.06);
+
+}
+
+.experience-overlay{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-end;
+
+padding:28px;
+
+background:linear-gradient(
+
+180deg,
+
+rgba(0,0,0,0) 20%,
+
+rgba(0,0,0,.82) 100%
+
+);
+
+}
+
+.experience-icon{
+
+width:52px;
+
+height:52px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.18);
+
+backdrop-filter:blur(8px);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:1.25rem;
+
+margin-bottom:18px;
+
+}
+
+.experience-overlay h3{
+
+color:white;
+
+margin-bottom:10px;
+
+}
+
+.experience-overlay p{
+
+color:rgba(255,255,255,.9);
+
+font-size:.96rem;
+
+line-height:1.55;
+
+margin-bottom:0;
+
+}
+
+/*======================================================*
+ * EDITORIAL QUOTE
+ *======================================================*/
+
+.editorial-quote{
+
+    max-width:760px;
+
+    margin:64px auto;
+
+    padding:36px 0;
+
+    text-align:center;
+
+    border-top:1px solid #ececec;
+
+    border-bottom:1px solid #ececec;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:24px;
+
+}
+
+.editorial-quote p{
+
+    margin:0;
+
+    font-size:1rem;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:#777;
+
+}
+
+.editorial-quote h3{
+
+    margin:16px 0 0;
+
+    font-size:clamp(1.7rem,4vw,2.5rem);
+
+    line-height:1.25;
+
+    font-weight:700;
+
+    color:var(--cct-primary);
+
+}
+
+.editorial-quote__footer{
+
+    margin-top:24px;
+
+    font-size:1rem;
+
+    line-height:1.7;
+
+    color:#666;
+
+    max-width:620px;
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+}
+
+/*======================================================
+MOBILE OPTIMIZATIONS
+======================================================*/
+
+@media (max-width:768px){
+
+.section-header{
+
+    margin-bottom:30px;
+
+}
+
+.section-kicker{
+
+    margin-bottom:8px;
+
+}
+
+.section-header h2{
+
+    margin-bottom:10px;
+
+}
+
+.section-header p{
+
+    font-size:1.02rem;
+
+}
+
+.blog-hero,
+.blog-hero__inner{
+
+    min-height:58vh;
+
+}
+
+.blog-hero{
+
+    margin-bottom:48px;
+
+}
+
+.blog-hero__content{
+
+    padding-top:28px;
+
+    padding-bottom:48px;
+
+}
+
+.table-of-contents{
+
+    margin:48px auto;
+
+}
+
+.quick-facts{
+
+    margin:48px auto;
+
+}
+
+.quick-facts__grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.article-intro{
+
+    margin:0 auto 42px;
+
+}
+
+.article-content h2{
+    margin-top:0;
+}
+
+.toc-grid{
+
+        width:100%;
+
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
+        gap:10px;
+
+    }
+
+    .toc-grid a{
+
+        min-width:0;
+
+        padding:16px;
+
+        box-sizing:border-box;
+
+    }
+
+.toc-grid span{
+
+    width:36px;
+
+    height:36px;
+
+    font-size:.82rem;
+
+    margin-right:12px;
+
+}
+
+.info-card{
+    padding:18px 14px;
+    gap:12px;
+}
+
+.info-card__icon{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    font-size:1.15rem;
+}
+
+.info-card__label{
+    font-size:.72rem;
+}
+
+.info-card__value{
+    font-size:1rem;
+}
+
+.experience-grid{
+
+grid-template-columns:1fr;
+
+gap:18px;
+
+}
+
+.experience-card{
+
+    aspect-ratio:2/1;
+
+}
+
+.editorial-quote{
+
+    margin:48px auto;
+
+    padding:28px 12px;
+
+}
+
+.editorial-quote h3{
+
+    font-size:1.8rem;
+
+}
 
 }

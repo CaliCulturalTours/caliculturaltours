@@ -8,6 +8,7 @@ import QuickFacts from "../../components/blog/QuickFacts.astro";
 import SectionHeader from "../../components/blog/SectionHeader.astro";
 import LocalTip from "../../components/blog/LocalTip.astro";
 import TableOfContents from "../../components/blog/TableOfContents.astro";
+import ExperienceGrid from "../../components/blog/ExperienceGrid.astro";
 ---
 
 <BaseLayout>
@@ -28,6 +29,8 @@ import TableOfContents from "../../components/blog/TableOfContents.astro";
 
     author="Juan Camilo"
 />
+
+<main class="article-content">
 
 <div class="blog-content">
 
@@ -59,98 +62,97 @@ This guide was created by locals who spend every day showing visitors around the
 
 <TableOfContents
 
-    title="Everything We'll Cover"
+title="Everything We'll Cover"
 
-    description="From safety and transportation to salsa, restaurants, hidden gems and unforgettable day trips, here's everything you'll find in this complete guide to Cali."
+description="Everything you need to know before visiting Cali, from safety and salsa to food, coffee, transportation and unforgettable day trips."
 
-    items={[
+items={[
 
-        {
-            number:"01",
-            title:"Quick Facts",
-            href:"#quick-facts"
-        },
+    {
+        number:"01",
+        title:"Quick Facts",
+        href:"#quick-facts"
+    },
 
-        {
-            number:"02",
-            title:"Is Cali Safe?",
-            href:"#is-cali-safe"
-        },
+    {
+        number:"02",
+        title:"Is Cali Safe?",
+        href:"#is-cali-safe"
+    },
 
-        {
-            number:"03",
-            title:"Best Things to Do",
-            href:"#best-things-to-do"
-        },
+    {
+        number:"03",
+        title:"Salsa",
+        href:"#salsa"
+    },
 
-        {
-            number:"04",
-            title:"Salsa in Cali",
-            href:"#salsa"
-        },
+    {
+        number:"04",
+        title:"Nightlife",
+        href:"#nightlife"
+    },
 
-        {
-            number:"05",
-            title:"Nightlife",
-            href:"#nightlife"
-        },
+    {
+        number:"05",
+        title:"Nature",
+        href:"#nature"
+    },
 
-        {
-            number:"06",
-            title:"Best Restaurants",
-            href:"#restaurants"
-        },
+    {
+        number:"06",
+        title:"Food",
+        href:"#food"
+    },
 
-        {
-            number:"07",
-            title:"Best Coffee Shops",
-            href:"#coffee"
-        },
+    {
+        number:"07",
+        title:"Afro-culture",
+        href:"#afro-culture"
+    },
 
-        {
-            number:"08",
-            title:"Where to Stay",
-            href:"#where-to-stay"
-        },
+    {
+        number:"08",
+        title:"Where to Stay",
+        href:"#where-to-stay"
+    },
 
-        {
-            number:"09",
-            title:"Getting Around Cali",
-            href:"#transportation"
-        },
+    {
+        number:"09",
+        title:"Transport",
+        href:"#transport"
+    },
 
-        {
-            number:"10",
-            title:"Best Day Trips",
-            href:"#day-trips"
-        },
+    {
+        number:"10",
+        title:"How Long to Stay",
+        href:"#how-long"
+    },
 
-        {
-            number:"11",
-            title:"Weather & Best Time to Visit",
-            href:"#weather"
-        },
+    {
+        number:"11",
+        title:"Weather",
+        href:"#weather"
+    },
 
-        {
-            number:"12",
-            title:"Costs & Budget",
-            href:"#budget"
-        },
+    {
+        number:"12",
+        title:"Budget",
+        href:"#budget"
+    },
 
-        {
-            number:"13",
-            title:"Things You'll Thank Us For Later",
-            href:"#things-youll-thank-us-for-later"
-        },
+    {
+        number:"13",
+        title:"Before You Go",
+        href:"#before-you-go"
+    },
 
-        {
-            number:"14",
-            title:"Frequently Asked Questions",
-            href:"#faq"
-        }
+    {
+        number:"14",
+        title:"FAQ",
+        href:"#faq"
+    }
 
-    ]}
-
+]}
 />
 
 <QuickFacts
@@ -285,14 +287,6 @@ This guide was created by locals who spend every day showing visitors around the
 
     </p>
 
-    <span class="experience-bubble__author">
-
-        — Juan Camilo<br>
-
-        Founder, Cali Cultural Tours
-
-    </span>
-
 </div>
 
 <div class="experience-signature">
@@ -314,6 +308,1794 @@ This guide was created by locals who spend every day showing visitors around the
 
 </div>
 
+<div class="section-header" id="salsa">
+
+    <span class="section-kicker">
+        SALSA
+    </span>
+
+    <h2>
+        Why the World Calls Cali the Salsa Capital
+    </h2>
+
+</div>
+
+<p>
+    Contrary to what many visitors believe, salsa was not born in Cali. By the time the genre reached Colombia, it had already evolved through Cuban rhythms, Puerto Rican musicians, and the vibrant Latin communities of New York City.
+</p>
+
+<p>
+    What happened in Cali was something entirely different. The city didn't invent salsa: it made it its own. More importantly, it developed a completely unique way of dancing it, known today as <strong>salsa caleña</strong>.
+</p>
+
+<p>
+    Since salsa first arrived here, generations of caleños have continuously reinvented the dance, creating increasingly fast, creative and footwork-focused styles that you simply won't find anywhere else in the world. Watching a couple dance in Cali is very different from watching salsa in Cuba, Puerto Rico or New York.
+</p>
+
+<p>
+    Many local historians also point out that salsa found fertile ground in Cali during a period of profound social change. As thousands of people migrated to the city (especially Afro-Colombian communities from Colombia's Pacific region) the city's cultural identity evolved rapidly. Combined with Buenaventura, Colombia's main Pacific port and the gateway through which countless vinyl records entered the country, Cali developed an extraordinary connection with Afro-Caribbean music.
+</p>
+
+<div class="editorial-quote">
+
+```
+<p>
+    Cali didn't become the world's salsa capital because it produced the most famous salsa bands.
+</p>
+
+<h3>
+    It became the world's salsa capital because it reinvented the way the world dances salsa.
+</h3>
+
+<p class="editorial-quote__footer">
+    Generations of extraordinary dancers, passionate record collectors and music lovers transformed salsa into something that became part of everyday life.
+</p>
+```
+
+</div>
+
+
+<p> Today, salsa is far more than something you'll see on stage. It's woven into everyday life. You'll hear it in taxis, neighborhood stores, family gatherings, cafés and parks. And if you happen to visit during late December, you'll experience the <strong>Feria de Cali</strong>, the city's biggest celebration and one of the most important salsa festivals in the world. For an entire week, Cali becomes a giant dance floor where locals and visitors celebrate the music that has shaped the city's identity for generations. </p>
+
+<p> Beyond the dancers, Cali is also home to one of the world's most passionate communities of <strong>melómanos</strong>: music lovers and vinyl collectors who have spent decades preserving, studying and sharing salsa recordings from across Latin America and the Caribbean. Their passion has helped keep the genre alive, influencing generations of dancers and making recorded music an essential part of Cali's salsa culture. </p>
+
+<p> Whether you already dance or have never taken a single lesson, experiencing salsa in Cali is one of the best ways to understand the city itself. It isn't simply entertainment: it is one of the languages through which Cali expresses its history, diversity and personality. </p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Salsa Guide you'll discover:</h3>
+
+    <ul>
+        <li>The best salsa clubs for every level, from complete beginners to experienced dancers.</li>
+        <li>Where locals actually go dancing.</li>
+        <li>How to take your first salsa class in Cali.</li>
+        <li>Whether Delirio is worth it (and what to expect).</li>
+        <li>Our personal recommendations for an unforgettable salsa night.</li>
+    </ul>
+
+    <a href="/guides/salsa-in-cali" class="guide-button">
+        Read our Complete Salsa Guide →
+    </a>
+
+</div>
+
+<div class="section-header" id="nightlife">
+
+    <span class="section-kicker">
+        NIGHTLIFE
+    </span>
+
+    <h2>
+        Nightlife in Cali
+    </h2>
+
+</div>
+
+<p>
+    Cali may not have Colombia's biggest nightlife scene, but it is undoubtedly one of the country's most authentic. Unlike destinations where nightlife revolves mainly around tourists, people in Cali go out because they genuinely love to. Weekends are a fundamental part of the city's social life, and from Thursday evening onwards you'll notice restaurants, bars, salsa venues and public spaces filling with people ready to celebrate.
+</p>
+
+<p>
+    Much of this culture comes from salsa. For generations, music and dancing have been part of everyday life, making nightlife feel less like an activity for visitors and more like a natural extension of the city's personality. Another reason is the region itself. For dozens of kilometers surrounding Cali, the landscape is dominated by sugar cane plantations, making Valle del Cauca one of Colombia's traditional producers of sugar cane spirits, especially <strong>aguardiente</strong> and <strong>rum</strong>. Sharing a bottle with friends remains a common part of a night out.
+</p>
+
+<p>
+    Visitors are often surprised by how approachable locals can be. Caleños are generally warm, curious and genuinely interested in meeting people from other countries. Don't be surprised if someone asks where you're from or invites you to dance salsa. More often than not, they're simply being friendly.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        Cali doesn't party for tourists.
+    </p>
+
+    <h3>
+        Tourists are simply invited to join the party.
+    </h3>
+
+</div>
+
+<p>
+    Like any large city, common-sense precautions still apply. Keep an eye on your belongings, avoid accepting drinks from strangers, and use trusted transportation late at night. Overall, Cali has a relaxed nightlife atmosphere, and many visitors are pleasantly surprised by how comfortable they feel exploring the city after dark.
+</p>
+
+<p>
+    Broadly speaking, you'll find two different nightlife experiences. One is spontaneous and very local: open-air venues, lively streets, salsa bars and neighborhoods where people naturally move from one place to another. The other is a more upscale scene, with elegant clubs, rooftop bars and stylish venues where people dress up and enjoy a more sophisticated atmosphere.
+</p>
+
+<p>
+    Some areas are naturally more popular with international visitors, while others remain almost entirely local. Both offer fantastic experiences for different reasons, and choosing where to go depends on the kind of night you're looking for.
+</p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Nightlife Guide you'll discover:</h3>
+
+    <ul>
+
+        <li>The best neighborhoods for nightlife.</li>
+
+        <li>Where locals actually go out.</li>
+
+        <li>The city's best salsa clubs.</li>
+
+        <li>Cocktail bars, rooftops and upscale venues.</li>
+
+        <li>The LGBTQ+ nightlife scene.</li>
+
+        <li>How to stay safe while enjoying a night out.</li>
+
+        <li>Typical closing times and local etiquette.</li>
+
+        <li>Our personal recommendations after years of showing visitors around Cali.</li>
+
+    </ul>
+
+    <a href="/guides/nightlife-in-cali" class="guide-button">
+
+        Read the Complete Nightlife Guide →
+
+    </a>
+
+</div>
+
+<div class="section-header" id="nature">
+
+    <span class="section-kicker">
+        NATURE
+    </span>
+
+    <h2>
+        Nature in Cali
+    </h2>
+
+</div>
+
+<p>
+    One of the biggest surprises for first-time visitors is how naturally Cali blends into its surroundings. While many cities treat nature as something you have to drive hours to reach, in Cali it simply becomes part of everyday life. The city sits between the Andes Mountains and Colombia's Pacific region, one of the most biodiverse places on Earth, making wildlife and green landscapes an ordinary part of life for locals.
+</p>
+
+<p>
+    Every afternoon, usually around 4 p.m., flocks of parrots and macaws fly across the city, filling the air with their unmistakable calls. Wherever there are tall palm trees, chances are you'll hear them. Colombia is home to more species of palm trees than any other country in the world, and Cali benefits from that extraordinary natural richness.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        In Cali, nature isn't somewhere you go.
+    </p>
+
+    <h3>
+        It's simply part of everyday life.
+    </h3>
+
+</div>
+
+<p>
+    The Cali River flows directly through the city and is considered one of Colombia's cleanest urban rivers. It is even home to a small population of wild river otters, something few visitors expect to find in the middle of a city of more than two million people.
+</p>
+
+<p>
+    Birdwatchers from around the world travel to Colombia, and Cali has quietly become one of the country's best gateways into that world. Less than an hour from downtown, the cloud forests of the Farallones de Cali National Park are home to extraordinary species, including the Multicolored Tanager, an endemic bird found only in this part of Colombia. The region is also famous for its hummingbirds. In fact, few places on Earth offer such an impressive diversity of hummingbird species within such a short distance from a major city.
+</p>
+
+<p>
+    For locals, these mountains are more than a birdwatching destination. They're where people escape the tropical heat. After just a 45 minute drive, temperatures drop dramatically, the air becomes cooler, and traditional countryside lodges and glampings offer one of the most peaceful experiences near the city.
+</p>
+
+<p>
+    Back in the city, the Cali Zoo is widely regarded as one of the finest zoological parks in Latin America. Beautifully integrated into the surrounding landscape, it combines excellent conservation work with one of Colombia's most diverse collections of native wildlife.
+</p>
+
+<p>
+    No guide to nature around Cali would be complete without mentioning Pance. Every weekend, thousands of locals head to its crystal clear mountain river to cool off, relax with family and friends, or, as many jokingly admit, recover from a Saturday night filled with salsa and aguardiente. The water is so clean that many people still drink directly from the streams flowing down from the mountains.
+</p>
+
+<p>
+    And if you have an extra day, San Cipriano is one of the most unforgettable destinations in the region. Surrounded by dense tropical rainforest, this small village showcases why Colombia is considered one of the world's biodiversity hotspots. Exotic birds such as the spectacular Oropendola are commonly seen around the village, while rivers, jungle trails and the famous motorbike powered 'brujitas' rail carts create an experience unlike anywhere.
+</p>
+
+<p>
+    Whether you're interested in birdwatching, waterfalls, hiking, cloud forests, mountain rivers or simply escaping the city for a few hours, Cali offers a side of Colombia that many travelers never expect to find.
+</p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Nature Guide you'll discover:</h3>
+
+    <ul>
+
+        <li>The best waterfalls near Cali.</li>
+
+        <li>Where to see hummingbirds and endemic birds.</li>
+
+        <li>The most beautiful hiking routes in the Farallones.</li>
+
+        <li>Everything you need to know about Pance.</li>
+
+        <li>How to visit San Cipriano.</li>
+
+        <li>The best nature tours around Cali.</li>
+
+        <li>When to go and what to bring.</li>
+
+    </ul>
+
+    <a href="/guides/nature-in-cali" class="guide-button">
+
+        Read the Complete Nature Guide →
+
+    </a>
+
+</div>
+
+<div class="section-header" id="food">
+
+    <span class="section-kicker">
+        FOOD
+    </span>
+
+    <h2>
+        Food in Cali
+    </h2>
+
+</div>
+
+<p>
+    Many Colombians will tell you that Valle del Cauca has one of the country's finest cuisines. Whether that's objectively true is impossible to say, but what is undeniable is that Cali's food tells the story of the people who built this city.
+</p>
+
+<p>
+    Humans are naturally social. Wherever cultures meet, ideas are exchanged, traditions evolve, and new flavors emerge. Cali is one of Colombia's most diverse cities, shaped by centuries of migration and known today as the capital of southwestern Colombia. Its gastronomy reflects that extraordinary cultural blend.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        Cali's cuisine isn't defined by a single tradition.
+    </p>
+
+    <h3>
+        It's the result of centuries of cultures sharing the same table.
+    </h3>
+
+</div>
+
+<p>
+    Spanish and European influence can still be found in the region's traditional desserts, many of them made from sugar cane grown throughout the valley. Delicacies such as <strong>manjar blanco</strong>, <strong>dulce cortado</strong> and <strong>desamargado</strong> remain an essential part of local celebrations and family gatherings.
+</p>
+
+<p>
+    From Colombia's Pacific coast comes a strong Afro-Colombian influence, particularly visible in seafood. Fresh ceviches, rich fish stews and dishes like <strong>arroz atollado</strong> can be enjoyed everywhere from traditional markets such as Alameda to some of the city's finest restaurants.
+</p>
+
+<p>
+    Indigenous heritage is equally present through the incredible diversity of tropical fruits found in the region. Chirimoya, naidí, local blueberries, cacao and dozens of other native fruits appear in juices, desserts and refreshing drinks. Two local favorites are the famous <strong>cholado</strong>, a colorful dessert made with shaved ice, fruit and syrups, and the equally iconic <strong>lulada</strong>, a refreshing drink prepared with fresh lulo, ice and sugar.
+</p>
+
+<p>
+    No visit to Cali would be complete without experiencing its beloved <strong>fritanga</strong>. Empanadas, marranitas, papa rellena and aborrajados are part of everyday life, whether enjoyed as a quick breakfast, an afternoon snack or after a night of salsa dancing. Add the enormous bread culture, excellent rotisserie chicken restaurants and the legendary <strong>chuleta valluna</strong>, and you'll quickly understand why locals take such pride in their food.
+</p>
+
+<p>
+    Perhaps one of Cali's greatest culinary strengths is its accessibility. Whether you're buying an empanada from a neighborhood bakery or enjoying a tasting menu in San Antonio, Ciudad Jardín, El Peñón, Parque del Perro or Granada, you'll find remarkable quality at prices that are often a fraction of what you'd expect in many other Colombian cities.
+</p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Food Guide you'll discover:</h3>
+
+    <ul>
+
+        <li>The dishes every visitor should try.</li>
+
+        <li>The best local restaurants.</li>
+
+        <li>Where locals actually eat.</li>
+
+        <li>The city's best street food.</li>
+
+        <li>Traditional desserts and bakeries.</li>
+
+        <li>Markets worth visiting.</li>
+
+        <li>Vegetarian and fine dining recommendations.</li>
+
+    </ul>
+
+    <a href="/guides/food-in-cali" class="guide-button">
+
+        Read the Complete Food Guide →
+
+    </a>
+
+</div>
+
+<div class="section-header" id="afro-culture">
+
+    <span class="section-kicker">
+        AFRO CULTURE
+    </span>
+
+    <h2>
+        Afro-Colombian Culture
+    </h2>
+
+</div>
+
+<p>
+    It is impossible to understand Cali without understanding its Afro-Colombian heritage. The city is home to one of the largest Afro-descendant populations in the Americas and the largest in Colombia, making Black culture not a niche or minority expression, but one of the foundations of everyday life.
+</p>
+
+<p>
+    Roughly one out of every three people in Cali identifies as Afro-Colombian. For many visitors from the African diaspora, especially from North America and the Caribbean, this creates an immediate sense of familiarity. It is common to hear visitors say that Cali is one of the few places where they feel they can blend in rather than stand out.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        To understand Cali...
+    </p>
+
+    <h3>
+        ...you first have to understand its Afro-Colombian soul.
+    </h3>
+
+</div>
+
+<p>
+    Diversity is simply part of everyday life here. Music, language, dance, cuisine and even humor have all been profoundly shaped by Afro-Colombian communities, particularly those whose families migrated from Colombia's Pacific Coast throughout the twentieth century.
+</p>
+
+<p>
+    Locals often repeat a famous phrase borrowed from a classic salsa song: <em>"Sin negro no hay guaguancó."</em> Literally, it means "Without Black people there is no guaguancó," but culturally it expresses something much deeper: without Afro-descendant communities, there would be no party, no rhythm and no Cali as we know it today.
+</p>
+
+<p>
+    Unlike many European cities, where Black communities are largely the result of recent migration, Cali's Afro-descendant population traces its roots back centuries to the colonial period and the transatlantic slave trade. Much of their original African heritage was intentionally suppressed during colonization, yet countless traditions survived and evolved. They remain visible today in music, dance, food, language, spirituality and countless everyday customs.
+</p>
+
+<p>
+    Their influence extends throughout the city, but becomes especially visible in eastern Cali, where many neighborhoods have predominantly Afro-Colombian populations and where cultural traditions continue to thrive through music, family life and community celebrations.
+</p>
+
+<p>
+    Whether you're dancing salsa, listening to Pacific music, enjoying traditional seafood or simply walking through the city, you're experiencing a culture that has been profoundly shaped by generations of Afro-Colombians whose contributions continue to define Cali's identity.
+</p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Afro-Colombian Culture Guide you'll discover:</h3>
+
+    <ul>
+
+        <li>The history of Afro-Colombians in Cali.</li>
+
+        <li>How the Pacific shaped the city's identity.</li>
+
+        <li>The connection between salsa and Afro-Colombian culture.</li>
+
+        <li>Traditional music and dances beyond salsa.</li>
+
+        <li>Where to experience authentic Pacific culture.</li>
+
+        <li>The Petronio Álvarez Festival.</li>
+
+        <li>Museums, neighborhoods and cultural experiences.</li>
+
+    </ul>
+
+    <a href="/guides/afro-colombian-culture-cali" class="guide-button">
+
+        Read the Complete Afro-Colombian Culture Guide →
+
+    </a>
+
+</div>
+
+<div class="section-header" id="where-to-stay">
+
+    <span class="section-kicker">
+        WHERE TO STAY
+    </span>
+
+    <h2>
+        Where to Stay in Cali
+    </h2>
+
+</div>
+
+<p>
+    Choosing where to stay in Cali is probably one of the most important decisions you'll make before your trip. The city has more than two million inhabitants, and the overwhelming majority of its neighborhoods are residential, where everyday local life unfolds far away from the tourist areas.
+</p>
+
+<p>
+    That creates two very different experiences. You can stay in Cali's traditional visitor neighborhoods, where restaurants, museums, nightlife and historic landmarks are often within walking distance. Or you can choose a more residential area, offering a much more authentic local experience, usually at a lower price, but requiring Uber rides to reach most attractions.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        The best neighborhood doesn't exist.
+    </p>
+
+    <h3>
+        The best neighborhood depends entirely on the kind of trip you want to have.
+    </h3>
+
+</div>
+
+<h3>Historic Cali</h3>
+
+<p>
+    For most first-time visitors, this is where we'd recommend staying. San Antonio, El Peñón and Granada form the traditional tourist heart of the city, combining history, restaurants, nightlife, boutique hotels and easy access to many of Cali's main attractions.
+</p>
+
+<p>
+    <strong>San Antonio</strong> is perhaps Cali's most iconic neighborhood. Colonial houses, quiet streets, cafés and panoramic viewpoints create one of the city's most charming atmospheres. Around half of Cali's backpacker hostels are located here, alongside beautiful Airbnbs and boutique hotels such as Casa Níspero and Hotel Terraza San Antonio.
+</p>
+
+<p>
+    <strong>El Peñón</strong>, immediately next to San Antonio, feels slightly more modern. Here you'll find international restaurants, cocktail bars, upscale accommodation and some of Cali's best hotels, including the InterContinental Cali, Hotel Dann Carlton, Hotel El Peñón by Bit Hotels, Hype States, Villa del Peñón Suites and Hotel Obelisco.
+</p>
+
+<p>
+    <strong>Granada</strong> is another favorite, particularly among European visitors. Flat, walkable and filled with restaurants, cafés, boutique hotels and nightlife, it also hosts international chains such as the Marriott and Ibis, together with excellent independent hotels like Hotel Now and Hotel Leclerc.
+</p>
+
+<p><strong>Best for:</strong> First-time visitors • Walkability • Restaurants • Salsa • Nightlife</p>
+
+<hr>
+
+<h3>Medical & Luxury Cali</h3>
+
+<p>
+    Ciudad Jardín has become the preferred area for many international visitors travelling to Cali for dental treatments or medical tourism. It is home to numerous private clinics, luxury restaurants, shopping malls and elegant residential developments.
+</p>
+
+<p>
+    Unlike Historic Cali, however, Ciudad Jardín is built around the car. Distances are much greater, making Uber almost essential for sightseeing. On the other hand, it offers quick access to Pance, the Farallones mountains, prestigious universities and many event venues.
+</p>
+
+<p>
+    The area is also known for its large former haciendas and mansions, some of which have been transformed into luxury hotels and wellness facilities. One of its landmark hotels is the NH Cali Royal.
+</p>
+
+<p><strong>Best for:</strong> Medical tourism • Luxury • Families • Longer stays</p>
+
+<hr>
+
+<h3>Local Favorites</h3>
+
+<p>
+    If you've already visited Cali once—or simply want to experience the city like a local—neighborhoods such as San Fernando, Santa Teresita, Parque del Perro, Versalles and Centenario offer an excellent balance between local life and proximity to the city's attractions.
+</p>
+
+<p>
+    These neighborhoods feel less touristy while remaining conveniently located. You'll find charming boutique hotels, excellent restaurants, parks and cafés without the crowds of San Antonio or Granada.
+</p>
+
+<p>
+    Versalles is home to the Sonesta Hotel, while Centenario offers excellent options such as NH Boulevard del Río, Hotel Stein Colonial and Hotel Torre de Cali. Nearby Chipichape Shopping Mall also hosts two of Cali's largest hotels: the Spiwak and Spirito.
+</p>
+
+<p>
+    Tequendama deserves a special mention thanks to its proximity to the Coliseo del Pueblo, the Petronio Álvarez Festival, the World Salsa Festival, Cali Fair and Mall Plaza.
+</p>
+
+<p><strong>Best for:</strong> Returning visitors • Digital nomads • Local atmosphere</p>
+
+<hr>
+
+<h3>Residential Cali</h3>
+
+<p>
+    Many neighborhoods across northern, central and southern Cali offer a wonderfully authentic experience for visitors staying several weeks or even months. Areas such as La Flora, Prados del Norte, Alameda, Colseguros, El Ingenio, El Refugio and Cuarto de Legua provide excellent value and allow you to experience daily life far from the traditional tourist circuit.
+</p>
+
+<p>
+    Accommodation is often more affordable, although you'll likely spend more on Uber rides as most attractions are not within walking distance.
+</p>
+
+<p><strong>Best for:</strong> Long stays • Living like a local • Budget-conscious travelers</p>
+
+<hr>
+
+<h3>Areas We Don't Recommend for First-Time Visitors</h3>
+
+<p>
+    Like any large city, some neighborhoods are simply better suited for visitors than others. Unless you're staying with friends or family who know the area well, we generally recommend avoiding accommodation in Downtown, Siloé and much of eastern Cali. These areas can certainly be visited with local guidance, but they are not the most practical or comfortable places to base yourself during your first trip.
+</p>
+
+<div class="guide-preview">
+
+    <h3>In our complete Where to Stay Guide you'll discover:</h3>
+
+    <ul>
+
+        <li>A detailed guide to every neighborhood.</li>
+
+        <li>The safest areas for visitors.</li>
+
+        <li>Hotels for every budget.</li>
+
+        <li>Best Airbnbs by neighborhood.</li>
+
+        <li>Luxury vs backpacker accommodation.</li>
+
+        <li>Medical tourism recommendations.</li>
+
+        <li>Interactive maps and local tips.</li>
+
+    </ul>
+
+    <a href="/guides/where-to-stay-in-cali" class="guide-button">
+
+        Read the Complete Where to Stay Guide →
+
+    </a>
+
+</div>
+
+<div class="section-header" id="transportation">
+
+```
+<span class="section-kicker">
+    TRANSPORTATION
+</span>
+
+<h2>
+    How to Get Around Cali
+</h2>
+```
+
+</div>
+
+<p>
+    Cali is a large city, and like most major cities around the world, there are several ways to get around. You can use private cars, public transportation, taxis, ride-hailing apps such as Uber, DiDi, inDrive, Yango and Cabify, or simply walk.
+</p>
+
+<p>
+    The good news is that getting around Cali is usually much easier than first-time visitors expect. The important thing is understanding which option makes sense for your particular trip.
+</p>
+
+<p>
+    There is no metro or passenger train in Cali. Public transportation is primarily based on buses, while ride-hailing apps and taxis are generally the most convenient options for visitors.
+</p>
+
+<h3>
+    Uber and Ride-Hailing Apps
+</h3>
+
+<p>
+    Uber works relatively normally in Cali, with one important detail: its legal situation in Colombia is complicated.
+</p>
+
+<p>
+    The issue is not that using the Uber app as a passenger is simply "illegal." The problem is the legal status of the vehicle providing the ride. Colombian law distinguishes between private transportation and public transportation, and public passenger transportation must be provided by properly authorized operators using vehicles registered for that service. The National Transportation Statute establishes that authorized public transportation companies must operate with vehicles registered for public service.
+</p>
+
+<p>
+    This is why the typical Uber vehicle in Colombia operates in a legal grey area: it is generally a privately registered vehicle being used to provide a service that resembles public passenger transportation.
+</p>
+
+<p>
+    In practical terms, however, millions of rides take place through these platforms, and Uber is an extremely common way for visitors to move around Cali.
+</p>
+
+<p>
+    One unusual local custom is worth knowing about.
+</p>
+
+<p>
+    If you order an Uber, your driver may ask you to sit in the front passenger seat.
+</p>
+
+<p>
+    This is not because Colombian drivers have suddenly decided that everyone should ride shotgun. It is partly a practical response to the legal situation surrounding private vehicles being used for app based transportation. A driver stopped by traffic authorities can potentially face serious consequences, including vehicle immobilization, when the authorities determine that a private vehicle is being used improperly for public passenger transportation.
+</p>
+
+<p>
+    For that reason, many drivers prefer passengers to sit in the front.
+</p>
+
+<p>
+    If your driver asks you to move to the front, don't take it personally. They're trying to reduce their own risk.
+</p>
+
+<p>
+    Uber is probably the ride-hailing app most familiar to international visitors, particularly because it offers convenient electronic payment and has a strong reputation among travelers. But it is far from the only option.
+</p>
+
+<p>
+    DiDi is widely used in Colombia and accepts Visa, Mastercard and American Express credit or debit cards, as well as cash in applicable cities.
+</p>
+
+<p>
+    inDrive is particularly popular because passengers can propose a fare and drivers can accept it or make another offer.
+</p>
+
+<p>
+    Yango and Cabify are also available options, with Cabify currently operating in Cali.
+</p>
+
+<p>
+    There is no single app that is always the fastest or cheapest. Availability depends heavily on the time, location and demand.
+</p>
+
+<p>
+    And this is something international visitors often underestimate: getting a car can take longer than you are used to.
+</p>
+
+<p>
+    If you have a tour, appointment, restaurant reservation or flight connection, don't request your ride at the last possible minute. Give yourself some extra time for the driver to accept the trip and reach you.
+</p>
+
+<div class="editorial-quote">
+
+```
+<p>
+    <strong>My local rule after years of guiding:</strong>
+</p>
+
+<h3>
+    If you have somewhere important to be, don't budget only for the drive. Budget time to find the car, too.
+</h3>
+```
+
+</div>
+
+<h3>
+    A Special Note for Visitors Staying in Ciudad Jardín or Pance
+</h3>
+
+<p>
+    Ciudad Jardín and Pance are beautiful and comfortable areas, and they make a lot of sense for some visitors, particularly people coming to Cali for dental or medical treatments, longer stays or a closer connection to nature.
+</p>
+
+<p>
+    But there is one thing many international visitors don't realize until it's too late: <strong>Ciudad Jardín and Pance are considerably farther from the traditional tourist areas than San Antonio, El Peñón or Granada.</strong>
+</p>
+
+<p>
+    Cali is not an enormous city by international standards, and without heavy traffic you can cross much of it in around an hour. But "I can cross the city in an hour" is very different from "I'm five minutes from the center."
+</p>
+
+<p>
+    After years of guiding tours, I've lost count of how many visitors staying in Ciudad Jardín or Pance arrived late because they assumed the Bulevar del Río was just around the corner.
+</p>
+
+<div class="editorial-quote">
+
+```
+<p>
+    <strong>A local tip from Juan Camilo:</strong>
+</p>
+
+<h3>
+    If you're staying in Ciudad Jardín or Pance, check the actual travel time to your activities before assuming everything is nearby.
+</h3>
+```
+
+</div>
+
+<h3>
+    What Are Cars Like in Cali?
+</h3>
+
+<p>
+    This deserves its own explanation, especially for visitors from the United States and Canada.
+</p>
+
+<p>
+    Cars in Colombia tend to be smaller and lighter than what many North American visitors are accustomed to. Manual transmissions are still common, and you may encounter vehicles with simpler interiors, less sound insulation and fewer of the large, heavy features common in American cars.
+</p>
+
+<p>
+    And there is one tiny cultural detail that deserves a warning all by itself:
+</p>
+
+<div class="editorial-quote">
+
+```
+<p>
+    <strong>Americans: please don't slam the car door.</strong>
+</p>
+
+<h3>
+    Seriously.
+</h3>
+
+<p>
+    It isn't your fault. It's muscle memory. American cars have heavy doors that require a certain amount of force to close. Many Colombian cars have lighter doors that need much less.
+</p>
+
+<p>
+    You will probably slam the door automatically at least once. Just remember this guide when you do.
+</p>
+```
+
+</div>
+
+<h3>
+    Taxis
+</h3>
+
+<p>
+    Taxis are everywhere in Cali and remain a perfectly normal way to get around the city.
+</p>
+
+<p>
+    Depending on who you ask, taxis are either the best or worst transportation option in Cali. Their reputation comes partly from the past, when older vehicles and inconsistent service were more common.
+</p>
+
+<p>
+    Today, the situation is more nuanced. You can find modern, comfortable taxis, as well as older vehicles, just as you can find both excellent and less impressive cars on ride-hailing platforms.
+</p>
+
+<p>
+    The main difference for visitors is price transparency.
+</p>
+
+<p>
+    Taxis use a taximeter, but the final amount can be affected by legally established surcharges, and fares can be less predictable at night, at taxi stands or when additional charges apply.
+</p>
+
+<p>
+    You can hail a taxi directly from the street, and locals do it every day. However, visitors are generally more exposed to overcharging or fare misunderstandings than when using an app that displays the trip and payment information digitally.
+</p>
+
+<p>
+    For most international visitors, we'd therefore recommend an app for convenience and transparency, while taxis remain a perfectly legitimate option when you need one immediately.
+</p>
+
+<h3>
+    Walking Around Cali
+</h3>
+
+<p>
+    Cali is surprisingly walkable if you choose the right neighborhood.
+</p>
+
+<p>
+    If you're staying in San Antonio, El Peñón or Granada, many restaurants, bars, parks, historic sites and attractions are within walking distance.
+</p>
+
+<p>
+    This is one of the biggest advantages of staying in the traditional tourist areas.
+</p>
+
+<p>
+    If you're staying farther south, particularly in Ciudad Jardín or Pance, the experience is very different. These areas are more car oriented, distances are greater and walking between attractions is generally less practical.
+</p>
+
+<p>
+    So when choosing where to stay in Cali, transportation and walkability should be part of the decision.
+</p>
+
+<h3>
+    The MIO: Cali's Public Transportation System
+</h3>
+
+<p>
+    The MIO is Cali's integrated public transportation system and the main public bus network in the city.
+</p>
+
+<p>
+    To use the system, you'll need a rechargeable MIO card, which allows you to enter stations and board buses at designated stops throughout the city.
+</p>
+
+<p>
+    The network provides extensive coverage, and you can reach a remarkable number of places using the MIO.
+</p>
+
+<p>
+    The easiest way for visitors to understand the system is actually Google Maps. Enter your destination, select the public transportation option and Google Maps will show available MIO routes, stops and transfers. You don't need to understand the entire system before using it.
+</p>
+
+<p>
+    The problem is time.
+</p>
+
+<p>
+    A journey that takes 20 minutes in an Uber can easily take an hour or more on the MIO, depending on transfers, waiting times and traffic.
+</p>
+
+<p>
+    If you want to experience Cali's public transportation system as a local, absolutely go for it. It's an interesting part of everyday city life.
+</p>
+
+<p>
+    But if you're visiting for only a few days and value your time and convenience, ride-hailing will usually make much more sense.
+</p>
+
+<div class="editorial-quote">
+
+```
+<p>
+    <strong>One unexpected advantage for visitors:</strong>
+</p>
+
+<h3>
+    Because rides are relatively affordable for international travelers, you don't need to spend as much time navigating public transportation or waiting on the street for a bus.
+</h3>
+
+<p>
+    Less time waiting around also means fewer situations where you are unnecessarily exposed to the street environment.
+</p>
+```
+
+</div>
+
+<h3>
+    Getting From Cali Airport to the City
+</h3>
+
+<p>
+    Cali's international airport, Alfonso Bonilla Aragón International Airport, is actually located outside Cali, near Palmira.
+</p>
+
+<p>
+    There is no airport train or metro connection.
+</p>
+
+<p>
+    The cheapest public option is usually one of the small buses or vans operating outside the <strong>national arrivals area</strong>. You'll find them around the national arrivals exit, not in the international arrivals area. These vehicles can take passengers toward Cali's main bus terminal and other parts of the metropolitan area for considerably less than a private ride.
+</p>
+
+<p>
+    For most visitors with luggage, however, a taxi or ride-hailing service will be much more convenient.
+</p>
+
+<p>
+    Uber pickups from the airport are possible, although the exact pickup procedure can depend on the current airport arrangements and your driver. Some drivers also choose to wait at the airport after dropping someone off in the hope of finding a return trip to Cali.
+</p>
+
+<p>
+    Official yellow taxis are also readily available, and larger white vehicles may be available for passengers looking for additional space and comfort.
+</p>
+
+<p>
+    Don't be surprised if an airport taxi costs significantly more than a normal trip across Cali. Airport transportation carries additional costs and surcharges, so it can feel expensive compared with ordinary city rides.
+</p>
+
+<h3>
+    Renting a Car in Cali
+</h3>
+
+<p>
+    Yes, you can rent a car in Cali.
+</p>
+
+<p>
+    International rental companies operate in the city, and renting a vehicle can be considerably cheaper than in many parts of the world.
+</p>
+
+<p>
+    But whether you should is another question.
+</p>
+
+<p>
+    Cali's traffic can be challenging, and Colombian driving culture may feel very different from what you're accustomed to in Europe, the United States or Canada.
+</p>
+
+<p>
+    Traffic is less predictable, motorcycles are common, lane discipline can feel more flexible and the general rhythm of driving takes some getting used to.
+</p>
+
+<p>
+    If you've never driven in Colombia before, you may find that the freedom of having a rental car is outweighed by the stress of actually driving it.
+</p>
+
+<p>
+    And there is another factor: ride-hailing is relatively inexpensive for many international visitors.
+</p>
+
+<p>
+    When an Uber can take you across the city without worrying about parking, traffic, navigation or an unfamiliar driving culture, renting a car can sometimes create more problems than it solves.
+</p>
+
+<p>
+    For longer stays, trips outside the city or travelers who are already comfortable driving in Latin America, a rental car can still make perfect sense.
+</p>
+
+<h3>
+    So What's the Best Way to Get Around Cali?
+</h3>
+
+<p>
+    For most visitors, there isn't one single answer.
+</p>
+
+<p>
+    <strong>Walking</strong> is excellent when you're staying in the traditional tourist neighborhoods.
+</p>
+
+<p>
+    <strong>Uber and other ride-hailing apps</strong> are usually the most convenient option for moving between neighborhoods.
+</p>
+
+<p>
+    <strong>Taxis</strong> are widely available and perfectly usable, particularly when you need one immediately.
+</p>
+
+<p>
+    <strong>The MIO</strong> is inexpensive and extensive, but considerably slower.
+</p>
+
+<p>
+    <strong>Renting a car</strong> gives you freedom, but comes with the responsibility of dealing with Cali's traffic and driving culture.
+</p>
+
+<p>
+    For a short visit, most travelers will probably end up using a combination of walking and ride-hailing apps. And honestly, that's probably the combination we'd recommend too.
+</p>
+
+<div class="guide-preview">
+
+```
+<h3>
+    In our complete Transportation Guide you'll discover:
+</h3>
+
+<ul>
+
+    <li>How to use Uber, DiDi and other ride-hailing apps.</li>
+
+    <li>How the MIO works and how to plan routes.</li>
+
+    <li>Airport transportation options and prices.</li>
+
+    <li>When to walk and when to take a car.</li>
+
+    <li>Taxi tips for international visitors.</li>
+
+    <li>Whether renting a car makes sense for your trip.</li>
+
+    <li>Local transportation tips we use every day.</li>
+
+</ul>
+
+<a href="/guides/getting-around-cali" class="guide-button">
+    Read the Complete Transportation Guide →
+</a>
+```
+
+</div>
+
+<section id="how-many-days">
+
+```
+<div class="section-header">
+
+    <span class="section-kicker">
+        HOW MANY DAYS?
+    </span>
+
+    <h2>
+        How Many Days Should You Spend in Cali?
+    </h2>
+
+</div>
+
+<p>
+    The ideal amount of time depends on the kind of traveler you are. You can get a taste of Cali in a single day, but <strong>three to five days is what we generally recommend for a first visit</strong>.
+</p>
+
+<p>
+    That's enough time to experience the things that make Cali special: salsa, nature, food, nightlife and local culture, without spending your entire trip rushing from one attraction to another.
+</p>
+
+<p>
+    And this matters more in Cali than it might in other destinations. Cali is not really a city you "complete" by checking off a list of attractions. Some of the best experiences happen when you have enough time to slow down, explore a neighborhood, meet people, eat somewhere unexpected or simply follow the music.
+</p>
+
+<h3>
+    One Day in Cali
+</h3>
+
+<p>
+    One day is enough for a first taste, but you'll have to prioritize.
+</p>
+
+<p>
+    You can combine a little nature, traditional food, a glimpse into Cali's salsa history, a panoramic view of the city and an evening experiencing the local nightlife.
+</p>
+
+<p>
+    It's a good option if Cali is a stopover or a short addition to a larger Colombia itinerary. Just don't expect to see everything.
+</p>
+
+<h3>
+    Two Days in Cali
+</h3>
+
+<p>
+    Two days gives you considerably more breathing room.
+</p>
+
+<p>
+    You can explore the traditional neighborhoods, spend more time with Cali's food and salsa culture, and still leave room for a nature experience or another activity outside the city.
+</p>
+
+<p>
+    If you're visiting for the first time and two days is all you have, you can absolutely make it worthwhile.
+</p>
+
+<h3>
+    Three Days in Cali
+</h3>
+
+<p>
+    <strong>Three days is our minimum recommendation for a first visit.</strong>
+</p>
+
+<p>
+    At this point, you have enough time to experience the city without constantly watching the clock. You can explore Cali's traditional areas, experience salsa and nightlife, eat your way through the city and still dedicate part of your trip to the incredible nature surrounding Cali.
+</p>
+
+<p>
+    It also gives you the possibility of choosing one of the many day trips available around the city, from birdwatching and waterfalls in the Farallones to destinations farther into the Pacific and Valle del Cauca.
+</p>
+
+<h3>
+    Five Days or More
+</h3>
+
+<p>
+    If you have five days or longer, you can start experiencing Cali at a much more relaxed pace.
+</p>
+
+<p>
+    You can spend more time dancing salsa, exploring neighborhoods outside the traditional tourist areas, discovering the city's food and Afro Colombian culture, and taking one or more excursions into the surrounding mountains, rivers and towns.
+</p>
+
+<p>
+    Cali also makes an excellent base for exploring southwestern Colombia. Depending on how much time you have, you can venture toward destinations such as Buga, Ginebra, Sevilla, the coffee region or the hot springs around Santa Rosa de Cabal.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>Our honest recommendation:</strong>
+    </p>
+
+    <h3>
+        If you can give Cali three days, you'll get a taste of the city. If you can give it five, you'll have time to understand why people fall in love with it.
+    </h3>
+
+</div>
+
+<p>
+    Many travelers arrive planning to stay only two or three days and leave wishing they had booked longer. If your itinerary allows it, <strong>three to five days is a very good amount of time to experience Cali for the first time.</strong>
+</p>
+```
+
+</section>
+
+<section id="weather">
+
+```
+<div class="section-header">
+
+    <span class="section-kicker">
+        WEATHER
+    </span>
+
+    <h2>
+        Weather & Best Time to Visit Cali
+    </h2>
+
+</div>
+
+<p>
+    One of the great privileges of living in the tropics is that Cali doesn't really have "seasons" in the way most visitors from Europe, North America or the Southern Hemisphere understand them.
+</p>
+
+<p>
+    Cali sits close to the Equator, at roughly 1,000 meters above sea level. The result is a remarkably stable climate throughout the year. Temperatures change very little from one month to another, while rainfall is what really determines the difference between one part of the year and another.
+</p>
+
+<p>
+    In other words: <strong>you don't come to Cali for winter, spring, summer or fall. You come to Cali for the dry season or the rainy season.</strong>
+</p>
+
+<h3>
+    Cali Has Two Rainy Seasons
+</h3>
+
+<p>
+    Cali's rainfall follows a bimodal pattern, meaning that the city experiences two wetter periods and two relatively drier periods every year.
+</p>
+
+<p>
+    The first rainy season generally peaks around <strong>April and May</strong>. The second, usually more pronounced, occurs around <strong>October and November</strong>. The relatively driest stretch is generally <strong>June through August</strong>, with another comparatively drier period around January and February.
+</p>
+
+<p>
+    Historical climate normals illustrate just how significant the difference can be. Depending on the station and dataset, Cali receives roughly 75 to 130 mm of rain in its driest summer months, while some of the wettest months receive more than 200 mm. November is consistently among the wettest months in long term climate datasets.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>April rains and October storms are not just local sayings.</strong>
+    </p>
+
+    <h3>
+        Cali really does have a bimodal rainfall pattern. The funny part is that locals barely think about it.
+    </h3>
+
+</div>
+
+<h3>
+    How Much Does the Temperature Actually Change?
+</h3>
+
+<p>
+    Not much.
+</p>
+
+<p>
+    That's one of the strangest things about Cali's climate for visitors coming from places with four distinct seasons. Long term climate normals show only a small change in average temperature throughout the year. Depending on the dataset and weather station, average monthly temperatures stay within roughly a one degree Celsius range.
+</p>
+
+<p>
+    The practical result is simple: <strong>you can wear summer clothes in Cali all year.</strong>
+</p>
+
+<p>
+    Shorts, T shirts, light dresses and sandals are perfectly normal at any time of year. Just remember that some nightclubs have dress codes and may not allow shorts, particularly more upscale venues.
+</p>
+
+<p>
+    What changes more noticeably is how often the rain interrupts your plans.
+</p>
+
+<h3>
+    When It Rains in Cali, It Really Rains
+</h3>
+
+<p>
+    There are two types of rain that visitors quickly learn to recognize.
+</p>
+
+<p>
+    The first is the <strong>slowly announced rain</strong>. The sky becomes progressively darker, clouds cover the city and you can usually tell what's coming. Eventually it starts raining and may continue for an hour or several hours. This type of rain can cover large parts of the city and is often relatively gentle, although it can become heavy.
+</p>
+
+<p>
+    Then there is the <strong>Cali aguacero</strong>.
+</p>
+
+<p>
+    You can be walking under bright sunshine, watching a completely blue sky, and fifteen minutes later the city is being hammered by rain. Twenty or thirty minutes later, the storm can be gone and the sun can be shining again as if nothing happened.
+</p>
+
+<p>
+    This is one reason weather in Cali can be difficult to understand from a simple daily forecast.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>A local observation:</strong>
+    </p>
+
+    <h3>
+        In Cali, "rainy today" doesn't necessarily mean "rainy where you're going."
+    </h3>
+
+    <p>
+        You can have a serious downpour in one part of the city while another neighborhood a few blocks away stays completely dry.
+    </p>
+
+</div>
+
+<h3>
+    Should You Trust the Weather Forecast?
+</h3>
+
+<p>
+    Yes. But don't take it too literally.
+</p>
+
+<p>
+    If your weather app says there is an 80% chance of rain, that does not mean Cali will necessarily spend 80% of the day under a rainstorm. The forecast describes atmospheric conditions and probabilities over an area, while Cali's actual rainfall can be remarkably localized.
+</p>
+
+<p>
+    Locals have traditionally been much less obsessed with checking the forecast than visitors are. We tend to look outside, look at the sky and make a decision.
+</p>
+
+<p>
+    Is that the most scientific forecasting system in the world? Probably not.
+</p>
+
+<p>
+    But after living here for years, you start recognizing the clouds.
+</p>
+
+<h3>
+    Rain Can Change Your Plans
+
+</h3>
+
+<p>
+    This is the part visitors sometimes underestimate.
+</p>
+
+<p>
+    Cali's rainy periods can have a real effect on tourism because many of the city's most memorable experiences happen outdoors. Street food, outdoor nightlife, salsa in the street, walking tours, viewpoints, rivers and mountain excursions are all much more enjoyable when the sky cooperates.
+</p>
+
+<p>
+    A heavy evening storm can completely change the atmosphere of the city, particularly for outdoor nightlife.
+</p>
+
+<p>
+    This is one reason the wetter months tend to be slower for tourism and can sometimes offer better prices on flights and accommodation.
+</p>
+
+<h3>
+    So When Is the Best Time to Visit Cali?
+</h3>
+
+<p>
+    If your priority is simply having the best chance of dry weather, the relatively drier periods are the obvious choice.
+</p>
+
+<p>
+    But for many visitors, the calendar of events matters just as much as the weather.
+</p>
+
+<p>
+    <strong>August</strong> is particularly interesting because of the Petronio Álvarez Festival, one of Colombia's most important celebrations of Pacific and Afro Colombian culture.
+</p>
+
+<p>
+    <strong>October</strong> brings the World Salsa Festival and the beginning of the second major rainy period, making it a fascinating month for visitors who want to experience Cali's salsa culture at its fullest.
+</p>
+
+<p>
+    And then there is <strong>December</strong>.
+</p>
+
+<p>
+    The final week of the year brings the Feria de Cali, when the city essentially turns into one enormous celebration of salsa, music, dancing and street culture. For many visitors, this is the single most exciting time of year to experience Cali.
+</p>
+
+<p>
+    There is also an important seasonal contradiction: some of the best nature experiences around Cali become more interesting precisely during the wetter months.
+</p>
+
+<p>
+    Whale watching along Colombia's Pacific coast, for example, takes place during the rainy season, with the main season generally running from roughly July through October and peak activity around September and October.
+</p>
+
+<p>
+    So there isn't really one universally "best" month to visit Cali.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>The local answer:</strong>
+    </p>
+
+    <h3>
+        Come during the dry months if you hate rain. Come during the rainy months if you want the mountains, rivers and Pacific coast at their most alive. And come in December if you want to understand what Cali means by "party."
+    </h3>
+
+</div>
+
+<h3>
+    What Should You Pack?
+</h3>
+
+<p>
+    Think summer wardrobe first.
+</p>
+
+<p>
+    Light clothing works year round. During the wetter months, add a compact umbrella and shoes that can handle getting wet. A light jacket can also be useful in the mountains or on cooler evenings.
+</p>
+
+<p>
+    And if nightlife is part of your trip, bring at least one outfit that doesn't involve shorts. Some of Cali's clubs and upscale nightlife venues have dress codes.
+</p>
+
+</section>
+
+<section id="budget">
+
+```
+<div class="section-header">
+
+    <span class="section-kicker">
+        COSTS & BUDGET
+    </span>
+
+    <h2>
+        How Much Does It Cost to Visit Cali?
+    </h2>
+
+</div>
+
+<p>
+    One of the biggest surprises for international visitors is simply <strong>how far their money goes in Cali</strong>.
+</p>
+
+<p>
+    Cali is not a small town, but neither is it a global megacity or a heavily tourism dependent destination. That combination means that accommodation, food, transportation, nightlife and everyday experiences can offer considerably more value than visitors might expect, especially compared with more established Colombian tourist destinations such as Cartagena or Medellín.
+</p>
+
+<p>
+    How much you spend ultimately depends on the kind of trip you want to have. Here's how we'd roughly think about it.
+</p>
+
+<h3>
+    Budget Travel
+</h3>
+
+<p>
+    If you're traveling on a budget, <strong>San Antonio and San Fernando</strong> are excellent places to start looking.
+</p>
+
+<p>
+    Hostels are often the easiest way for international travelers to keep accommodation costs low while still having a social experience. Many Cali hostels also offer complimentary beginner salsa classes, making them particularly useful for solo travelers who want to meet people and feel more comfortable exploring the city.
+</p>
+
+<p>
+    For food, look for a local <strong>corrientazo</strong>, the traditional affordable lunch menu found throughout the city. Neighborhood bakeries are another excellent option for breakfast, snacks and inexpensive meals.
+</p>
+
+<p>
+    Staying in a walkable neighborhood can also save you considerably on transportation. If you're arriving from another Colombian city, traveling by bus to Cali's main transport terminal is usually the most economical option.
+</p>
+
+<h3>
+    Comfortable Travel
+</h3>
+
+<p>
+    This is where Cali becomes particularly interesting for visitors.
+</p>
+
+<p>
+    With a moderate budget, you can find comfortable local hotels, well located Airbnbs and residential neighborhoods with restaurants, cafés, supermarkets and everyday services nearby.
+</p>
+
+<p>
+    You may spend a little more on transportation than a budget traveler, particularly if your accommodation is outside the traditional tourist areas, but ride hailing remains relatively affordable for many international visitors.
+</p>
+
+<p>
+    You can also eat very well without necessarily choosing the most expensive restaurants in the city. Some of Cali's best value comes from neighborhood restaurants that offer excellent food without the prices associated with international tourist destinations.
+</p>
+
+<h3>
+    Higher End Travel
+</h3>
+
+<p>
+    Cali also has a surprisingly strong higher end hotel and restaurant scene.
+</p>
+
+<p>
+    Areas such as <strong>San Antonio, El Peñón, Granada, Versalles, Ciudad Jardín and Pance</strong> offer everything from international hotel chains to boutique hotels, spas and high end Airbnbs.
+</p>
+
+<p>
+    International brands such as InterContinental, Sonesta, Dann Carlton, Hilton and Marriott are present in the city, while smaller independent hotels can offer a much more intimate experience.
+</p>
+
+<p>
+    These neighborhoods also contain many of Cali's best restaurants, cocktail bars and upscale nightlife options. For transportation, ride hailing or authorized taxis are generally the easiest choice.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>The biggest local budgeting tip:</strong>
+    </p>
+
+    <h3>
+        In Cali, spending more doesn't necessarily mean spending a lot.
+    </h3>
+
+    <p>
+        One of the city's greatest advantages is that you can move between very different levels of comfort and still feel like you're getting good value for your money.
+    </p>
+
+</div>
+
+<p>
+    For a more detailed breakdown of accommodation prices, food, transportation, nightlife and daily spending, we'll eventually put together a complete <strong>Cali Travel Budget Guide</strong>.
+</p>
+```
+
+<section id="things-youll-thank-us-for-later">
+
+```
+<div class="section-header">
+
+    <span class="section-kicker">
+        LOCAL TIPS
+    </span>
+
+    <h2>
+        Things You'll Thank Us For Later
+    </h2>
+
+</div>
+
+<p>
+    Cali is a welcoming city, but every destination has its own rhythms, habits and little details that aren't obvious to first time visitors.
+</p>
+
+<p>
+    After years of showing international travelers around Cali, these are some of the things we wish everyone knew before arriving.
+</p>
+
+<h3>
+    Keep It Simple
+</h3>
+
+<p>
+    You don't need to dress like you're going on safari. Most locals keep things relatively casual, and keeping valuable jewelry, expensive watches and large amounts of cash out of sight is simply good city etiquette.
+</p>
+
+<p>
+    Colombians have a great expression for this: <strong>dar papaya</strong>. Roughly translated, it means not giving someone an unnecessary opportunity.
+</p>
+
+<h3>
+    Carry a Little Cash
+</h3>
+
+<p>
+    Cards are widely accepted in Cali, but cash still makes everyday life easier.
+</p>
+
+<p>
+    Street food, neighborhood bakeries, local markets and many small businesses may prefer Colombian pesos. Carrying around <strong>COP 50,000 to 100,000</strong> in smaller bills is usually plenty for everyday expenses.
+</p>
+
+<p>
+    Smaller denominations are particularly useful. A COP 100,000 bill can be surprisingly difficult to change when you're buying a COP 5,000 snack.
+</p>
+
+<h3>
+    Keep Your Passport Somewhere Safe
+</h3>
+
+<p>
+    There is usually no reason to carry your original passport around the city all day.
+</p>
+
+<p>
+    Keep it safely stored at your accommodation and carry a secure digital copy or photocopy of your identification and Colombian entry information instead. If you're unsure what identification you should carry for a particular situation, ask your accommodation or guide.
+</p>
+
+<h3>
+    Let Locals Know You're New Here
+</h3>
+
+<p>
+    One of the easiest ways to connect with people in Cali is also one of the simplest: say hello.
+</p>
+
+<p>
+    <strong>Buenos días, buenas tardes, gracias and hasta luego</strong> go a surprisingly long way.
+</p>
+
+<p>
+    Caleños are generally curious about visitors, and mentioning where you're from will often start a conversation. Don't be surprised if someone at a salsa club wants to know your name, where you're from or whether you can dance.
+</p>
+
+<h3>
+    Learn a Little Spanish
+</h3>
+
+<p>
+    English is still relatively uncommon in Cali compared with some of Colombia's more established tourist destinations.
+</p>
+
+<p>
+    You don't need to become fluent. A handful of Spanish phrases and a translation app can completely change the ease of your trip.
+</p>
+
+<p>
+    And locals genuinely appreciate the effort.
+</p>
+
+<h3>
+    Give Cali a Weekend
+</h3>
+
+<p>
+    If you can choose your dates, try to include at least one Friday or Saturday night.
+</p>
+
+<p>
+    Cali's social life revolves heavily around the weekend. Salsa, live music, nightlife, restaurants, street food and neighborhood gatherings become much more active from Friday onward.
+</p>
+
+<p>
+    You can visit Cali during the week and have a great time. But if you leave before the weekend, you may leave without ever seeing the city's full energy.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>A local rule:</strong>
+    </p>
+
+    <h3>
+        Cali doesn't sleep early. It wakes up after work.
+    </h3>
+
+</div>
+
+<h3>
+    Follow the Sun
+</h3>
+
+<p>
+    Cali is warm year round, but the midday sun can be surprisingly intense.
+</p>
+
+<p>
+    If you're planning a long walk or outdoor activity, mornings and late afternoons are usually much more comfortable. Save the hottest part of the day for lunch, museums, cafés or a slower pace.
+</p>
+
+<h3>
+    Time Your Hikes
+</h3>
+
+<p>
+    Cali's mountains are incredibly close to the city, but outdoor activities are better when you respect the rhythm of the environment.
+</p>
+
+<p>
+    For popular hikes such as Tres Cruces, early morning is generally the best choice. Start before the sun becomes intense and you'll have a cooler, more enjoyable experience.
+</p>
+
+<p>
+    For less familiar trails and mountain areas, going with someone who knows the area is always the smarter option.
+</p>
+
+<h3>
+    Plan Your Way Back
+</h3>
+
+<p>
+    Getting to Cali's surrounding nature is often easy. Getting back isn't always quite as simple.
+</p>
+
+<p>
+    Places such as Cristo Rey, Pance and Kilómetro 18 can have fewer available ride-hailing vehicles, particularly at certain times of day.
+</p>
+
+<p>
+    If you're heading somewhere outside the main urban areas, think about your return journey before you leave. Sometimes arranging transportation in advance is the difference between ending the day relaxed and standing on the side of a mountain waiting for a car.
+</p>
+
+<h3>
+    Leave Some Room for Improvisation
+</h3>
+
+<p>
+    This might be the most important tip of all.
+</p>
+
+<p>
+    Don't schedule every hour of your trip.
+</p>
+
+<p>
+    Cali rewards curiosity. A restaurant recommendation from a local, an unexpected salsa invitation, a neighborhood you hadn't planned to visit or a conversation that lasts longer than expected can easily become one of the highlights of your trip.
+</p>
+
+<div class="editorial-quote">
+
+    <p>
+        <strong>One last piece of advice:</strong>
+    </p>
+
+    <h3>
+        Smile, greet people, ask questions, dance even if you're terrible at it, and give Cali enough time to surprise you.
+    </h3>
+
+    <p>
+        The city's greatest attraction isn't a monument. It's the people.
+    </p>
+
+</div>
+```
+
+</section>
+
+<section id="faq">
+
+    <div class="section-header">
+
+        <span class="section-kicker">
+            FAQ
+        </span>
+
+        <h2>
+            Frequently Asked Questions About Cali
+        </h2>
+
+        <p>
+            Still wondering what it is like to visit Cali, Colombia? Here are some of the questions we hear most often from international travelers.
+        </p>
+
+    </div>
+
+    <div class="faq-list">
+
+        <details>
+            <summary>
+                Is Cali, Colombia worth visiting?
+            </summary>
+
+            <p>
+                Absolutely. Cali offers something that is increasingly difficult to find in Colombia's more established tourist destinations: a large, genuinely local city where salsa, Afro Colombian culture, nightlife, gastronomy and nature are part of everyday life. It may take a little more curiosity to discover than Cartagena or Medellín, but that's precisely what makes it special.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                How many days should you spend in Cali?
+            </summary>
+
+            <p>
+                Three days is a good starting point for a first visit. It gives you enough time to experience the city, explore its salsa culture, enjoy the nightlife and discover some of the surrounding nature. Four or five days are better if you want to include day trips such as San Cipriano, birdwatching, mountain experiences or the Pacific coast.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Is Cali expensive to visit?
+            </summary>
+
+            <p>
+                Cali is generally one of Colombia's better value destinations. Accommodation, food, transportation and nightlife can be considerably more affordable than in Medellín or Cartagena, particularly when you experience the city outside the most upscale tourist venues.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Is Cali safe for tourists?
+            </summary>
+
+            <p>
+                Cali requires the same kind of awareness you would use in any large city. Most visitors have a great experience when they stay in appropriate areas, use sensible transportation at night and avoid unnecessary displays of valuables. The city is not without risks, but it is also not the place portrayed by every alarming headline.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Can you drink tap water in Cali?
+            </summary>
+
+            <p>
+                Cali's municipal tap water is generally considered suitable for drinking and many locals drink it every day. If you have a particularly sensitive stomach or are not accustomed to the local water, bottled or filtered water is also easy to find.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Do I need cash in Cali?
+            </summary>
+
+            <p>
+                Carrying some Colombian pesos is a good idea. Credit cards are widely accepted in hotels, restaurants, shopping malls and many businesses, but cash remains useful for street food, neighborhood bakeries, local markets, small shops and traditional experiences. Smaller bills are especially useful.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Is Uber available in Cali?
+            </summary>
+
+            <p>
+                Yes. Uber is widely used in Cali, particularly by international visitors. Other ride hailing apps include DiDi, InDrive, Yango and Cabify. Availability and waiting times can vary depending on the time of day and where you are staying, so allow a little extra time when you have somewhere important to be.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Do people speak English in Cali?
+            </summary>
+
+            <p>
+                English is not widely spoken in Cali compared with some of Colombia's more tourist oriented destinations. Hotels, restaurants and tour companies may have English speaking staff, but you should not assume that everyone will speak English. A few Spanish phrases and a translation app will make your visit considerably easier.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                What is the best time of year to visit Cali?
+            </summary>
+
+            <p>
+                Cali is a year round destination because temperatures remain relatively stable throughout the year. The drier periods are generally more convenient for outdoor activities, while the wetter months can offer excellent conditions for nature experiences. August is especially interesting for the Petronio Álvarez Festival, October for salsa events, and late December for Feria de Cali.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                What is Cali famous for?
+            </summary>
+
+            <p>
+                Cali is best known internationally as the Salsa Capital of the World, but salsa is only part of the story. The city is also famous for its Afro Colombian culture, vibrant nightlife, distinctive local food, surrounding mountains and biodiversity, birdwatching, rivers and its unusually strong connection between urban life and nature.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Is Cali good for solo travelers?
+            </summary>
+
+            <p>
+                Yes, particularly if you stay in a social and walkable area such as San Antonio, El Peñón or Granada. Hostels can be especially useful for solo travelers because they provide an easy way to meet other visitors and often organize salsa classes and social activities. As anywhere else, use sensible precautions when exploring at night.
+            </p>
+        </details>
+
+
+        <details>
+            <summary>
+                Is Cali good for a first trip to Colombia?
+            </summary>
+
+            <p>
+                It depends on what you want from Colombia. If you're looking for beaches, Cartagena may make more sense. If you want a major international city and a polished tourism infrastructure, Medellín may be easier. But if you want salsa, nightlife, Afro Colombian culture, incredible food and close access to mountains, rivers and biodiversity, Cali is one of the most rewarding places to start.
+            </p>
+        </details>
+
+    </div>
+
+</section>
+
+
+
+
+</section>
 
 
 
@@ -321,4 +2103,5 @@ This guide was created by locals who spend every day showing visitors around the
 
 
 
+</main>
 </BaseLayout>

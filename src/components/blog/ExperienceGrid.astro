@@ -1,0 +1,43 @@
+---
+interface Experience {
+    image: string;
+    icon: string;
+    title: string;
+    description: string;
+    href: string;
+}
+
+interface Props{
+    items: Experience[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="experience-grid">
+
+    {
+        items.map(item => (
+
+            <a href={item.href} class="experience-card">
+
+                <img src={item.image} alt={item.title} loading="lazy" />
+
+                <div class="experience-overlay">
+
+                    <span class="experience-icon">
+                        <i class={item.icon}></i>
+                    </span>
+
+                    <h3>{item.title}</h3>
+
+                    <p>{item.description}</p>
+
+                </div>
+
+            </a>
+
+        ))
+    }
+
+</div>
