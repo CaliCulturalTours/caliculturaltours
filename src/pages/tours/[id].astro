@@ -18,6 +18,34 @@ const { tour } = Astro.props;
 const { business, tours: allTours } = content;
 const pricing = await getPricing();
 
+const durationToISO = (duration) => {
+  const match = duration.match(/(\d+(?:\.\d+)?)\s*hours?/i);
+  if (!match) return undefined;
+
+  const hours = Number(match[1]);
+  const wholeHours = Math.floor(hours);
+  const minutes = Math.round((hours - wholeHours) * 60);
+
+  return `PT${wholeHours}H${minutes ? `${minutes}M` : ''}`;
+};
+
+const schemaDuration = durationToISO(tour.duration);
+
+const tourSchema = {
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": tour.title,
+  "description": tour.description,
+  "url": `https://www.caliculturaltours.com/tours/${tour.id}`,
+  "image": `https://www.caliculturaltours.com/${tour.image}`,
+  "duration": schemaDuration,
+  "provider": {
+    "@type": "Organization",
+    "name": business.name,
+    "url": "https://www.caliculturaltours.com"
+  }
+};
+
 // Related tours: prioritize same category, then fill with others
 const relatedTours = [
   ...allTours
@@ -39,7 +67,12 @@ const relatedTours = [
 ].slice(0, 2);
 ---
 
-<BaseLayout title={tour.title} description={tour.description}>
+<BaseLayout
+    title={tour.title}
+    description={tour.description}
+    ogImage={`/${tour.image}`}
+    schema={tourSchema}
+>
     <section class="section section-light" style="background: white;">
         <div class="container">
             <nav class="reveal" style="margin-bottom: 40px;">
