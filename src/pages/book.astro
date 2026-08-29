@@ -585,23 +585,28 @@ btnCash.innerHTML = `
     Sending Reservation...
 `;
 
-    await fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            tour: tourSelect.options[tourSelect.selectedIndex].text,
-            tour_id: tourSelect.value,
-            date: document.getElementById("tour-date").value,
-            time: document.getElementById("tour-time").value,
-            guests: tourGuests.value,
-            name: document.getElementById("user-name").value,
-            email: document.getElementById("user-email").value,
-            phone: document.getElementById("user-phone").value,
-            total: currentTotal
-        })
-    });
+const response = await fetch("/api/bookings", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        tour: tourSelect.options[tourSelect.selectedIndex].text,
+        tour_id: tourSelect.value,
+        date: document.getElementById("tour-date").value,
+        time: document.getElementById("tour-time").value,
+        guests: tourGuests.value,
+        name: document.getElementById("user-name").value,
+        email: document.getElementById("user-email").value,
+        phone: document.getElementById("user-phone").value,
+        total: currentTotal,
+        payment_status: "Pending"
+    })
+});
+
+if (!response.ok) {
+    throw new Error("Could not save booking");
+}
 
     sessionStorage.setItem(
     "cashReservation",
@@ -641,23 +646,28 @@ if (!paymentWindow) {
                 alert("Please enter your name.");
                 return;
             }
-fetch("https://hook.us2.make.com/ein1uecrgrka4ga260zay681vy05che9", {
+const bookingResponse = await fetch("/api/bookings", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-    tour: tourSelect.options[tourSelect.selectedIndex].text,
-    tour_id: tourSelect.value,
-    date: document.getElementById("tour-date").value,
-    time: document.getElementById("tour-time").value,
-    guests: tourGuests.value,
-    name: document.getElementById("user-name").value,
-    email: document.getElementById("user-email").value,
-    phone: document.getElementById("user-phone").value,
-    total: currentTotal
+        tour: tourSelect.options[tourSelect.selectedIndex].text,
+        tour_id: tourSelect.value,
+        date: document.getElementById("tour-date").value,
+        time: document.getElementById("tour-time").value,
+        guests: tourGuests.value,
+        name: document.getElementById("user-name").value,
+        email: document.getElementById("user-email").value,
+        phone: document.getElementById("user-phone").value,
+        total: currentTotal,
+        payment_status: "Pending"
     })
 });
+
+if (!bookingResponse.ok) {
+    throw new Error("Could not save booking");
+}
 
             const response = await fetch("/api/create-payment-link", {
     method: "POST",
