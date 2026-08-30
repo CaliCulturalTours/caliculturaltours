@@ -1,13 +1,20 @@
 import { google } from "googleapis";
+import { randomUUID } from "crypto";
 
 export async function POST({ request }) {
     try {
         const body = await request.json();
 
+        // Generate a unique booking reference on the server
+        const bookingReference =
+            `CCT-${new Date().toISOString().slice(2, 10).replace(/-/g, "")}-${randomUUID().slice(0, 6).toUpperCase()}`;
+
         const auth = new google.auth.GoogleAuth({
             credentials: {
                 client_email: process.env.GOOGLE_CLIENT_EMAIL,
-                private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+                private_key: process.env.GOOGLE_PRIVATE_KEY
+                    .replace(/\\n/g, "\n")
+                    .replace(/^"|"$/g, ""),
             },
             scopes: [
                 "https://www.googleapis.com/auth/spreadsheets",
@@ -35,7 +42,7 @@ export async function POST({ request }) {
                     body.email || "",
                     body.phone || "",
                     body.total || "",
-                    body.booking_reference || "",
+                    bookingReference,
                     body.payment_status || "Pending",
                     body.bold_transaction_id || "",
                 ]],
@@ -46,6 +53,7 @@ export async function POST({ request }) {
             JSON.stringify({
                 success: true,
                 message: "Booking saved successfully",
+                booking_reference: bookingReference,
             }),
             {
                 status: 200,
