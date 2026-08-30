@@ -1,3 +1,4 @@
+javascript
 import { google } from "googleapis";
 import { randomUUID } from "crypto";
 
@@ -5,7 +6,10 @@ export async function POST({ request }) {
     try {
         const body = await request.json();
 
-        // Generate unique booking reference
+        // --------------------------------
+        // BOOKING REFERENCE
+        // --------------------------------
+
         const bookingReference =
             `CCT-${new Date().toISOString().slice(2, 10).replace(/-/g, "")}-${randomUUID().slice(0, 6).toUpperCase()}`;
 
@@ -58,60 +62,47 @@ export async function POST({ request }) {
         });
 
         // --------------------------------
-        // SEND EMAIL VIA RESEND
+        // WHATSAPP MESSAGE
         // --------------------------------
 
         const whatsappNumber = String(body.phone || "")
             .replace(/\D/g, "");
 
-        const whatsappMessage =
-            `Hi ${body.name || ""}! This is Juan from Cali Cultural Tours. ` +
-            `I received your booking request for the ${body.tour || ""} ` +
-            `on ${body.date || ""} at ${body.time || ""}. ` +
-            `Your booking reference is ${bookingReference}.`;
+        const guestName = body.name || "there";
+        const tourName = body.tour || "";
+        const tourDate = body.date || "";
+        const tourTime = body.time || "";
+        const guests = Number(body.guests || 1);
 
-        const whatsappUrl =
-            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+        const whatsappMessage = `Hello ${guestName}! 👋
 
-        const emailHtml = `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #222;">
+Thank you for booking with Cali Cultural Tours! 🇨🇴
 
-                <h2 style="margin-bottom: 4px;">
-                    🔔 New Booking
-                </h2>
+Your reservation is confirmed:
 
-                <p style="color: #666; margin-top: 0;">
-                    Booking reference:
-                    <strong>${bookingReference}</strong>
-                </p>
+${tourName}
+📅 ${tourDate}
+🕐 ${tourTime}
+👥 ${guests} ${guests === 1 ? "guest" : "guests"}
 
-                <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+Booking reference: ${bookingReference}
 
-                <h3>${body.tour || ""}</h3>
+We’ll be expecting you at the scheduled time. If you have any questions or need to contact us before the tour, just let us know here.
 
-                <p>📅 <strong>Date:</strong> ${body.date || ""}</p>
-                <p>🕐 <strong>Start time:</strong> ${body.time || ""}</p>
-                <p>👥 <strong>Guests:</strong> ${body.guests || ""}</p>
+Thank you for choosing Cali Cultural Tours!
 
-                <h3>Guest</h3>
+See you soon! 😊`;
 
-                <p>
-                    <strong>${body.name || ""}</strong><br>
-                    ${body.email || ""}<br>
-                    ${body.phone || ""}
-                </p>
+        const whatsappUrl = whatsappNumber
+            ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+            : "";
 
-                <h3>Total</h3>
+        // --------------------------------
+        // INTERNAL EMAIL
+        // --------------------------------
 
-                <p style="font-size: 20px;">
-                    <strong>${Number(body.total || 0).toLocaleString("en-US")} COP</strong>
-                </p>
-
-                <p>
-                    <strong>Payment status:</strong>
-                    ${body.payment_status || "Pending"}
-                </p>
-
+        const whatsappButton = whatsappUrl
+            ? `
                 <div style="margin: 30px 0;">
                     <a
                         href="${whatsappUrl}"
@@ -128,6 +119,53 @@ export async function POST({ request }) {
                         💬 Contact Guest on WhatsApp
                     </a>
                 </div>
+            `
+            : `
+                <p style="margin: 30px 0; color: #999;">
+                    ⚠️ No WhatsApp number was provided for this booking.
+                </p>
+            `;
+
+        const emailHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #222;">
+
+                <h2 style="margin-bottom: 4px;">
+                    🔔 New Booking
+                </h2>
+
+                <p style="color: #666; margin-top: 0;">
+                    Booking reference:
+                    <strong>${bookingReference}</strong>
+                </p>
+
+                <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+
+                <h3>${tourName}</h3>
+
+                <p>📅 <strong>Date:</strong> ${tourDate}</p>
+                <p>🕐 <strong>Start time:</strong> ${tourTime}</p>
+                <p>👥 <strong>Guests:</strong> ${guests}</p>
+
+                <h3>Guest</h3>
+
+                <p>
+                    <strong>${guestName}</strong><br>
+                    ${body.email || ""}<br>
+                    ${body.phone || ""}
+                </p>
+
+                <h3>Total</h3>
+
+                <p style="font-size: 20px;">
+                    <strong>${Number(body.total || 0).toLocaleString("en-US")} COP</strong>
+                </p>
+
+                <p>
+                    <strong>Payment status:</strong>
+                    ${body.payment_status || "Pending"}
+                </p>
+
+                ${whatsappButton}
 
                 <p style="font-size: 12px; color: #999;">
                     Cali Cultural Tours booking system
@@ -136,19 +174,26 @@ export async function POST({ request }) {
             </div>
         `;
 
-        const resendResponse = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
-                to: ["info.caliculturaltours@gmail.com"],
-                subject: `🔔 New Booking — ${bookingReference}`,
-                html: emailHtml,
-            }),
-        });
+        // --------------------------------
+        // SEND EMAIL VIA RESEND
+        // --------------------------------
+
+        const resendResponse = await fetch(
+            "https://api.resend.com/emails",
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
+                    to: ["info.caliculturaltours@gmail.com"],
+                    subject: `🔔 New Booking — ${bookingReference}`,
+                    html: emailHtml,
+                }),
+            }
+        );
 
         const resendData = await resendResponse.json();
 
