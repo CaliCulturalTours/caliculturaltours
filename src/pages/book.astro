@@ -573,63 +573,86 @@ perPersonSection.style.display = "block";
         });
 
         btnCash.addEventListener("click", async () => {
+
     const name = document.getElementById("user-name").value;
+
     if (!name) {
         alert("Please enter your name.");
         return;
     }
+
     btnCash.disabled = true;
 
-btnCash.innerHTML = `
-    <span class="spinner"></span>
-    Sending Reservation...
-`;
+    btnCash.innerHTML = `
+        <span class="spinner"></span>
+        Sending Reservation...
+    `;
 
-const response = await fetch("/api/bookings", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        tour: tourSelect.options[tourSelect.selectedIndex].text,
-        tour_id: tourSelect.value,
-        date: document.getElementById("tour-date").value,
-        time: document.getElementById("tour-time").value,
-        guests: tourGuests.value,
-        name: document.getElementById("user-name").value,
-        email: document.getElementById("user-email").value,
-        phone: document.getElementById("user-phone").value,
-        total: currentTotal,
-        payment_status: "Pending"
-    })
+    try {
+
+        const response = await fetch("/api/bookings", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                tour: tourSelect.options[tourSelect.selectedIndex].text,
+                tour_id: tourSelect.value,
+                date: document.getElementById("tour-date").value,
+                time: document.getElementById("tour-time").value,
+                guests: Number(tourGuests.value),
+                name: document.getElementById("user-name").value,
+                email: document.getElementById("user-email").value,
+                phone: document.getElementById("user-phone").value,
+                total: currentTotal,
+                payment_status: "Cash"
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "Booking could not be saved.");
+        }
+
+        sessionStorage.setItem(
+            "cashReservation",
+            JSON.stringify({
+                tour: tourSelect.options[tourSelect.selectedIndex].text,
+                guests: Number(tourGuests.value),
+                date: document.getElementById("tour-date").value,
+                time: document.getElementById("tour-time").value,
+                originalPrice: currentTotal,
+                discount: Math.round(currentTotal * 0.10),
+                finalPrice: Math.round(currentTotal * 0.90),
+                bookingReference: data.booking_reference
+            })
+        );
+
+        const overlay = document.getElementById("loading-overlay");
+
+        overlay.classList.add("show");
+
+        setTimeout(() => {
+            window.location.href = "/reservation-confirmed";
+        }, 1500);
+
+    } catch (error) {
+
+        console.error("Booking failed:", error);
+
+        alert(
+            "We couldn't complete your reservation. Please try again or contact us on WhatsApp."
+        );
+
+        btnCash.disabled = false;
+
+        btnCash.innerHTML = `
+            💵 Reserve &amp; Pay Cash · Save 10%
+        `;
+    }
 });
 
-if (!response.ok) {
-    throw new Error("Could not save booking");
-}
-
-    sessionStorage.setItem(
-    "cashReservation",
-    JSON.stringify({
-        tour: tourSelect.options[tourSelect.selectedIndex].text,
-        guests: Number(tourGuests.value),
-        date: document.getElementById("tour-date").value,
-        time: document.getElementById("tour-time").value,
-        originalPrice: currentTotal,
-        discount: Math.round(currentTotal * 0.10),
-        finalPrice: Math.round(currentTotal * 0.90)
-    })
-);
-
-    const overlay = document.getElementById("loading-overlay");
-
-overlay.classList.add("show");
-
-setTimeout(() => {
-    window.location.href = "/reservation-confirmed";
-}, 2500);
-
-});
         // Upon click "Proceed to Payment" we pretend it moves to step 3 while opening the checkout link
         btnPay.addEventListener("click", async (event) => {
             event.preventDefault();
