@@ -1,4 +1,3 @@
-javascript
 import { google } from "googleapis";
 import { randomUUID } from "crypto";
 
