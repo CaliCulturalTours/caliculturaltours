@@ -198,9 +198,45 @@ const tourData = tours.map(t => {
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">WhatsApp Number</label>
-                        <input type="tel" id="user-phone" class="form-control" placeholder="+1 234 567 8900" />
-                    </div>
+    <label class="form-label">WhatsApp Number</label>
+
+    <div style="display: flex; gap: 8px;">
+        <select
+            id="phone-country"
+            class="form-control"
+            style="width: 150px; flex-shrink: 0;"
+            aria-label="Country code"
+        >
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+57">🇨🇴 +57</option>
+
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+55">🇧🇷 +55</option>
+            <option value="+1">🇨🇦 +1</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+31">🇳🇱 +31</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+41">🇨🇭 +41</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+other">🌎 Other</option>
+        </select>
+
+        <input
+            type="tel"
+            id="user-phone"
+            class="form-control"
+            placeholder="234 567 8900"
+            autocomplete="tel-national"
+        />
+    </div>
+
+    <small style="color: var(--cct-text-light); display: block; margin-top: 8px;">
+        Select your country code and enter your WhatsApp number.
+    </small>
+</div>
 
                     <div class="form-row-buttons">
     <button type="button" class="btn btn-outline" id="btn-back-1" style="flex: 1;">
@@ -603,7 +639,7 @@ perPersonSection.style.display = "block";
                 guests: Number(tourGuests.value),
                 name: document.getElementById("user-name").value,
                 email: document.getElementById("user-email").value,
-                phone: document.getElementById("user-phone").value,
+                phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
                 total: currentTotal,
                 payment_status: "Cash"
             })
@@ -682,7 +718,7 @@ const bookingResponse = await fetch("/api/bookings", {
         guests: tourGuests.value,
         name: document.getElementById("user-name").value,
         email: document.getElementById("user-email").value,
-        phone: document.getElementById("user-phone").value,
+        phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
         total: currentTotal,
         payment_status: "Pending"
     })
