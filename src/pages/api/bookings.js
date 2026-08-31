@@ -86,7 +86,7 @@ ${tourName}
 
 Booking reference: ${bookingReference}
 
-We’ll be expecting you at the scheduled time. If you have any questions or need to contact us before the tour, just let us know here.
+If you have any questions or need to contact us before the tour, just let us know here.
 
 Thank you for choosing Cali Cultural Tours!
 
