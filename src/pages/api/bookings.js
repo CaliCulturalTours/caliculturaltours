@@ -202,6 +202,148 @@ See you soon! 😊`;
         }
 
         // --------------------------------
+        // CUSTOMER CONFIRMATION EMAIL
+        // --------------------------------
+
+        try {
+            const customerEmailHtml = `
+                <div style="
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: auto;
+                    color: #222;
+                    line-height: 1.6;
+                ">
+
+                    <h2 style="margin-bottom: 4px; color: #222;">
+                        Thank you for booking with Cali Cultural Tours! 🇨🇴
+                    </h2>
+
+                    <p style="color: #666; margin-top: 0;">
+                        Your reservation has been received and confirmed.
+                    </p>
+
+                    <hr style="
+                        border: none;
+                        border-top: 1px solid #eee;
+                        margin: 24px 0;
+                    ">
+
+                    <h3 style="margin-bottom: 16px;">
+                        Your Reservation
+                    </h3>
+
+                    <p>
+                        <strong>Tour:</strong><br>
+                        ${tourName}
+                    </p>
+
+                    <p>
+                        📅 <strong>Date:</strong><br>
+                        ${tourDate}
+                    </p>
+
+                    <p>
+                        🕐 <strong>Preferred start time:</strong><br>
+                        ${tourTime}
+                    </p>
+
+                    <p>
+                        👥 <strong>Guests:</strong><br>
+                        ${guests} ${guests === 1 ? "guest" : "guests"}
+                    </p>
+
+                    <p>
+                        🔖 <strong>Booking reference:</strong><br>
+                        ${bookingReference}
+                    </p>
+
+                    <hr style="
+                        border: none;
+                        border-top: 1px solid #eee;
+                        margin: 24px 0;
+                    ">
+
+                    <p style="font-size: 20px;">
+                        <strong>
+                            Total: ${Number(body.total || 0).toLocaleString("en-US")} COP
+                        </strong>
+                    </p>
+
+                    <p>
+                        <strong>Payment status:</strong>
+                        ${body.payment_status || "Pending"}
+                    </p>
+
+                    <div style="
+                        background: #fafafa;
+                        border-radius: 10px;
+                        padding: 18px;
+                        margin: 28px 0;
+                    ">
+                        <p style="margin: 0;">
+                            If you need to make any changes or have any questions
+                            before your tour, simply reply to this email or contact
+                            us on WhatsApp.
+                        </p>
+                    </div>
+
+                    <p>
+                        We’re happy to have you with us and look forward to seeing you soon! 😊
+                    </p>
+
+                    <p style="margin-top: 28px;">
+                        Best regards,<br>
+                        <strong>Cali Cultural Tours</strong><br>
+                        Cali, Colombia 🇨🇴
+                    </p>
+
+                    <p style="
+                        font-size: 12px;
+                        color: #999;
+                        margin-top: 32px;
+                    ">
+                        Booking reference: ${bookingReference}
+                    </p>
+
+                </div>
+            `;
+
+            const customerResendResponse = await fetch(
+                "https://api.resend.com/emails",
+                {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
+                        reply_to: "info.caliculturaltours@gmail.com",
+                        to: [body.email],
+                        subject: `Your Cali Cultural Tours Reservation — ${bookingReference}`,
+                        html: customerEmailHtml,
+                    }),
+                }
+            );
+
+            const customerResendData = await customerResendResponse.json();
+
+            if (!customerResendResponse.ok) {
+                console.error(
+                    "Customer email error:",
+                    customerResendData
+                );
+            }
+
+        } catch (customerEmailError) {
+            console.error(
+                "Customer email failed:",
+                customerEmailError
+            );
+        }
+
+        // --------------------------------
         // RESPONSE
         // --------------------------------
 
