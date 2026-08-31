@@ -632,16 +632,16 @@ perPersonSection.style.display = "block";
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                tour: tourSelect.options[tourSelect.selectedIndex].text,
-                tour_id: tourSelect.value,
-                date: document.getElementById("tour-date").value,
-                time: document.getElementById("tour-time").value,
-                guests: Number(tourGuests.value),
-                name: document.getElementById("user-name").value,
-                email: document.getElementById("user-email").value,
-                phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
-                total: currentTotal,
-                payment_status: "Cash"
+            tour: tourSelect.options[tourSelect.selectedIndex].text,
+            tour_id: tourSelect.value,
+            date: document.getElementById("tour-date").value,
+            time: document.getElementById("tour-time").value,
+            guests: Number(tourGuests.value),
+            name: document.getElementById("user-name").value,
+            email: document.getElementById("user-email").value,
+            phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
+            total: Math.round(currentTotal * 0.90),
+            payment_status: "Cash"
             })
         });
 
