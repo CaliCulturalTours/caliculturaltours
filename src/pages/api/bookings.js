@@ -33,6 +33,31 @@ export async function POST({ request }) {
             auth,
         });
 
+        
+// --------------------------------
+// GET TOUR INFO
+// --------------------------------
+
+const tourInfoResponse = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    range: "TOUR INFO!A:C",
+});
+
+const tourInfoRows = tourInfoResponse.data.values || [];
+
+const tourInfo = tourInfoRows.find(
+    row => row[0] === body.tour_id
+);
+
+const durationHours = tourInfo ? tourInfo[1] : "";
+const meetingPoint = tourInfo ? tourInfo[2] : "";
+
+console.log("Tour info:", {
+    tour_id: body.tour_id,
+    duration_hours: durationHours,
+    meeting_point: meetingPoint
+});
+
         // --------------------------------
         // SAVE BOOKING TO GOOGLE SHEETS
         // --------------------------------
