@@ -259,11 +259,31 @@ const customerEmailHtml = `
         <p>👥 <strong>Guests:</strong> ${guests}</p>
 
         <p>
-            📍 <strong>Meeting point:</strong><br>
-            ${meetingPoint}
-        </p>
+    📍 <strong>Meeting point:</strong><br>
+    ${meetingPoint}
+</p>
 
-        <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+${whatsappNumber ? `
+    <div style="margin: 22px 0 28px 0;">
+        <a
+            href="${whatsappUrl}"
+            style="
+                display: inline-block;
+                background: #25D366;
+                color: white;
+                text-decoration: none;
+                padding: 14px 22px;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 15px;
+            "
+        >
+            💬 Message us on WhatsApp
+        </a>
+    </div>
+` : ""}
+
+<hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
 
         <p>
             <strong>Booking reference:</strong><br>
