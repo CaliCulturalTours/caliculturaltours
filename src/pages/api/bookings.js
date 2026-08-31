@@ -85,29 +85,34 @@ console.log("Tour info:", {
             },
         });
 
-        // --------------------------------
-        // WHATSAPP MESSAGE
-        // --------------------------------
+       // --------------------------------
+// WHATSAPP MESSAGE
+// --------------------------------
 
-        const whatsappNumber = String(body.phone || "")
-            .replace(/\D/g, "");
+const whatsappNumber = String(body.phone || "")
+    .replace(/\D/g, "");
 
-        const guestName = body.name || "there";
-        const tourName = body.tour || "";
-        const tourDate = body.date || "";
-        const tourTime = body.time || "";
-        const guests = Number(body.guests || 1);
+const guestName = body.name || "there";
+const tourName = body.tour || "";
+const tourDate = body.date || "";
+const tourTime = body.time || "";
+const guests = Number(body.guests || 1);
 
-        const whatsappMessage = `Hello ${guestName}! 👋
+const whatsappMessage = `Hello ${guestName}! 👋
 
 Thank you for booking with Cali Cultural Tours! 🇨🇴
 
 Your reservation is confirmed:
 
 ${tourName}
-📅 ${tourDate}
-🕐 ${tourTime}
+
+📅 Date: ${tourDate}
+🕐 Start time: ${tourTime}
+⏱️ Duration: ${durationHours}
 👥 ${guests} ${guests === 1 ? "guest" : "guests"}
+
+📍 Meeting point:
+${meetingPoint}
 
 Booking reference: ${bookingReference}
 
@@ -117,9 +122,9 @@ Thank you for choosing Cali Cultural Tours!
 
 See you soon! 😊`;
 
-        const whatsappUrl = whatsappNumber
-            ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
-            : "";
+const whatsappUrl = whatsappNumber
+    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    : "";
 
         // --------------------------------
         // INTERNAL EMAIL
@@ -227,146 +232,102 @@ See you soon! 😊`;
         }
 
         // --------------------------------
-        // CUSTOMER CONFIRMATION EMAIL
-        // --------------------------------
+// CUSTOMER CONFIRMATION EMAIL
+// --------------------------------
 
-        try {
-            const customerEmailHtml = `
-                <div style="
-                    font-family: Arial, sans-serif;
-                    max-width: 600px;
-                    margin: auto;
-                    color: #222;
-                    line-height: 1.6;
-                ">
+const customerEmailHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #222;">
 
-                    <h2 style="margin-bottom: 4px; color: #222;">
-                        Thank you for booking with Cali Cultural Tours! 🇨🇴
-                    </h2>
+        <h2 style="margin-bottom: 4px;">
+            Your reservation is confirmed! 🎉
+        </h2>
 
-                    <p style="color: #666; margin-top: 0;">
-                        Your reservation has been received and confirmed.
-                    </p>
+        <p style="color: #666; margin-top: 0;">
+            Thank you for choosing Cali Cultural Tours.
+        </p>
 
-                    <hr style="
-                        border: none;
-                        border-top: 1px solid #eee;
-                        margin: 24px 0;
-                    ">
+        <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
 
-                    <h3 style="margin-bottom: 16px;">
-                        Your Reservation
-                    </h3>
+        <h3>${tourName}</h3>
 
-                    <p>
-                        <strong>Tour:</strong><br>
-                        ${tourName}
-                    </p>
+        <p>📅 <strong>Date:</strong> ${tourDate}</p>
 
-                    <p>
-                        📅 <strong>Date:</strong><br>
-                        ${tourDate}
-                    </p>
+        <p>🕐 <strong>Start time:</strong> ${tourTime}</p>
 
-                    <p>
-                        🕐 <strong>Preferred start time:</strong><br>
-                        ${tourTime}
-                    </p>
+        <p>⏱️ <strong>Duration:</strong> ${durationHours}</p>
 
-                    <p>
-                        👥 <strong>Guests:</strong><br>
-                        ${guests} ${guests === 1 ? "guest" : "guests"}
-                    </p>
+        <p>👥 <strong>Guests:</strong> ${guests}</p>
 
-                    <p>
-                        🔖 <strong>Booking reference:</strong><br>
-                        ${bookingReference}
-                    </p>
+        <p>
+            📍 <strong>Meeting point:</strong><br>
+            ${meetingPoint}
+        </p>
 
-                    <hr style="
-                        border: none;
-                        border-top: 1px solid #eee;
-                        margin: 24px 0;
-                    ">
+        <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
 
-                    <p style="font-size: 20px;">
-                        <strong>
-                            Total: ${Number(body.total || 0).toLocaleString("en-US")} COP
-                        </strong>
-                    </p>
+        <p>
+            <strong>Booking reference:</strong><br>
+            ${bookingReference}
+        </p>
 
-                    <p>
-                        <strong>Payment status:</strong>
-                        ${body.payment_status || "Pending"}
-                    </p>
+        <p>
+            <strong>Total:</strong><br>
+            ${Number(body.total || 0).toLocaleString("en-US")} COP
+        </p>
 
-                    <div style="
-                        background: #fafafa;
-                        border-radius: 10px;
-                        padding: 18px;
-                        margin: 28px 0;
-                    ">
-                        <p style="margin: 0;">
-                            If you need to make any changes or have any questions
-                            before your tour, simply reply to this email or contact
-                            us on WhatsApp.
-                        </p>
-                    </div>
+        <p>
+            <strong>Payment:</strong><br>
+            ${body.payment_status === "Cash"
+                ? "Cash payment — 10% discount applied"
+                : "Online payment"}
+        </p>
 
-                    <p>
-                        We’re happy to have you with us and look forward to seeing you soon! 😊
-                    </p>
+        <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
 
-                    <p style="margin-top: 28px;">
-                        Best regards,<br>
-                        <strong>Cali Cultural Tours</strong><br>
-                        Cali, Colombia 🇨🇴
-                    </p>
+        <p>
+            If you need to make any changes to your reservation,
+            simply reply to this email and we'll be happy to help.
+        </p>
 
-                    <p style="
-                        font-size: 12px;
-                        color: #999;
-                        margin-top: 32px;
-                    ">
-                        Booking reference: ${bookingReference}
-                    </p>
+        <p>
+            Thank you again for booking with us!
+        </p>
 
-                </div>
-            `;
+        <p>
+            See you soon! 😊
+        </p>
 
-            const customerResendResponse = await fetch(
-                "https://api.resend.com/emails",
-                {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
-                        reply_to: "info.caliculturaltours@gmail.com",
-                        to: [body.email],
-                        subject: `Your Cali Cultural Tours Reservation — ${bookingReference}`,
-                        html: customerEmailHtml,
-                    }),
-                }
-            );
+        <p style="font-size: 12px; color: #999; margin-top: 30px;">
+            Cali Cultural Tours<br>
+            Cali, Colombia
+        </p>
 
-            const customerResendData = await customerResendResponse.json();
+    </div>
+`;
 
-            if (!customerResendResponse.ok) {
-                console.error(
-                    "Customer email error:",
-                    customerResendData
-                );
-            }
+const customerEmailResponse = await fetch(
+    "https://api.resend.com/emails",
+    {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
+            to: [body.email],
+            reply_to: "info.caliculturaltours@gmail.com",
+            subject: `Your reservation is confirmed — ${bookingReference}`,
+            html: customerEmailHtml,
+        }),
+    }
+);
 
-        } catch (customerEmailError) {
-            console.error(
-                "Customer email failed:",
-                customerEmailError
-            );
-        }
+const customerEmailData = await customerEmailResponse.json();
+
+if (!customerEmailResponse.ok) {
+    console.error("Customer email error:", customerEmailData);
+}
 
         // --------------------------------
         // RESPONSE
