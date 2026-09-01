@@ -25,6 +25,7 @@ export async function POST({ request }) {
             },
             scopes: [
                 "https://www.googleapis.com/auth/spreadsheets",
+                "https://www.googleapis.com/auth/calendar",
             ],
         });
 
@@ -32,6 +33,11 @@ export async function POST({ request }) {
             version: "v4",
             auth,
         });
+
+        const calendar = google.calendar({
+    version: "v3",
+    auth,
+});
 
         
 // --------------------------------
@@ -347,6 +353,115 @@ const customerEmailData = await customerEmailResponse.json();
 
 if (!customerEmailResponse.ok) {
     console.error("Customer email error:", customerEmailData);
+}
+
+// --------------------------------
+// GOOGLE CALENDAR EVENT
+// --------------------------------
+
+let calendarEventCreated = false;
+
+try {
+    // Convert date + time into a local Cali/Bogotá date
+    const timeMatch = String(tourTime).match(
+        /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
+    );
+
+    if (!timeMatch) {
+        throw new Error(`Invalid tour time: ${tourTime}`);
+    }
+
+    let hours = Number(timeMatch[1]);
+    const minutes = Number(timeMatch[2]);
+    const period = timeMatch[3].toUpperCase();
+
+    if (period === "PM" && hours !== 12) {
+        hours += 12;
+    }
+
+    if (period === "AM" && hours === 12) {
+        hours = 0;
+    }
+
+    // Parse duration such as "4:00:00" or "1:30:00"
+    const durationMatch = String(durationHours).match(
+        /^(\d+):(\d{2}):(\d{2})$/
+    );
+
+    if (!durationMatch) {
+        throw new Error(`Invalid duration: ${durationHours}`);
+    }
+
+    const durationH = Number(durationMatch[1]);
+    const durationM = Number(durationMatch[2]);
+
+    // Create ISO-like local date/time strings.
+    // Calendar receives the explicit America/Bogota timezone.
+    const startDateTime =
+        `${tourDate}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
+
+    const startDate = new Date(`${startDateTime}-05:00`);
+
+    const endDate = new Date(
+        startDate.getTime() +
+        (durationH * 60 + durationM) * 60 * 1000
+    );
+
+    const pad = (value) => String(value).padStart(2, "0");
+
+    const endDateTime =
+        `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}` +
+        `T${pad(endDate.getHours())}:${pad(endDate.getMinutes())}:00`;
+
+    const calendarDescription = `
+Booking reference: ${bookingReference}
+
+Guest: ${guestName}
+Email: ${body.email || ""}
+WhatsApp: ${body.phone || ""}
+Guests: ${guests}
+
+Tour: ${tourName}
+Payment: ${body.payment_status || "Pending"}
+Total: ${Number(body.total || 0).toLocaleString("en-US")} COP
+
+Meeting point:
+${meetingPoint}
+`.trim();
+
+    await calendar.events.insert({
+        calendarId:
+            "065ab151764dd23fe55535b74252ec1b553a43c9918a47d7957e9db771a96d18@group.calendar.google.com",
+
+        requestBody: {
+            summary: `${tourName} — ${guestName}`,
+
+            description: calendarDescription,
+
+            start: {
+                dateTime: startDateTime,
+                timeZone: "America/Bogota",
+            },
+
+            end: {
+                dateTime: endDateTime,
+                timeZone: "America/Bogota",
+            },
+        },
+    });
+
+    calendarEventCreated = true;
+
+    console.log("Calendar event created:", {
+        booking_reference: bookingReference,
+        start: startDateTime,
+        end: endDateTime,
+    });
+
+} catch (calendarError) {
+
+    // Calendar failure must NOT invalidate the booking
+    console.error("Google Calendar error:", calendarError);
 }
 
         // --------------------------------
