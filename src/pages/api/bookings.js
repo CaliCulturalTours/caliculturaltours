@@ -403,15 +403,29 @@ try {
     const startDate = new Date(`${startDateTime}-05:00`);
 
     const endDate = new Date(
-        startDate.getTime() +
-        (durationH * 60 + durationM) * 60 * 1000
-    );
+    startDate.getTime() +
+    (durationH * 60 + durationM) * 60 * 1000
+);
 
-    const pad = (value) => String(value).padStart(2, "0");
+const pad = (value) => String(value).padStart(2, "0");
 
-    const endDateTime =
-        `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}` +
-        `T${pad(endDate.getHours())}:${pad(endDate.getMinutes())}:00`;
+// Convert the calculated UTC time back to America/Bogota local time.
+// Cali/Bogota is UTC-5 year-round.
+const endYear = endDate.getUTCFullYear();
+const endMonth = endDate.getUTCMonth() + 1;
+const endDay = endDate.getUTCDate();
+const endHour = endDate.getUTCHours() - 5;
+const endMinute = endDate.getUTCMinutes();
+
+// Because the end time may cross midnight, use a proper local-date
+// calculation rather than simply subtracting 5 from the hour.
+const endLocalDate = new Date(
+    Date.UTC(endYear, endMonth - 1, endDay, endHour, endMinute)
+);
+
+const endDateTime =
+    `${endLocalDate.getUTCFullYear()}-${pad(endLocalDate.getUTCMonth() + 1)}-${pad(endLocalDate.getUTCDate())}` +
+    `T${pad(endLocalDate.getUTCHours())}:${pad(endLocalDate.getUTCMinutes())}:00`;
 
     const calendarDescription = `
 Booking reference: ${bookingReference}
