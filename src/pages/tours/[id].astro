@@ -42,7 +42,8 @@ const tourSchema = {
   "image": `https://www.caliculturaltours.com/${tour.image}`,
   "duration": schemaDuration,
   "provider": {
-    "@type": "Organization",
+    "@type": "LocalBusiness",
+    "additionalType": "https://en.wikipedia.org/wiki/Tour_operator",
     "name": business.name,
     "url": "https://www.caliculturaltours.com"
   }

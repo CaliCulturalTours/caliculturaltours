@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /booking-confirmed
+Disallow: /reservation-confirmed
+Disallow: /design-system
 
 Sitemap: https://www.caliculturaltours.com/sitemap.xml

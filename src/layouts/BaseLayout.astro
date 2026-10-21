@@ -4,10 +4,12 @@ const {
     title,
     description,
     ogImage = '/images/logo.jpg',
-    schema
+    schema,
+    noindex = false
 } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, 'https://www.caliculturaltours.com').toString();
-const fullTitle = `${title} | Cali Cultural Tours`;
+const brandSuffix = 'Cali Cultural Tours';
+const fullTitle = title.includes(brandSuffix) ? title : `${title} | ${brandSuffix}`;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,13 @@ const fullTitle = `${title} | Cali Cultural Tours`;
     <title>{fullTitle}</title>
     <meta name="description" content={description}>
     <meta name="theme-color" content="#E8005A">
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl}>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/logo.jpg">
 
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle}>
@@ -28,18 +36,42 @@ const fullTitle = `${title} | Cali Cultural Tours`;
     <meta property="og:site_name" content="Cali Cultural Tours">
     <meta property="og:locale" content="en_US">
 
-    <!-- Schema.org Organization -->
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={fullTitle}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={new URL(ogImage, 'https://www.caliculturaltours.com').toString()}>
+
+    <!-- Schema.org LocalBusiness (Tour Operator) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
+  "additionalType": "https://en.wikipedia.org/wiki/Tour_operator",
   "name": "Cali Cultural Tours",
+  "image": "https://www.caliculturaltours.com/images/logo.jpg",
   "description": "Locally operated tour operator in Cali, Colombia, offering food tours, salsa experiences, cultural tours, and nature adventures.",
   "url": "https://www.caliculturaltours.com",
   "logo": "https://www.caliculturaltours.com/images/logo.jpg",
   "telephone": "+57-316-254-3554",
   "email": "info.caliculturaltours@gmail.com",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cali",
+    "addressRegion": "Valle del Cauca",
+    "addressCountry": "CO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 3.4516,
+    "longitude": -76.5320
+  },
   "foundingDate": "2022",
+  "founder": {
+    "@type": "Person",
+    "name": "Juan Camilo"
+  },
   "areaServed": {
     "@type": "City",
     "name": "Cali",
@@ -75,12 +107,13 @@ const fullTitle = `${title} | Cali Cultural Tours`;
             <ul class="nav-links" id="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/tours">Tours</a></li>
+                <li><a href="/guides/cali-colombia-travel-guide">Travel Guide</a></li>
                 <li><a href="/safety">Safety</a></li>
                 <li><a href="/local-info">Local Info</a></li>
                 <li><a href="/map">Recommendations Map</a></li>
                 <li><a href="/activities">Daily Activities</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="https://www.instagram.com/caliculturaltours/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.instagram.com/caliculturaltours/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
                 <li><a href="/book" class="nav-cta">Book Now</a></li>
             </ul>
 
@@ -94,7 +127,7 @@ const fullTitle = `${title} | Cali Cultural Tours`;
         <slot />
     </main>
 
-    <a href="https://wa.me/573162543554" class="wa-float" target="_blank" rel="noopener">
+    <a href="https://wa.me/573162543554" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -102,10 +135,21 @@ const fullTitle = `${title} | Cali Cultural Tours`;
         <h3 style="color: white; margin-bottom: 8px;">Cali Cultural Tours</h3>
         <p>"Showing Cali's true soul 🇨🇴 one tour at a time"</p>
         
+        <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="/tours">Tours</a>
+            <a href="/guides/cali-colombia-travel-guide">Travel Guide</a>
+            <a href="/safety">Safety in Cali</a>
+            <a href="/local-info">Local Info</a>
+            <a href="/map">Recommendations Map</a>
+            <a href="/activities">Activities</a>
+            <a href="/contact">Contact</a>
+            <a href="/book" class="footer-book-link">Book Now</a>
+        </nav>
+
         <div class="footer-social">
-            <a href="https://wa.me/573162543554" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.instagram.com/caliculturaltours/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:info@caliculturaltours.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.me/573162543554" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/caliculturaltours/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:info@caliculturaltours.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
         
         <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 32px;">

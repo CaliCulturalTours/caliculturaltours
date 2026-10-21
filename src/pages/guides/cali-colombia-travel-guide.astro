@@ -1,4 +1,31 @@
 ---
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Ultimate Guide to Cali, Colombia: Safety, Salsa, Food & More",
+  "description": "A local guide to Cali, Colombia covering safety, salsa, nightlife, food, nature, neighborhoods, transportation, weather, costs and how long to stay.",
+  "image": "https://www.caliculturaltours.com/images/blog/ultimate-guide-cali/hero.webp",
+  "author": {
+    "@type": "Person",
+    "name": "Juan Camilo",
+    "jobTitle": "Local Tour Guide & Founder"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cali Cultural Tours",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.caliculturaltours.com/images/logo.jpg"
+    }
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-10-21",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.caliculturaltours.com/guides/cali-colombia-travel-guide"
+  }
+};
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import "../../styles/main.css";
 import "../../styles/blog.css";
@@ -14,6 +41,8 @@ import ExperienceGrid from "../../components/blog/ExperienceGrid.astro";
 <BaseLayout
     title="Cali Colombia Travel Guide: Safety, Salsa, Food & More"
     description="A local guide to Cali, Colombia covering safety, salsa, nightlife, food, nature, neighborhoods, transportation, weather, costs and how long to stay."
+    ogImage="/images/blog/ultimate-guide-cali/hero.webp"
+    schema={articleSchema}
 >
 
 <BlogHero
@@ -205,51 +234,27 @@ items={[
 <section class="article-content">
 
     <div class="section-header" id="is-cali-safe">
-
-        <span class="section-kicker">
-
-            SAFETY
-
-        </span>
-
-        <h2>
-
-            Is Cali Safe?
-
-        </h2>
-
+        <span class="section-kicker">SAFETY</span>
+        <h2>Is Cali Safe?</h2>
     </div>
 
-    <p>
-        We debated whether this should appear at the beginning of the guide.
-    </p>
-    <p>
-    As locals, safety isn't something that dominates our everyday conversations. We go to work, meet friends, enjoy restaurants, dance salsa, hike in the mountains, and live our lives much like people do in any other large city.
-    </p>
-    <p>
-    But as local tour guides, we know that for many international travelers, this is the first question they have. In fact, it is often the reason they hesitate to visit Cali at all.
-    </p>
-    <p>
-    So rather than asking you to wait until the end of the guide, we'd rather address it right away.
-    </p>
-    <p>
-    The short answer is that Cali is a city where travelers can have a great experience, but it is important to take safety seriously. Like other major cities in Colombia and Latin America, Cali has areas with very different security conditions, and the precautions you take should depend on where you are, what time it is, and how you're getting around.
-    </p>
-    <p>
-    There are neighborhoods we'd recommend avoiding, just as there are neighborhoods we happily recommend to our own friends and family. There are times when taking an Uber is the smarter choice than walking, and there are areas where you'll find locals, families, cafés, parks, and people simply enjoying their day.
-    </p>
-    <p>
-    If you've only seen Cali through headlines or social media, it's understandable that you might have a very different picture in your mind. Headlines tend to focus on exceptional events, while everyday life is much less complicated than the news cycle suggests.
-    </p>
-    <p>
-    Our goal isn't to convince you that Cali is perfect. It isn't. No large city is.
-    </p>
-    <p>
-    Our goal is to give you honest, practical advice so you can experience the city the way we do: with awareness, confidence, and an open mind.
-    </p>
-    <p>
-    Now that we've addressed the 'elephant in the room', let's get to the fun part: discovering why so many visitors leave Cali wondering why they didn't come sooner.
-    </p>
+    <p>We debated whether this should appear at the beginning of the guide.</p>
+    
+    <p>As locals, safety isn't something that dominates our everyday conversations. We go to work, meet friends, enjoy restaurants, dance salsa, hike in the mountains, and live our lives much like people do in any other large city.</p>
+    
+    <p>But as local tour guides, we know that for many international travelers, this is the first question they have. In fact, it is often the reason they hesitate to visit Cali at all.</p>
+    
+    <p>So rather than asking you to wait until the end of the guide, we'd rather address it right away.</p>
+    
+    <p><strong>The short answer:</strong> Cali is a city where travelers can have a great experience, but it's important to take safety seriously. Like other major cities in Colombia and Latin America, Cali has areas with very different security conditions. The precautions you take should depend on where you are, what time it is, and how you're getting around.</p>
+    
+    <p>There are neighborhoods we'd recommend avoiding, just as there are neighborhoods we happily recommend to our own friends and family. There are times when taking an Uber is the smarter choice than walking, and there are areas where you'll find locals, families, cafés, parks, and people simply enjoying their day.</p>
+    
+    <p>If you've only seen Cali through headlines or social media, it's understandable that you might have a very different picture in your mind. Headlines tend to focus on exceptional events, while everyday life is much less complicated than the news cycle suggests.</p>
+    
+    <p><strong>Our goal isn't to convince you that Cali is perfect.</strong> It isn't. No large city is. Our goal is to give you honest, practical advice so you can experience the city the way we do: with awareness, confidence, and an open mind.</p>
+    
+    <p>Now that we've addressed the 'elephant in the room', let's get to the fun part: discovering why so many visitors leave Cali wondering why they didn't come sooner.</p>
 
 </section>
 
@@ -305,55 +310,31 @@ items={[
 </div>
 
 <div class="section-header" id="salsa">
-
-    <span class="section-kicker">
-        SALSA
-    </span>
-
-    <h2>
-        Why the World Calls Cali the Salsa Capital
-    </h2>
-
+    <span class="section-kicker">SALSA</span>
+    <h2>Why the World Calls Cali the Salsa Capital</h2>
 </div>
 
-<p>
-    Contrary to what many visitors believe, salsa was not born in Cali. By the time the genre reached Colombia, it had already emerged from a mix of Caribbean musical traditions, particularly Cuban forms, and was shaped by Puerto Rican and other Caribbean communities in New York during the 20th century.
-</p>
+<p>Contrary to what many visitors believe, salsa was not born in Cali. By the time the genre reached Colombia, it had already emerged from a mix of Caribbean musical traditions, particularly Cuban forms, and was shaped by Puerto Rican and other Caribbean communities in New York during the 20th century.</p>
 
-<p>
-    What happened in Cali was something entirely different. The city didn't invent salsa: it made it its own. More importantly, it developed a distinctive way of dancing it, known today as <strong>salsa caleña</strong>.
-</p>
+<p>What happened in Cali was something entirely different. The city didn't invent salsa: it made it its own. More importantly, it developed a distinctive way of dancing it, known today as <strong>salsa caleña</strong>.</p>
 
-<p>
-    Since salsa first arrived here, generations of caleños have continuously reinvented the dance, creating increasingly fast, creative and footwork-focused styles that you simply won't find anywhere else in the world. Watching a couple dance in Cali is very different from watching salsa in Cuba, Puerto Rico or New York.
-</p>
+<p>Since salsa first arrived here, generations of caleños have continuously reinvented the dance, creating increasingly fast, creative and footwork-focused styles that you simply won't find anywhere else in the world. Watching a couple dance in Cali is very different from watching salsa in Cuba, Puerto Rico or New York.</p>
 
-<p>
-    We  believe salsa found fertile ground in Cali during a period of profound social change. As thousands of people migrated to the city (especially Afro-Colombian communities from Colombia's Pacific region) the city's cultural identity evolved rapidly. Combined with Buenaventura, Colombia's main Pacific port and the gateway through which countless vinyl records entered the country, Cali developed an extraordinary connection with Afro-Caribbean music.
-</p>
+<p>We believe salsa found fertile ground in Cali during a period of profound social change. As thousands of people migrated to the city (especially Afro-Colombian communities from Colombia's Pacific region), the city's cultural identity evolved rapidly. Combined with Buenaventura, Colombia's main Pacific port and the gateway through which countless vinyl records entered the country, Cali developed an extraordinary connection with Afro-Caribbean music.</p>
 
 <div class="editorial-quote">
-
-<p>
-    Cali didn't become the world's salsa capital because it produced the most famous salsa bands.
-</p>
-
-<h3>
-    It became the world's salsa capital because it reinvented the way the world dances salsa.
-</h3>
-
-<p class="editorial-quote__footer">
-    Generations of extraordinary dancers, passionate record collectors and music lovers transformed salsa into something that became part of everyday life.
-</p>
-
+    <p>Cali didn't become the world's salsa capital because it produced the most famous salsa bands.</p>
+    <h3>It became the world's salsa capital because it reinvented the way the world dances salsa.</h3>
+    <p class="editorial-quote__footer">Generations of extraordinary dancers, passionate record collectors and music lovers transformed salsa into something that became part of everyday life.</p>
 </div>
 
+<p>Today, salsa is woven into everyday life. You'll hear it in taxis, neighborhood stores, family gatherings, cafés and parks. And if you happen to visit during late December, you'll experience the <strong>Feria de Cali</strong>, the city's biggest celebration and one of Colombia's most important festivals. For 5 days, Cali becomes a giant dance floor where locals and visitors celebrate the music that has shaped the city's identity for generations.</p>
 
-<p> Today, salsa is far more than something you'll see on stage. It's woven into everyday life. You'll hear it in taxis, neighborhood stores, family gatherings, cafés and parks. And if you happen to visit during late December, you'll experience the <strong>Feria de Cali</strong>, the city's biggest celebration and one of Colombia's most important festivals. For 5 days, Cali becomes a giant dance floor where locals and visitors celebrate the music that has shaped the city's identity for generations. </p>
+<p>Beyond the dancers, Cali is also home to a remarkable community of <strong>melómanos</strong>: music lovers and vinyl collectors who have spent decades preserving, sharing and studying salsa recordings from across Latin America and the Caribbean. Their passion has helped keep the genre alive, influencing generations of dancers and making recorded music an essential part of Cali's salsa culture.</p>
 
-<p> Beyond the dancers, Cali is also home to a remarkable and passionate community of <strong>melómanos</strong>: music lovers and vinyl collectors who have spent decades preserving, studying and sharing salsa recordings from across Latin America and the Caribbean. Their passion has helped keep the genre alive, influencing generations of dancers and making recorded music an essential part of Cali's salsa culture. </p>
+<p>Whether you already dance or have never taken a single lesson, experiencing salsa in Cali is one of the best ways to understand the city itself. It isn't simply entertainment: it is one of the languages through which Cali expresses its history, diversity and personality.</p>
 
-<p> Whether you already dance or have never taken a single lesson, experiencing salsa in Cali is one of the best ways to understand the city itself. It isn't simply entertainment: it is one of the languages through which Cali expresses its history, diversity and personality. </p>
+<p><strong>Want to experience salsa with a local guide?</strong> We offer a <a href="/tours/salsa-tour">private Salsa Tour</a> that takes you behind the scenes of Cali's dance culture, including a beginner-friendly class and a visit to a traditional salsa club.</p>
 
 <div class="section-header" id="nightlife">
 
@@ -404,64 +385,36 @@ items={[
 </p>
 
 <div class="section-header" id="nature">
-
-    <span class="section-kicker">
-        NATURE
-    </span>
-
-    <h2>
-        Nature around Cali
-    </h2>
-
+    <span class="section-kicker">NATURE</span>
+    <h2>What Nature Can You Experience Around Cali?</h2>
 </div>
 
-<p>
-    One of the biggest surprises for first-time visitors is how naturally Cali blends into its surroundings. While many cities treat nature as something you have to drive hours to reach, in Cali it simply becomes part of everyday life. Cali sits in the Cauca River valley on the eastern slopes of Colombia's Western Andes, with the Pacific lowlands and rainforest of Valle del Cauca not far to the west, one of the most biodiverse places on Earth, making wildlife and green landscapes an ordinary part of life for locals.
-</p>
+<p>One of the biggest surprises for first-time visitors is how naturally Cali blends into its surroundings. While many cities treat nature as something you have to drive hours to reach, in Cali it simply becomes part of everyday life.</p>
 
-<p>
-    Every afternoon, usually past 4 p.m. and before dark, flocks of parrots and macaws fly across the city, filling the air with their unmistakable calls. Wherever there are tall palm trees, chances are you'll hear them. Colombia is home to more species of palm trees than any other country in the world, and Cali benefits from that extraordinary natural richness.
-</p>
+<p>Cali sits in the Cauca River valley on the eastern slopes of Colombia's Western Andes, with the Pacific lowlands and rainforest of Valle del Cauca not far to the west — one of the most biodiverse places on Earth. Wildlife and green landscapes are an ordinary part of life for locals.</p>
+
+<p>Every afternoon, usually past 4 p.m. and before dark, flocks of parrots and macaws fly across the city, filling the air with their unmistakable calls. Wherever there are tall palm trees, chances are you'll hear them. Colombia is home to more species of palm trees than any other country in the world, and Cali benefits from that extraordinary richness.</p>
 
 <div class="editorial-quote">
-
-    <p>
-        In Cali, nature isn't somewhere you go.
-    </p>
-
-    <h3>
-        It's simply part of everyday life.
-    </h3>
-
+    <p>In Cali, nature isn't somewhere you go.</p>
+    <h3>It's simply part of everyday life.</h3>
 </div>
 
-<p>
-    The Cali River flows directly through the city and it is even home to a small population of wild river otters, something few visitors expect to find in the middle of a city of more than two million people.
-</p>
+<p>The Cali River flows directly through the city, and it's even home to a small population of wild river otters (something few visitors expect to find in the middle of a city of more than two million people).</p>
 
-<p>
-    Birdwatchers from around the world travel to Colombia, and Cali has quietly become one of the country's best gateways into that world. Within an hour from central Cali, the cloud forests of the Farallones de Cali National Park are home to extraordinary species, including the Multicolored Tanager (Chlorochrysa nitidissima), an endemic bird of Colombia. The region is also famous for its hummingbirds. Within a short distance from the city you can see birds you may have never seen before.
-</p>
+<p>Birdwatchers from around the world travel to Colombia, and Cali has quietly become one of the country's best gateways into that world. Within an hour from central Cali, the cloud forests of the Farallones de Cali National Park are home to extraordinary species, including the Multicolored Tanager, an endemic bird of Colombia. The region is also famous for its hummingbirds, with several species visible just a short drive from the city.</p>
 
-<p>
-    For locals, these mountains are more than a birdwatching destination. They're where people escape the tropical heat. After just a short drive up the mountains, temperatures drop dramatically, the air becomes cooler, and traditional countryside lodges and glampings offer one of the most peaceful experiences near the city.
-</p>
+<p>For locals, these mountains are more than a birdwatching destination. They're where people escape the tropical heat. After just a short drive up the mountains, temperatures drop dramatically, the air becomes cooler, and traditional countryside lodges offer one of the most peaceful experiences near the city.</p>
 
-<p>
-    Back in the city, the Cali Zoo sits in a leafy area and is home to a wide variety of Colombian wildlife.
-</p>
+<p>Back in the city, the Cali Zoo sits in a leafy area and is home to a wide variety of Colombian wildlife.</p>
 
-<p>
-    No guide to nature around Cali would be complete without mentioning Pance. Every weekend, locals head to its crystal clear mountain river to cool off, relax with family and friends, or, as many jokingly admit, recover from a Saturday night filled with salsa and aguardiente. The water is refreshing, coming directly from the streams flowing down from the mountains.
-</p>
+<p>No guide to nature around Cali would be complete without mentioning Pance. Every weekend, locals head to its crystal-clear mountain river to cool off, relax with family and friends, or, as many jokingly admit, recover from a Saturday night filled with salsa and aguardiente. The water is refreshing, coming directly from the streams flowing down from the mountains.</p>
 
-<p>
-    And if you have an extra day, San Cipriano is one of the most unforgettable destinations in the region. Surrounded by dense tropical rainforest, this small village showcases why Colombia is considered one of the world's biodiversity hotspots. Birds such as the spectacular oropendola are commonly seen around the village, while rivers, jungle trails and the famous motorcycle-powered 'brujitas' rail carts create an experience unlike anywhere.
-</p>
+<p><strong>If you want to experience Pance without the logistics hassle, we run a <a href="/tours/waterfalls">Pance Waterfall Tour</a> that includes transportation and a local guide.</strong></p>
 
-<p>
-    Whether you're interested in birdwatching, waterfalls, hiking, cloud forests, mountain rivers or simply escaping the city for a few hours, Cali offers a side of Colombia that many travelers never expect to find.
-</p>
+<p>And if you have an extra day, San Cipriano is one of the most unforgettable destinations in the region. Surrounded by dense tropical rainforest, this small village showcases why Colombia is considered one of the world's biodiversity hotspots. Birds such as the spectacular oropendola are commonly seen around the village, while rivers, jungle trails and the famous motorcycle-powered 'brujitas' rail carts create an experience unlike anywhere else.</p>
+
+<p>Whether you're interested in birdwatching, waterfalls, hiking, cloud forests, mountain rivers or simply escaping the city for a few hours, Cali offers a side of Colombia that many travelers never expect to find.</p>
 
 <div class="section-header" id="food">
 
@@ -523,9 +476,9 @@ items={[
     This is especially noticeable in seafood. Pacific Colombian cuisine makes extensive use of fresh fish, shellfish, coconut, herbs and tropical ingredients, and dishes inspired by this tradition can be found throughout Cali.
 </p>
 
-<p>
-    Traditional markets such as <strong>Galeria Alameda</strong> are particularly interesting places to experience this side of Cali's gastronomy. You'll find fresh ingredients, seafood, juices, prepared foods and restaurants serving dishes influenced by the Pacific region.
-</p>
+<p>Traditional markets such as <strong>Galería Alameda</strong> are particularly interesting places to experience this side of Cali's gastronomy. You'll find fresh ingredients, seafood, juices, prepared foods and restaurants serving dishes influenced by the Pacific region.</p>
+
+<p><strong>Want to explore the market with a guide who can translate and explain every ingredient?</strong> We offer a <a href="/tours/market-tour">Galería Alameda Market Tour</a> that includes tastings and a deep dive into Cali's culinary traditions.</p>
 
 <p>
     This connection between Cali and the Pacific is one of the reasons the city's food scene feels so different from what many visitors experience in other parts of Colombia.
@@ -1093,7 +1046,7 @@ items={[
 </p>
 
 <p>
-    If you'd rather have someone organize the logistics, our <a href="/tours/galeria-alameda">Galería Alameda Tour</a>, <a href="/tours/pance-waterfalls">Pance Waterfalls Tour</a>, <a href="/tours/cristo-rey-city-tour">Cristo Rey City Tour</a> and <a href="/tours/salsa-tour">Salsa Tour</a> can be combined to create a very full first day.
+    If you'd rather have someone organize the logistics, our <a href="/tours/market-tour">Galería Alameda Tour</a>, <a href="/tours/waterfalls">Pance Waterfalls Tour</a>, <a href="/tours/cristo-rey">Cristo Rey City Tour</a> and <a href="/tours/salsa-tour">Salsa Tour</a> can be combined to create a very full first day.
 </p>
 
 <h3>
