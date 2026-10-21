@@ -1,0 +1,147 @@
+---
+// Floating navigation pill for long-form guides (Mobile First)
+---
+
+<aside class="guide-nav" id="guide-nav" aria-label="Article quick navigation">
+    <button type="button" class="guide-nav-btn" id="guide-btn-toc" aria-label="Jump to Table of Contents">
+        <i class="fas fa-list-ul" aria-hidden="true"></i>
+        <span>Index</span>
+    </button>
+    
+    <span class="guide-nav-divider" aria-hidden="true"></span>
+    
+    <button type="button" class="guide-nav-btn guide-nav-btn--icon-only" id="guide-btn-top" aria-label="Scroll to top of guide">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+</aside>
+
+<style>
+.guide-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 20px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(18, 18, 18, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    padding: 4px 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.3s;
+    user-select: none;
+}
+
+.guide-nav.guide-nav--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.guide-nav-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    min-height: 40px; /* Touch target */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.guide-nav-btn:hover,
+.guide-nav-btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: var(--cct-primary, #E8005A);
+    outline: none;
+}
+
+.guide-nav-btn--icon-only {
+    padding: 8px 12px;
+}
+
+.guide-nav-divider {
+    width: 1px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 2px;
+}
+
+@media (max-width: 480px) {
+    .guide-nav {
+        bottom: 20px;
+        left: 16px;
+        padding: 3px 4px;
+    }
+
+    .guide-nav-btn {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+
+    .guide-nav-btn--icon-only {
+        padding: 8px 10px;
+    }
+}
+</style>
+
+<script is:inline>
+(() => {
+    const nav = document.getElementById('guide-nav');
+    const btnToc = document.getElementById('guide-btn-toc');
+    const btnTop = document.getElementById('guide-btn-top');
+    const tocSection = document.getElementById('table-of-contents');
+
+    if (!nav) return;
+
+    let ticking = false;
+
+    const onScroll = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                // Show only after scrolling down past initial section (~500px)
+                if (window.scrollY > 500) {
+                    nav.classList.add('guide-nav--visible');
+                } else {
+                    nav.classList.remove('guide-nav--visible');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    if (btnToc) {
+        btnToc.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (tocSection) {
+                tocSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                window.scrollTo({ top: 400, behavior: 'smooth' });
+            }
+        });
+    }
+
+    if (btnTop) {
+        btnTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+})();
+</script>

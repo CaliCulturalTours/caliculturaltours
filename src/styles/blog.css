@@ -1,3 +1,14 @@
+/* Smooth Scrolling & Sticky Navbar Offset */
+html {
+    scroll-behavior: smooth;
+}
+
+.table-of-contents,
+.section-header,
+[id] {
+    scroll-margin-top: 85px;
+}
+
 /* ==========================================================
    ARTICLE LAYOUT
 ========================================================== */
