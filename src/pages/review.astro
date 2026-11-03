@@ -1,0 +1,392 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Hidden review landing page for tour clients (QR Code destination)
+export const prerender = true;
+
+const reviewLinks = [
+    {
+        title: "Pance River & Waterfalls Relax Trip",
+        subtitle: "Chorrera del Indio & Mountain Rivers",
+        icon: "fa-water",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d26791499-Cali_River_Waterfall_Tour_4_hours-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "San Cipriano River Tubing Day Tour",
+        subtitle: "Brujitas, Rainforest & River Tubing",
+        icon: "fa-tree",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d33209832-San_Cipriano_River_Tubing_Relax_Day-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "Cali Street Food Walking Tour",
+        subtitle: "Empanadas, Lulada, Cholado & Culture",
+        icon: "fa-utensils",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d26363547-The_Cali_Street_Food_Walking_Tour-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "Cali Exotic Fruit & Market Tour",
+        subtitle: "Galería Alameda Local Market Experience",
+        icon: "fa-lemon",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d34115708-Cali_Food_Market_Tour_Galeria_Alameda_with_Exotic_Tastings-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "Cali Salsa Tour & Lesson",
+        subtitle: "La Topa Tolondra & Salsa Culture",
+        icon: "fa-music",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d34114368-Discover_La_Topa_Tolondra_2_Salsa_Museums_Tour-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "Km18 Cloud Forest & Hummingbirds",
+        subtitle: "Finca Alejandría Nature & Birdwatching",
+        icon: "fa-dove",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d27488761-Easy_Birdwatching_in_Cali_Colombia_4_Hours-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "Coffee Plantation Day Trip",
+        subtitle: "From Seed to Cup in the Andes",
+        icon: "fa-mug-hot",
+        platform: "TripAdvisor",
+        badgeColor: "#00af87",
+        url: "https://www.tripadvisor.com/UserReviewEdit-g297475-d34227610-From_Seed_to_Cup_a_Coffee_Plantation_Experience-Cali_Valle_del_Cauca_Department.html"
+    },
+    {
+        title: "City Tour, Cristo Rey & All Experiences",
+        subtitle: "General review on Google Maps / Business",
+        icon: "fa-star",
+        platform: "Google Review",
+        badgeColor: "#4285F4",
+        url: "https://g.page/r/CZ1ncgEZWnpJEB0/review",
+        isFeatured: true
+    }
+];
+---
+
+<BaseLayout 
+    title="Leave a Review | Cali Cultural Tours" 
+    description="Thank you for joining our tour in Cali, Colombia! Please take 60 seconds to share your experience with fellow travelers."
+>
+    <!-- Prevent search engine indexation (hidden client landing) -->
+    <meta slot="head" name="robots" content="noindex, nofollow" />
+
+    <section class="review-landing-section">
+        <div class="review-container">
+            
+            <!-- Host greeting card -->
+            <div class="review-header-card">
+                <div class="review-avatar-wrap">
+                    <img src="/images/juan-camilo.webp" alt="Juan Camilo - Cali Cultural Tours" class="review-avatar" />
+                    <span class="review-badge-check"><i class="fas fa-heart"></i></span>
+                </div>
+                <span class="review-tag">¡Muchísimas Gracias!</span>
+                <h1 class="review-title">How was your experience in Cali?</h1>
+                <p class="review-subtitle">
+                    Thank you so much for exploring Cali with us! As an independent local team, your review makes an immense difference in helping fellow international travelers discover authentic Cali culture.
+                </p>
+                <div class="review-time-estimate">
+                    <i class="fas fa-clock"></i> Takes only 60 seconds
+                </div>
+            </div>
+
+            <!-- List of Tour Buttons -->
+            <div class="review-tours-wrapper">
+                <h2 class="review-list-heading">Select the tour you took:</h2>
+
+                <div class="review-buttons-list">
+                    {reviewLinks.map((item) => (
+                        <a 
+                            href={item.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class={`review-btn-card ${item.isFeatured ? 'featured' : ''}`}
+                        >
+                            <div class="review-btn-icon">
+                                <i class={`fas ${item.icon}`}></i>
+                            </div>
+                            <div class="review-btn-info">
+                                <div class="review-btn-top">
+                                    <span class="review-btn-title">{item.title}</span>
+                                    <span class="review-platform-pill" style={`background: ${item.badgeColor};`}>
+                                        {item.platform === 'Google Review' ? <i class="fab fa-google"></i> : <i class="fas fa-feather-pointed"></i>} {item.platform}
+                                    </span>
+                                </div>
+                                <span class="review-btn-desc">{item.subtitle}</span>
+                            </div>
+                            <div class="review-btn-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            <!-- Footer note / WhatsApp assist -->
+            <div class="review-footer-card">
+                <p>Have any private suggestions or photos to share with us?</p>
+                <a href="https://wa.me/573162543554?text=Hi%20Juan%20Camilo!%20Just%20finished%20the%20tour" target="_blank" rel="noopener noreferrer" class="review-whatsapp-link">
+                    <i class="fab fa-whatsapp"></i> Chat directly with Juan Camilo
+                </a>
+            </div>
+
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+.review-landing-section {
+    min-height: 90vh;
+    background: linear-gradient(180deg, #fbfbfb 0%, #f4f5f7 100%);
+    padding: 40px 16px 80px 16px;
+}
+
+.review-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Header card */
+.review-header-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 36px 24px 28px 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+}
+
+.review-avatar-wrap {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 16px auto;
+}
+
+.review-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(232, 0, 90, 0.2);
+}
+
+.review-badge-check {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 28px;
+    height: 28px;
+    background: var(--cct-primary, #e8005a);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border: 2px solid #ffffff;
+}
+
+.review-tag {
+    display: inline-block;
+    background: rgba(232, 0, 90, 0.08);
+    color: var(--cct-primary, #e8005a);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.review-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+.review-subtitle {
+    font-size: 0.95rem;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.review-time-estimate {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #00875a;
+    background: rgba(0, 135, 90, 0.08);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* List of tour buttons */
+.review-tours-wrapper {
+    margin-bottom: 24px;
+}
+
+.review-list-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 14px;
+    padding-left: 4px;
+}
+
+.review-buttons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.review-btn-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-btn-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(232, 0, 90, 0.3);
+}
+
+.review-btn-card.featured {
+    border: 2px solid rgba(66, 133, 244, 0.4);
+    background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+}
+
+.review-btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f7f7f9;
+    color: var(--cct-primary, #e8005a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.review-btn-card.featured .review-btn-icon {
+    background: rgba(66, 133, 244, 0.1);
+    color: #4285F4;
+}
+
+.review-btn-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.review-btn-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.review-btn-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-platform-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.review-btn-desc {
+    font-size: 0.82rem;
+    color: #777777;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-btn-arrow {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.review-btn-card:hover .review-btn-arrow {
+    transform: translateX(3px);
+    color: var(--cct-primary, #e8005a);
+}
+
+/* Footer card */
+.review-footer-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.review-footer-card p {
+    font-size: 0.88rem;
+    color: #666666;
+    margin-bottom: 10px;
+}
+
+.review-whatsapp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #128c7e;
+    background: rgba(37, 211, 102, 0.1);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.review-whatsapp-link:hover {
+    background: #25d366;
+    color: #ffffff;
+}
+</style>
