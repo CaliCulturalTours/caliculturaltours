@@ -1474,3 +1474,24 @@ img {
   color: var(--cct-primary, #E8005A);
   font-weight: 700;
 }
+
+/* Tour Video Embed */
+.tour-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  margin-top: 16px;
+  background: #000;
+}
+
+.tour-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}

@@ -238,6 +238,21 @@ const relatedTours = [
                         </ul>
                     </div>
 
+                    {tour.youtube_video_id && (
+                        <div class="itinerary-section reveal" style="margin-top: 32px;">
+                            <h4>{tour.video_title || "Watch the Experience"}</h4>
+                            <div class="tour-video-wrapper">
+                                <iframe 
+                                    src={`https://www.youtube.com/embed/${tour.youtube_video_id}`} 
+                                    title={tour.video_title || tour.title}
+                                    loading="lazy"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    )}
+
                     {tour.notes && tour.notes.length > 0 && (
                         <div class="itinerary-section reveal" style="margin-top: 24px;">
                             <h4>Good to Know</h4>
