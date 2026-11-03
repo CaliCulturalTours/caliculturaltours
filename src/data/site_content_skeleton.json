@@ -26,8 +26,14 @@
         "Cali is COOLtural. Let us show you why."
       ],
       "stats": [
-        { "value": "20+", "label": "Tours designed by us" },
-        { "value": "2022", "label": "Since" }
+        {
+          "value": "20+",
+          "label": "Tours designed by us"
+        },
+        {
+          "value": "2022",
+          "label": "Since"
+        }
       ]
     },
     "trust_bar": [
@@ -296,7 +302,7 @@
         "Hands-on chocolate bar workshop",
         "Your own DIY chocolate bar to take home",
         "Round-trip transport",
-        "Bilingual guide"        
+        "Bilingual guide"
       ],
       "not_included": [
         "Additional food & drinks",
@@ -557,6 +563,63 @@
       "notes": [
         "Season: July to October. Babies not permitted. Not suitable for people with reduced mobility or spine problems.",
         "What to bring: clothing you can get wet with, light comfortable clothes + light waterproof jacket, sandals or water shoes, sunscreen and repellent, hat, seasickness pills (optional), waterproof phone case, reusable water bottle, light snacks or fruit."
+      ]
+    },
+    {
+      "id": "san-cipriano-river-tubing",
+      "display_order": 15,
+      "title": "San Cipriano River Tubing & Natural Reserve Day Trip",
+      "category": "Nature & Adventure",
+      "description": "Ride the legendary motorcycle-powered 'brujitas' rail carts into the pristine Pacific rainforest, swim in crystal-clear emerald pools, and float down the San Cipriano river on giant inner tubes.",
+      "duration": "9-10 hours",
+      "type": "Private day trip with vehicle + rail cart",
+      "feature": "Brujita rail cart ride, river tubing & emerald swimming pools",
+      "price": "From 1,025,063 COP",
+      "image": "images/tours/sanCipriano-hero.webp",
+      "gallery": [
+        "images/tours/San Cipriano/IMG_20250316_094215.webp",
+        "images/tours/San Cipriano/IMG_20250316_103429.webp",
+        "images/tours/San Cipriano/IMG_20250316_103441.webp",
+        "images/tours/San Cipriano/IMG_20250316_104023.webp",
+        "images/tours/San Cipriano/IMG_20250316_105823_1.webp",
+        "images/tours/San Cipriano/IMG_20250316_112852.webp",
+        "images/tours/San Cipriano/IMG_20250316_113044.webp",
+        "images/tours/San Cipriano/IMG_20250316_114157.webp",
+        "images/tours/San Cipriano/IMG_20250316_132905.webp",
+        "images/tours/San Cipriano/IMG-20240225-WA0025.webp",
+        "images/tours/San Cipriano/IMG_20241022_105044408.webp"
+      ],
+      "highlight": "Experience Colombia's most unusual ride: wooden platforms propelled along railway tracks into an untouched rainforest biodiversity sanctuary, followed by gentle river tubing in crystal-clear water.",
+      "physical_level": "Moderate: easy jungle walking, entering and floating down river currents, and climbing onto wooden rail platforms.",
+      "languages": "Guides available in English & Spanish",
+      "meeting_point": "Pickup directly at your hotel or accommodation in urban Cali (around 7:00 a.m. - 7:30 a.m.)",
+      "included": [
+        "Round-trip private transportation from Cali",
+        "Round-trip 'brujita' railway cart transport into the reserve",
+        "All entrance fees and local community reserve permits",
+        "River tubing equipment (tubes and safety briefing)",
+        "Guided jungle walk to natural waterfalls and emerald swimming holes",
+        "Traditional Pacific lunch prepared by the local community",
+        "Medical insurance coverage",
+        "Bilingual local guide throughout the day"
+      ],
+      "not_included": [
+        "Alcoholic beverages or snacks outside the included lunch",
+        "Gratuities / tips for local guides and drivers"
+      ],
+      "itinerary": [
+        "7:00 AM - 7:30 AM: Morning pickup at your accommodation in Cali and scenic 2-hour drive through the Western Andes towards Córdoba / Zaragoza along the Pacific highway.",
+        "9:30 AM: Board the famous 'brujitas' — wooden carts powered by motorcycles that glide along old railway tracks through lush tropical jungle into San Cipriano village.",
+        "10:15 AM: Guided nature walk along rainforest trails to explore hidden waterfalls, natural swimming holes, and the unique biodiversity of the Chocó biogeographic region.",
+        "11:30 AM: Relaxing river tubing adventure floating down the crystal-clear, emerald-turquoise currents of the San Cipriano River back towards the village.",
+        "1:30 PM: Traditional Afro-Colombian Pacific lunch (fresh local fish or chicken, coconut rice, fried plantains, and salad).",
+        "3:00 PM: Return trip on the brujitas back to the vehicle staging area.",
+        "3:45 PM - 5:30 PM: Scenic return drive to Cali, with drop-off directly at your accommodation."
+      ],
+      "notes": [
+        "What to bring: Swimwear (worn under clothes), water shoes or secure strapped sandals (essential for walking on river rocks), quick-dry towel, change of dry clothes, waterproof phone case or dry bag, and eco-friendly insect repellent.",
+        "Please bring cash (Colombian Pesos) if you wish to purchase fresh juices, local artisanal sweets (like cocadas), or souvenirs, as card terminals do not work inside the rainforest reserve.",
+        "Weather in the Pacific rainforest can feature sudden tropical showers, which is part of the ecosystem's magic. The tour runs rain or shine."
       ]
     }
   ]
