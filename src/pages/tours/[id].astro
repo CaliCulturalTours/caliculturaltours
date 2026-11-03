@@ -88,7 +88,25 @@ const relatedTours = [
                 
                 <!-- 1. GALLERY (Area: gallery) -->
                 <div class="tour-gallery-area">
-                    <img id="mainImage" src={`/${tour.image}`} alt={tour.title} class="main-tour-img" />
+                    <div class="tour-gallery-viewer" id="galleryViewer">
+                        <img id="mainImage" src={`/${tour.image}`} alt={tour.title} class="main-tour-img" />
+                        
+                        <button type="button" class="gallery-nav-btn prev" id="galleryPrevBtn" aria-label="Previous photo">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="gallery-nav-btn next" id="galleryNextBtn" aria-label="Next photo">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+
+                        <button type="button" class="gallery-fullscreen-btn" id="galleryExpandBtn" aria-label="View photo fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+
+                        <div class="gallery-counter" id="galleryCounter">
+                            1 / {(tour.gallery || [tour.image]).length}
+                        </div>
+                    </div>
+
                     <div class="tour-thumbnails" id="thumbnailContainer">
                         {(tour.gallery || [tour.image]).map((img, idx, arr) => {
                             const isMainImage = img === tour.image || `/${img}` === `/${tour.image}`;
@@ -98,11 +116,29 @@ const relatedTours = [
                                     alt={`thumbnail ${idx + 1}`} 
                                     class={`thumb-img ${isMainImage ? 'active' : ''}`}
                                     data-src={`/${img}`}
+                                    data-index={idx}
                                     onclick="setActiveThumb(this)"
                                 />
                             );
                         })}
                     </div>
+                </div>
+
+                <!-- Fullscreen Lightbox Modal -->
+                <div id="galleryLightbox" class="gallery-lightbox" aria-hidden="true" role="dialog">
+                    <button type="button" class="lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close fullscreen view">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button type="button" class="lightbox-nav-btn prev" id="lightboxPrevBtn" aria-label="Previous photo">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="lightbox-nav-btn next" id="lightboxNextBtn" aria-label="Next photo">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="lightbox-image-wrap">
+                        <img id="lightboxImage" src="" alt="Fullscreen tour photo" />
+                    </div>
+                    <div class="lightbox-counter" id="lightboxCounter"></div>
                 </div>
 
                 <!-- 2. HEADER & PRICE (Area: info) -->
@@ -268,22 +304,199 @@ const relatedTours = [
     </section>
 
     <script is:inline>
+        let currentPhotoIndex = 0;
+        let photosList = [];
+
+        function initGallery() {
+            const thumbs = document.querySelectorAll('#thumbnailContainer .thumb-img');
+            photosList = Array.from(thumbs).map(t => t.dataset.src);
+            if (photosList.length === 0) return;
+
+            // Find current active index
+            const activeThumb = document.querySelector('#thumbnailContainer .thumb-img.active');
+            if (activeThumb && activeThumb.dataset.index) {
+                currentPhotoIndex = parseInt(activeThumb.dataset.index, 10);
+            }
+            updateGalleryUI();
+
+            // Swipe on main viewer
+            const viewer = document.getElementById('galleryViewer');
+            if (viewer) {
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touchEndX = 0;
+                let touchEndY = 0;
+
+                viewer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                viewer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleSwipeGesture(touchStartX, touchStartY, touchEndX, touchEndY);
+                }, { passive: true });
+
+                // Open lightbox when clicking the main image or expand button
+                const mainImg = document.getElementById('mainImage');
+                if (mainImg) {
+                    mainImg.addEventListener('click', openLightbox);
+                }
+                const expandBtn = document.getElementById('galleryExpandBtn');
+                if (expandBtn) {
+                    expandBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openLightbox();
+                    });
+                }
+            }
+
+            // Prev / Next buttons on main viewer
+            document.getElementById('galleryPrevBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(-1);
+            });
+            document.getElementById('galleryNextBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(1);
+            });
+
+            // Lightbox controls
+            document.getElementById('lightboxCloseBtn')?.addEventListener('click', closeLightbox);
+            document.getElementById('lightboxPrevBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(-1);
+            });
+            document.getElementById('lightboxNextBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(1);
+            });
+
+            // Close lightbox on backdrop click
+            const lightbox = document.getElementById('galleryLightbox');
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox || e.target.classList.contains('lightbox-image-wrap')) {
+                        closeLightbox();
+                    }
+                });
+
+                // Swipe in lightbox
+                let lbStartX = 0;
+                let lbStartY = 0;
+                lightbox.addEventListener('touchstart', (e) => {
+                    lbStartX = e.changedTouches[0].screenX;
+                    lbStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                lightbox.addEventListener('touchend', (e) => {
+                    const lbEndX = e.changedTouches[0].screenX;
+                    const lbEndY = e.changedTouches[0].screenY;
+                    handleSwipeGesture(lbStartX, lbStartY, lbEndX, lbEndY);
+                }, { passive: true });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                const lb = document.getElementById('galleryLightbox');
+                const isLbOpen = lb && lb.classList.contains('active');
+                if (e.key === 'ArrowLeft') {
+                    navigateGallery(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateGallery(1);
+                } else if (e.key === 'Escape' && isLbOpen) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        function handleSwipeGesture(startX, startY, endX, endY) {
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+            // Ensure horizontal swipe is dominant and above threshold (40px)
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+                if (diffX < 0) {
+                    navigateGallery(1); // Swipe left -> Next photo
+                } else {
+                    navigateGallery(-1); // Swipe right -> Prev photo
+                }
+            }
+        }
+
+        function navigateGallery(direction) {
+            if (photosList.length <= 1) return;
+            currentPhotoIndex = (currentPhotoIndex + direction + photosList.length) % photosList.length;
+            updateGalleryUI();
+        }
+
         function setActiveThumb(thumb) {
-            const mainImage = document.getElementById('mainImage');
-            const container = document.getElementById('thumbnailContainer');
-            
-            // Update main image with smooth transition
-            mainImage.style.opacity = '0.8';
-            setTimeout(() => {
-                mainImage.src = thumb.dataset.src;
-                mainImage.style.opacity = '1';
-            }, 150);
-            
-            // Remove active class from all thumbs
-            container.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked thumb
-            thumb.classList.add('active');
+            const idx = parseInt(thumb.dataset.index, 10);
+            if (!isNaN(idx)) {
+                currentPhotoIndex = idx;
+                updateGalleryUI();
+            }
+        }
+
+        function updateGalleryUI() {
+            if (photosList.length === 0) return;
+            const currentSrc = photosList[currentPhotoIndex];
+
+            // Update main image
+            const mainImg = document.getElementById('mainImage');
+            if (mainImg && mainImg.src !== currentSrc) {
+                mainImg.style.opacity = '0.7';
+                setTimeout(() => {
+                    mainImg.src = currentSrc;
+                    mainImg.style.opacity = '1';
+                }, 120);
+            }
+
+            // Update counter
+            const counter = document.getElementById('galleryCounter');
+            if (counter) {
+                counter.textContent = `${currentPhotoIndex + 1} / ${photosList.length}`;
+            }
+
+            // Update thumbnails active state & scroll into view
+            const thumbs = document.querySelectorAll('#thumbnailContainer .thumb-img');
+            thumbs.forEach((t, i) => {
+                if (i === currentPhotoIndex) {
+                    t.classList.add('active');
+                    t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
+            // Update lightbox if open
+            const lbImg = document.getElementById('lightboxImage');
+            const lbCounter = document.getElementById('lightboxCounter');
+            if (lbImg) lbImg.src = currentSrc;
+            if (lbCounter) lbCounter.textContent = `${currentPhotoIndex + 1} / ${photosList.length}`;
+        }
+
+        function openLightbox() {
+            const lightbox = document.getElementById('galleryLightbox');
+            if (!lightbox) return;
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            updateGalleryUI();
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('galleryLightbox');
+            if (!lightbox) return;
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        // Initialize on load and on Astro view transitions
+        document.addEventListener('DOMContentLoaded', initGallery);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            initGallery();
         }
     </script>
 </BaseLayout>
