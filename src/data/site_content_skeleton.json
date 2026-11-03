@@ -44,11 +44,11 @@
   },
   "tours": [
     {
-      "id": "street-food",
+      "id": "cali-street-food-tour",
       "display_order": 10,
-      "title": "Street Food Tour in Cali",
+      "title": "Cali Street Food & Local Culture Walking Tour",
       "category": "Food & Drink",
-      "description": "Taste authentic Colombian street food in Cali while exploring the historic city center and the stories behind some of the city's most iconic streets and landmarks.",
+      "description": "Eat your way through Cali's culinary traditions: taste crispy empanadas, aborrajados, refreshing lulada, and sweet cholado while learning about the city's rich history.",
       "duration": "2 hours",
       "type": "Walking",
       "feature": "+10 tasting options",
@@ -64,7 +64,7 @@
         "images/tours/Street Food Tour/IMG_20240104_172340978.webp",
         "images/tours/Street Food Tour/IMG_20240210_150501488.webp"
       ],
-      "highlight": "Come hungry and ready to eat! You will be full by the end of the tour.",
+      "highlight": "A flavorful walking journey exploring the authentic street foods and neighborhood stories that define daily life in Cali.",
       "physical_level": "Easy walk",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Subway Sandwich store on Boulevard del Río (Calle 8 crossing)",
@@ -98,11 +98,11 @@
       ]
     },
     {
-      "id": "market-tour",
+      "id": "cali-market-fruit-tour",
       "display_order": 30,
-      "title": "Galería Alameda Market Tour",
+      "title": "Cali Exotic Fruit Tasting & Local Market Tour",
       "category": "Food & Drink",
-      "description": "A full sensory journey through Cali's most iconic market — exotic fruits, local cheeses, flowers, and a peek into the city's esoteric traditions.",
+      "description": "Discover the vibrant colors, aromas and flavors of southwestern Colombia with a guided walking tour through Galería Alameda market featuring exotic tropical fruit tastings.",
       "duration": "2 hours",
       "type": "Walking",
       "feature": "+7 exotic fruits tasting",
@@ -121,7 +121,7 @@
         "images/tours/Galeria Alameda Exotic Market Tour/IMG_20231029_151500237.webp",
         "images/tours/Galeria Alameda Exotic Market Tour/IMG_20231029_152434875.webp"
       ],
-      "highlight": "Come hungry! People comment: 'I just ate more fruit than for 1 year back home'",
+      "highlight": "Taste over a dozen rare Pacific and Andean fruits, explore traditional medicinal herb stalls, and experience Cali's central culinary marketplace with a passionate local guide.",
       "physical_level": "Easy walk",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Front of 'Artesanías La Caleñita'",
@@ -155,11 +155,11 @@
       ]
     },
     {
-      "id": "coffee-tasting",
+      "id": "colombian-coffee-tasting-cali",
       "display_order": 90,
-      "title": "Coffee Tasting in Cali",
+      "title": "Specialty Colombian Coffee Tasting Experience",
       "category": "Food & Drink",
-      "description": "A guided specialty coffee tasting led by a professional barista — learn, taste, and brew Colombian coffee without leaving the city.",
+      "description": "Learn to taste and appreciate specialty single-origin Colombian coffees in a sensory masterclass led by professional baristas in historic San Antonio.",
       "duration": "1.5 hours",
       "type": "Seated",
       "feature": "World-class coffee",
@@ -178,7 +178,7 @@
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Centro Comercial Centenario",
       "meeting_point_map": "https://maps.app.goo.gl/va6XNLc9uyUKzKA8A",
-      "highlight": "A hands on coffee experience to delight your senses — learn to taste, smell, and brew like a pro.",
+      "highlight": "Deepen your coffee knowledge through multiple brewing methods, fragrance notes, and comparative tastings of award-winning regional beans.",
       "included": [
         "Private professional barista-led tasting & brewing",
         "Private translator (guide)",
@@ -203,11 +203,11 @@
       ]
     },
     {
-      "id": "coffee-farm",
+      "id": "coffee-farm-day-trip",
       "display_order": 80,
-      "title": "CAFETAL: Coffee Farm Visit in the Andes",
+      "title": "Authentic Colombian Coffee Farm Day Trip from Cali",
       "category": "Nature",
-      "description": "A full-day journey into Colombia's coffee culture — visit a working farm in Sevilla, pick your own beans, and taste the difference from crop to cup.",
+      "description": "Journey into the Andean mountains to an authentic working coffee estate, walk among coffee trees, learn harvesting and processing, and brew fresh coffee at the source.",
       "duration": "10 hours",
       "type": "Private vehicle",
       "feature": "From seed to cup",
@@ -237,7 +237,7 @@
         "images/tours/CAFETAL/IMG_20241125_133018827.webp",
         "images/tours/CAFETAL/IMG_20241125_133746213.webp"
       ],
-      "highlight": "Excellent for travellers with no plans to visit coffee regions — this is a full coffee experience in one day, with a bilingual guide and private transport.",
+      "highlight": "A full-day mountain retreat experiencing the authentic bean-to-cup coffee craft on a scenic family-run Andean farm.",
       "physical_level": "Easy — farm walk + standing + seating",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup inside urban Cali (hotel, Airbnb, etc.)",
@@ -272,11 +272,11 @@
       ]
     },
     {
-      "id": "chocotour",
+      "id": "chocolate-farm-tour",
       "display_order": 70,
-      "title": "ChocoTour: Make Your Own Chocolate Bar on a Cacao Farm",
+      "title": "Bean-to-Bar Chocolate Farm Tour & Workshop",
       "category": "Nature",
-      "description": "What we eat as chocolate is the processed seed of a fruit. Learn everything about it with this Cacao farm visit.",
+      "description": "Discover organic Colombian cacao, walk through cacao plantations, roast beans over an open fire, and handcraft your own artisan chocolate bar.",
       "duration": "6 hours",
       "type": "Private vehicle",
       "feature": "From seed to bar",
@@ -320,14 +320,15 @@
       "notes": [
         "~1.5h drive from Cali. Kids and pets welcome (family & pet-friendly). Bring sunscreen and comfortable clothes and shoes.",
         "We're going to a farm, insects are expected."
-      ]
+      ],
+      "highlight": "Interactive bean-to-bar workshop where you harvest, roast, grind, and temper your own custom chocolate bar from fresh Colombian cacao."
     },
     {
-      "id": "salsa-tour",
+      "id": "cali-salsa-tour",
       "display_order": 50,
-      "title": "Cali Salsa Tour — Dance, Culture & History",
+      "title": "Cali Salsa Dancing Tour & Public Lesson",
       "category": "Salsa",
-      "description": "Experience the world capital of salsa with dance lessons and cultural immersion.",
+      "description": "Immerse yourself in Cali's world-famous salsa scene with a fun group public dance class followed by a visit to an iconic local salsa club.",
       "duration": "5.5 hours",
       "type": "Standing + Taxi + Seated + Dancing",
       "feature": "Interactive museum & dance class",
@@ -339,7 +340,7 @@
         "images/tours/SALSA TOUR/IMG_20250430_201239.webp",
         "images/tours/SALSA TOUR/IMG_20250430_201246.webp"
       ],
-      "highlight": "Dancing-friendly museums, a local old records shop, and a 2-hour group salsa class at the city's best salsa club.",
+      "highlight": "Experience Cali's rhythm firsthand: join a vibrant public salsa class with fellow dancers, then soak up the music and social atmosphere at a legendary salsa club.",
       "physical_level": "Easy or moderate depending on your willingness to dance",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Trumpets monument at the Plazoleta Jairo Varela",
@@ -362,23 +363,18 @@
         "Gratuities / Tips"
       ],
       "itinerary": [
-        "Niche Trumpets monument at 3:30pm — meet at the starting point and dive into this musical monument.",
-        "Museo Jairo Varela at 4pm — guided visit (entry included); learn about the regional impact of Grupo Niche.",
-        "4:30pm - Taxi to the Obrero neighborhood",
-        "Vinyl Record Store at 4:50pm — browse and listen to salsa (and other genres); free time to buy records or souvenirs.",
-        "Museo de la Salsa in Barrio Obrero 5pm — guided visit by passionate locals (entry included).",
-        "6:45pm - Taxi to La Topa Tolondra",
-        "Group Salsa Class at Topa Tolondra at 7pm — 2-hour class at the city's best salsa club, suitable for all levels. Private lessons available on request.",
-        "Past 9pm - Optional social dancing at La Topa Tolondra — practice your new moves and enjoy the lively atmosphere by yourself",
-        "Optional (fridays): Courtesy visit to the Salsa Street."
+        "Pickup in Cali — 15–40 min transfer to the dance studio/venue.",
+        "Public Salsa Dance Class (60 min) — beginner-friendly group lesson taught by local professional instructors.",
+        "Social Salsa Club Visit (90–120 min) — enjoy live music or DJ vinyl sets, observe authentic caleño dancing, practice your steps, or enjoy a drink.",
+        "Return transfer to your hotel or accommodation."
       ]
     },
     {
-      "id": "cristo-rey",
+      "id": "cristo-rey-city-tour",
       "display_order": 60,
-      "title": "Cristo Rey Viewpoint + Downtown Cali City Tour",
+      "title": "Cristo Rey Monument & Panoramic City Views Tour",
       "category": "City Tour",
-      "description": "Get panoramic views from Cristo Rey and explore historic downtown Cali — the best overview of the city in half a day.",
+      "description": "Visit the iconic 26-meter Cristo Rey statue overlooking the entire valley, explore the renovated ecological walkways, and take in the best panoramic viewpoints in Cali.",
       "duration": "4 hours",
       "type": "Private vehicle",
       "feature": "Panoramic views",
@@ -397,7 +393,7 @@
         "images/tours/City_Tour/IMG_3983.webp",
         "images/tours/City_Tour/IMG_3993.webp"
       ],
-      "highlight": "Go to all the must visit spots of Cali with this comprehensive city tour — from the iconic Cristo Rey statue to the charming streets of Barrio San Antonio.",
+      "highlight": "Breathtaking 360-degree viewpoints over Cali and the Cauca Valley combined with cultural highlights and historic architecture.",
       "physical_level": "Easy — vehicle + short walks",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup anywhere within urban Cali",
@@ -423,11 +419,11 @@
       ]
     },
     {
-      "id": "hummingbirds",
+      "id": "km18-cloud-forest-tour",
       "display_order": 40,
-      "title": "Hummingbird Paradise Tour — Finca Alejandría",
+      "title": "Km18 Cloud Forest & Hummingbirds Tour",
       "category": "Nature",
-      "description": "Visit a hummingbird paradise and observe dozens of species flying freely around you in the cloud forest above Cali.",
+      "description": "Travel to the mist-shrouded Western Andes cloud forest at Km 18 to observe dozens of brilliant hummingbirds up close at Finca Alejandría with a complimentary welcome coffee.",
       "duration": "4 hours",
       "type": "Private vehicle",
       "feature": "Dozens of hummingbirds",
@@ -446,7 +442,7 @@
         "images/tours/Colibríes - hummingbird/IMG_4824.webp",
         "images/tours/Colibríes - hummingbird/IMG_4827.webp"
       ],
-      "highlight": "Watch hummingbirds in numbers and proximity that you won't find anywhere else in the world — a unique experience for nature lovers and photographers.",
+      "highlight": "Watch dozens of hummingbird species in extraordinary numbers and proximity at Finca Alejandría, nestled in the cool Andean cloud forest.",
       "physical_level": "Easy (seating)(all ages) or moderate with optional mountain walk",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup anywhere within urban Cali",
@@ -474,11 +470,11 @@
       ]
     },
     {
-      "id": "waterfalls",
+      "id": "pance-waterfalls-tour",
       "display_order": 20,
-      "title": "Pance River Waterfall Tour — Chorrera del Indio",
+      "title": "Pance River & Waterfalls Relax Trip",
       "category": "Nature",
-      "description": "Escape Cali's heat and swim in the crystal-clear pools of Chorrera del Indio — just minutes from the city.",
+      "description": "Escape Cali's heat and relax by the crystal-clear mountain streams and natural pools of Chorrera del Indio — a comfortable, low-effort nature getaway just minutes from the city.",
       "duration": "4 hours",
       "type": "Private vehicle",
       "feature": "Natural pools & waterfall",
@@ -493,8 +489,8 @@
         "images/tours/Cali_River_Waterfall/20221228_102446.webp",
         "images/tours/Cali_River_Waterfall/20221229_094319.webp"
       ],
-      "highlight": "Refreshing clean water straight from the Andes — perfect for a half-day escape from the city.",
-      "physical_level": "Easy stairs down; optional steep climb to second waterfall",
+      "highlight": "Refreshing mountain pools and waterfall views visible directly from the entrance area — perfect for a relaxing half-day escape without strenuous hiking.",
+      "physical_level": "Very Easy: paved paths and comfortable stairs down; optional 5-min walk to upper stream. The main waterfall is directly accessible from the arrival area.",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup anywhere within urban Cali",
       "included": [
@@ -521,11 +517,11 @@
       ]
     },
     {
-      "id": "whale-watching",
+      "id": "pacific-whale-watching-tour",
       "display_order": 100,
-      "title": "Whale Watching in the Colombian Pacific",
+      "title": "Colombian Pacific Whale Watching Day Tour",
       "category": "Nature. Season: Jul–Oct",
-      "description": "Witness magnificent humpback whales during their annual migration along Colombia's Pacific coast — a full-day adventure from Cali.",
+      "description": "Witness majestic humpback whales breaching in the warm Pacific waters of Bahia Malaga during their annual migration from Antarctica (July through October).",
       "duration": "11 hours",
       "type": "Private vehicle + public boat",
       "feature": "Humpback whales",
@@ -534,7 +530,7 @@
       "gallery": [
         "images/tours/whale-watching/IMG-20250723-WA0107.webp"
       ],
-      "highlight": "A once-in-a-lifetime experience to see humpback whales in their natural habitat, with a bilingual guide and a local captain.",
+      "highlight": "Up-close boat encounters with humpback mothers and calves in one of the world's most pristine tropical Pacific marine sanctuaries.",
       "physical_level": "Moderate — long travel day; not suitable for people with reduced mobility or spine problems. Babies not permitted.",
       "languages": "Guides available in English, Spanish & Portuguese",
       "meeting_point": "Pickup anywhere within urban Cali",

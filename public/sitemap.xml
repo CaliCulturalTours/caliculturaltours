@@ -19,61 +19,61 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/salsa-tour</loc>
+    <loc>https://www.caliculturaltours.com/tours/cali-salsa-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/street-food</loc>
+    <loc>https://www.caliculturaltours.com/tours/cali-street-food-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/coffee-farm</loc>
+    <loc>https://www.caliculturaltours.com/tours/coffee-farm-day-trip</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/coffee-tasting</loc>
+    <loc>https://www.caliculturaltours.com/tours/colombian-coffee-tasting-cali</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/chocotour</loc>
+    <loc>https://www.caliculturaltours.com/tours/chocolate-farm-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/cristo-rey</loc>
+    <loc>https://www.caliculturaltours.com/tours/cristo-rey-city-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/hummingbirds</loc>
+    <loc>https://www.caliculturaltours.com/tours/km18-cloud-forest-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/market-tour</loc>
+    <loc>https://www.caliculturaltours.com/tours/cali-market-fruit-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/waterfalls</loc>
+    <loc>https://www.caliculturaltours.com/tours/pance-waterfalls-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.caliculturaltours.com/tours/whale-watching</loc>
+    <loc>https://www.caliculturaltours.com/tours/pacific-whale-watching-tour</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -113,5 +113,11 @@
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.caliculturaltours.com/tours/san-cipriano-river-tubing</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
