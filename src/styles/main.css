@@ -1495,3 +1495,238 @@ img {
   height: 100%;
   border: 0;
 }
+
+/* ==========================================================================
+   Tour Share Component & Modal
+   ========================================================================== */
+.tour-share-container {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.tour-share-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #ffffff;
+  color: var(--cct-text, #111827);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.tour-share-btn:hover {
+  background: #fdf2f6;
+  border-color: var(--cct-primary, #e8005a);
+  color: var(--cct-primary, #e8005a);
+  transform: translateY(-1px);
+}
+
+.tour-share-btn i {
+  font-size: 1.05rem;
+  color: var(--cct-primary, #e8005a);
+}
+
+/* Modal Popup Backdrop & Dialog */
+.share-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.share-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.share-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.share-modal-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 24px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.share-modal.active .share-modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.share-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.share-modal-header h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+.share-modal-close {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.share-modal-close:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.share-modal-subtitle {
+  font-size: 0.92rem;
+  color: #6b7280;
+  margin-bottom: 22px;
+  line-height: 1.45;
+}
+
+/* Channels Grid */
+.share-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.share-channel-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.share-channel-btn:hover {
+  transform: translateY(-3px);
+}
+
+.share-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.2s ease;
+}
+
+.share-channel-btn.whatsapp .share-icon {
+  background: #25D366;
+}
+
+.share-channel-btn.messenger .share-icon {
+  background: #0084FF;
+}
+
+.share-channel-btn.telegram .share-icon {
+  background: #0088CC;
+}
+
+.share-channel-btn.native-share .share-icon {
+  background: #4B5563;
+}
+
+/* Clean Copy Link Box */
+.share-copy-box {
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 6px 6px 6px 14px;
+  gap: 10px;
+}
+
+.share-url-field {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.88rem;
+  color: #4b5563;
+  outline: none;
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-copy-btn {
+  background: var(--cct-primary, #e8005a);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.share-copy-btn:hover {
+  opacity: 0.92;
+}
+
+.copy-success-message {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

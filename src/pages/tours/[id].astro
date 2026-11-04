@@ -214,6 +214,61 @@ const relatedTours = [
                                 Secure online payment.
                             </p>
                         </div>
+
+                        <!-- SHARE TOUR BUTTON & MODAL -->
+                        <div class="tour-share-container">
+                            <button type="button" class="tour-share-btn" id="openShareModalBtn" aria-label="Share this tour">
+                                <i class="fas fa-arrow-up-from-bracket"></i>
+                                <span>Share this experience</span>
+                            </button>
+                        </div>
+
+                        <!-- Share Modal Popup -->
+                        <div id="tourShareModal" class="share-modal" aria-hidden="true" role="dialog">
+                            <div class="share-modal-backdrop" id="shareModalBackdrop"></div>
+                            <div class="share-modal-content">
+                                <div class="share-modal-header">
+                                    <h3>Share Experience</h3>
+                                    <button type="button" class="share-modal-close" id="closeShareModalBtn" aria-label="Close share dialog">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <p class="share-modal-subtitle">Share <strong>{tour.title}</strong> with travel companions or friends:</p>
+                                
+                                <div class="share-buttons-grid">
+                                    <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Check out this tour in Cali, Colombia: ${tour.title} — https://www.caliculturaltours.com/tours/${tour.id}`)}`} target="_blank" rel="noopener noreferrer" class="share-channel-btn whatsapp">
+                                        <div class="share-icon"><i class="fab fa-whatsapp"></i></div>
+                                        <span>WhatsApp</span>
+                                    </a>
+
+                                    <a href={`fb-messenger://share/?link=${encodeURIComponent(`https://www.caliculturaltours.com/tours/${tour.id}`)}`} target="_blank" rel="noopener noreferrer" class="share-channel-btn messenger" id="messengerShareLink">
+                                        <div class="share-icon"><i class="fab fa-facebook-messenger"></i></div>
+                                        <span>Messenger</span>
+                                    </a>
+
+                                    <a href={`https://t.me/share/url?url=${encodeURIComponent(`https://www.caliculturaltours.com/tours/${tour.id}`)}&text=${encodeURIComponent(`Check out ${tour.title} in Cali with Cali Cultural Tours!`)}`} target="_blank" rel="noopener noreferrer" class="share-channel-btn telegram">
+                                        <div class="share-icon"><i class="fab fa-telegram-plane"></i></div>
+                                        <span>Telegram</span>
+                                    </a>
+
+                                    <button type="button" class="share-channel-btn native-share" id="nativeShareTriggerBtn">
+                                        <div class="share-icon"><i class="fas fa-share-nodes"></i></div>
+                                        <span>More Apps</span>
+                                    </button>
+                                </div>
+
+                                <div class="share-copy-box">
+                                    <input type="text" readonly value={`https://www.caliculturaltours.com/tours/${tour.id}`} id="shareUrlInput" class="share-url-field" />
+                                    <button type="button" class="share-copy-btn" id="copyShareUrlBtn">
+                                        <i class="fas fa-copy"></i>
+                                        <span id="copyBtnText">Copy Link</span>
+                                    </button>
+                                </div>
+                                <div id="copySuccessAlert" class="copy-success-message" style="display: none;">
+                                    <i class="fas fa-check-circle"></i> Clean link copied to clipboard!
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="tour-description-box reveal">
                             <p>{tour.description}</p>
@@ -528,6 +583,94 @@ const relatedTours = [
         document.addEventListener('DOMContentLoaded', initGallery);
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
             initGallery();
+        }
+
+        // Share Modal & Clipboard Logic
+        function initShareModule() {
+            const openBtn = document.getElementById('openShareModalBtn');
+            const closeBtn = document.getElementById('closeShareModalBtn');
+            const backdrop = document.getElementById('shareModalBackdrop');
+            const modal = document.getElementById('tourShareModal');
+            const copyBtn = document.getElementById('copyShareUrlBtn');
+            const copyInput = document.getElementById('shareUrlInput');
+            const copyText = document.getElementById('copyBtnText');
+            const copyAlert = document.getElementById('copySuccessAlert');
+            const nativeBtn = document.getElementById('nativeShareTriggerBtn');
+
+            const tourUrl = window.location.href.split('?')[0]; // Clean link without query params
+            const tourTitle = document.title || 'Tour in Cali, Colombia';
+
+            if (copyInput) copyInput.value = tourUrl;
+
+            // Handle Messenger fallback on desktop (web dialog if desktop)
+            const messengerBtn = document.getElementById('messengerShareLink');
+            if (messengerBtn && !/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                messengerBtn.href = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(tourUrl)}&app_id=291494419107518&redirect_uri=${encodeURIComponent(tourUrl)}`;
+            }
+
+            function openModal() {
+                if (!modal) return;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            openBtn?.addEventListener('click', () => {
+                // If Web Share API is supported on mobile, offer native share directly, or open modal
+                openModal();
+            });
+
+            closeBtn?.addEventListener('click', closeModal);
+            backdrop?.addEventListener('click', closeModal);
+
+            // Copy to clipboard
+            copyBtn?.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(tourUrl);
+                    if (copyText) copyText.textContent = 'Copied!';
+                    if (copyAlert) {
+                        copyAlert.style.display = 'flex';
+                        setTimeout(() => {
+                            copyAlert.style.display = 'none';
+                            if (copyText) copyText.textContent = 'Copy Link';
+                        }, 2500);
+                    }
+                } catch (err) {
+                    copyInput?.select();
+                    document.execCommand('copy');
+                }
+            });
+
+            // Native Web Share API trigger
+            nativeBtn?.addEventListener('click', async () => {
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: tourTitle,
+                            text: `Check out ${tourTitle} with Cali Cultural Tours!`,
+                            url: tourUrl,
+                        });
+                        closeModal();
+                    } catch (err) {
+                        // User cancelled
+                    }
+                } else {
+                    // Fallback to copy link
+                    copyBtn?.click();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initShareModule);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            initShareModule();
         }
     </script>
 </BaseLayout>
