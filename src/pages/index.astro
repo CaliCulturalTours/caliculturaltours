@@ -1,8 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
+import { getPricing, getTourDisplayPrice } from '../lib/pricing';
 
 const { business, content: siteContent, tours } = content;
+const pricing = await getPricing();
+
+// Top 4 featured tours for the home showcase
+const featuredTours = tours.slice(0, 4);
+
+const reviews = [
+    {
+        name: "David M.",
+        country: "United States",
+        tour: "Street Food Tour",
+        text: "Juan Camilo showed us places we would have never found on our own. The lulada, empanadas, and local history made this our absolute highlight in Colombia!",
+        stars: 5,
+        platform: "TripAdvisor"
+    },
+    {
+        name: "Sophie & Marc",
+        country: "France",
+        tour: "Pance Waterfalls Trip",
+        text: "The perfect escape from the city heat. Refreshing mountain pools and super comfortable transport. Juan Camilo is knowledgeable, warm, and genuine.",
+        stars: 5,
+        platform: "Google Review"
+    },
+    {
+        name: "Elena R.",
+        country: "Canada",
+        tour: "San Cipriano River Tubing",
+        text: "Riding the brujitas into the rainforest and floating down the emerald river was magical. One of the most unique tours I've done anywhere in Latin America.",
+        stars: 5,
+        platform: "TripAdvisor"
+    }
+];
 ---
 
 <BaseLayout title="Authentic Food, Salsa & Nature Experiences in Cali" description="Experience authentic Cali with local guide Juan Camilo. Top-rated street food tours, salsa dancing experiences, coffee farms & mountain waterfalls. Book online.">
@@ -74,6 +106,102 @@ const { business, content: siteContent, tours } = content;
                         <p>Weekly events & things to do</p>
                     </div>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED EXPERIENCES -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <span class="tour-category-tag" style="display: inline-block; margin-bottom: 12px;">HANDCRAFTED EXPERIENCES</span>
+                <h2 class="reveal" style="font-size: 2.8rem; margin-bottom: 12px;">Top Experiences in <span class="text-serif">Cali</span></h2>
+                <p class="reveal delay-1" style="font-size: 1.15rem; color: var(--cct-text-light); max-width: 650px; margin: 0 auto;">Small groups, private departures, and local culture operated directly by us.</p>
+            </div>
+
+            <div class="tours-grid">
+                {featuredTours.map((tour, index) => (
+                    <a href={`/tours/${tour.id}`} class={`tour-card reveal delay-${index + 1}`}>
+                        <div class="tour-image-wrap">
+                            <img src={`/${tour.image}`} alt={tour.title} loading="lazy" />
+                            <span class="tour-badge">{tour.category}</span>
+                        </div>
+                        <div class="tour-card-body">
+                            <h3 class="tour-card-title">{tour.title}</h3>
+                            <div class="tour-meta-row">
+                                <span><i class="fas fa-clock"></i> {tour.duration}</span>
+                                <span><i class="fas fa-person-walking"></i> {tour.type}</span>
+                            </div>
+                            <p class="tour-card-desc">{tour.description}</p>
+                            <div class="tour-card-footer">
+                                <span class="tour-price">{getTourDisplayPrice(tour, pricing)}</span>
+                                <span class="tour-card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            <div style="text-align: center; margin-top: 48px;" class="reveal">
+                <a href="/tours" class="btn btn-outline" style="border-width: 2px;">View All 11 Cali Tours & Experiences <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR GUIDE HIGHLIGHT BANNER -->
+    <section class="section" style="background: linear-gradient(135deg, #111111 0%, #222222 100%); color: #ffffff; padding: 60px 0;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
+            <div class="reveal">
+                <span style="color: var(--cct-primary, #e8005a); font-weight: 700; letter-spacing: 1.5px; font-size: 0.85rem; text-transform: uppercase;">LOCAL TRAVEL GUIDE</span>
+                <h2 style="font-size: 2.4rem; color: #ffffff; margin: 12px 0 16px 0; line-height: 1.2;">The Ultimate Guide to <span class="text-serif" style="color: #ff4b8b;">Cali, Colombia</span></h2>
+                <p style="color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.6; margin-bottom: 24px;">
+                    Planning a trip to Cali? We wrote an honest, practical guide covering safety, neighborhood breakdowns, salsa clubs, food markets, transportation, budget, and local tips.
+                </p>
+                <a href="/guides/cali-colombia-travel-guide" class="btn btn-primary">Read the 2026 Guide <i class="fas fa-book-open" style="margin-left: 8px;"></i></a>
+            </div>
+            <div class="reveal delay-1" style="text-align: center;">
+                <img src="/images/blog/ultimate-guide-cali/hero.webp" alt="The Ultimate Guide to Cali Colombia" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); max-width: 100%; height: auto;" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF & REVIEWS -->
+    <section class="section section-light">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <div style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 8px;">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2 class="reveal" style="font-size: 2.6rem; margin-bottom: 12px;">Loved by <span class="text-serif">Travelers</span></h2>
+                <p class="reveal delay-1" style="color: var(--cct-text-light); font-size: 1.1rem;">Read real reviews from guests who explored Cali with us</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                {reviews.map((r, i) => (
+                    <div class={`reveal delay-${i + 1}`} style="background: #ffffff; padding: 32px 24px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(0,0,0,0.05);">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                                <div style="color: #f59e0b; font-size: 0.9rem;">
+                                    {Array(r.stars).fill(0).map(() => <i class="fas fa-star"></i>)}
+                                </div>
+                                <span style="font-size: 0.75rem; background: rgba(0,0,0,0.06); padding: 3px 8px; border-radius: 12px; color: #555; font-weight: 600;">{r.platform}</span>
+                            </div>
+                            <p style="font-size: 0.98rem; color: #333333; line-height: 1.6; font-style: italic; margin-bottom: 20px;">"{r.text}"</p>
+                        </div>
+                        <div style="border-top: 1px solid #f0f0f0; padding-top: 14px;">
+                            <strong style="color: #111; font-size: 0.95rem; display: block;">{r.name}</strong>
+                            <span style="font-size: 0.82rem; color: var(--cct-text-light);">{r.country} · {r.tour}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div style="text-align: center; margin-top: 36px;">
+                <a href="/review" style="font-size: 0.95rem; color: var(--cct-primary); font-weight: 600; text-decoration: none;">Have you taken a tour with us? Leave a review <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>

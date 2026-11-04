@@ -87,7 +87,9 @@ const fullTitle = title.includes(brandSuffix) ? title : `${title} | ${brandSuffi
 </script>
 
 {schema && (
-    <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+    Array.isArray(schema) 
+        ? schema.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)}></script>)
+        : <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 )}
 
     <!-- Fonts -->

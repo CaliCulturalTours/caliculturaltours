@@ -1,0 +1,178 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/main.css";
+import "../../styles/blog.css";
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Is Cali Colombia Safe for Tourists? A Local Guide's Honest Breakdown (2026)",
+  "description": "An honest, data-backed safety guide for travelers visiting Cali, Colombia. Safe neighborhoods, scams to avoid, Uber vs. taxis, nighttime advice, and solo traveler tips.",
+  "image": "https://www.caliculturaltours.com/images/blog/ultimate-guide-cali/theft-rate-cities-cali.png",
+  "author": {
+    "@type": "Person",
+    "name": "Juan Camilo",
+    "jobTitle": "Local Tour Guide & Founder"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cali Cultural Tours",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.caliculturaltours.com/images/logo.jpg"
+    }
+  },
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.caliculturaltours.com/guides/is-cali-colombia-safe"
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Cali Colombia safe for international tourists in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, thousands of international tourists visit Cali every month without incident. Most visits are trouble-free when travelers stick to safe neighborhoods like San Antonio, El Peñón, and Granada, use ride-hailing apps at night, and avoid displaying high-end valuables on the street."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Uber safe in Cali, Colombia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Uber, DiDi, and Cabify are widely considered the safest and most reliable transportation options for tourists in Cali, especially when moving between neighborhoods or traveling after dark."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What neighborhoods are safest for visitors in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "San Antonio, El Peñón, Granada, and Ciudad Jardín are the most recommended neighborhoods for accommodation, dining, and walking during daytime hours."
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Is Cali Colombia Safe for Tourists? Local Guide Breakdown (2026)"
+  description="An honest, data-backed safety guide for travelers visiting Cali, Colombia. Safe neighborhoods, scams to avoid, Uber vs. taxis, nighttime advice, and solo traveler tips."
+  ogImage="/images/blog/ultimate-guide-cali/theft-rate-cities-cali.png"
+  schema={[articleSchema, faqSchema]}
+>
+  <div class="blog-container" style="max-width: 820px; margin: 40px auto; padding: 0 20px;">
+    
+    <!-- Breadcrumb -->
+    <nav style="font-size: 0.9rem; margin-bottom: 24px; color: var(--cct-text-light);">
+      <a href="/" style="color: inherit; text-decoration: none;">Home</a> &gt; 
+      <a href="/guides/cali-colombia-travel-guide" style="color: inherit; text-decoration: none;">Guides</a> &gt; 
+      <span style="color: var(--cct-primary);">Is Cali Safe?</span>
+    </nav>
+
+    <!-- Header -->
+    <header style="margin-bottom: 36px;">
+      <span class="tour-category-tag" style="margin-bottom: 12px; display: inline-block;">SAFETY & PRACTICAL TRAVEL</span>
+      <h1 class="text-serif" style="font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; margin-bottom: 16px;">
+        Is Cali, Colombia Safe for Tourists? A Local Guide's Honest Breakdown
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--cct-text-light); line-height: 1.6;">
+        Updated November 2026 · 10 min read · Written by Juan Camilo, founder & certified tour guide at Cali Cultural Tours.
+      </p>
+    </header>
+
+    <!-- Introduction -->
+    <div class="article-content" style="font-size: 1.1rem; line-height: 1.75; color: #222;">
+      <p>
+        As local tour guides who show travelers around Cali every single week, <strong>"Is Cali safe?"</strong> is consistently the very first question we receive. For many international visitors, it is the single reason they hesitate before adding the Salsa Capital of the World to their Colombia itinerary.
+      </p>
+
+      <p>
+        The short answer is nuanced: <strong>Cali is neither the dangerous warzone sensationalized in outdated headlines, nor is it a place where you can wander blindly without situational awareness.</strong>
+      </p>
+
+      <p>
+        Tens of thousands of foreigners visit Cali each year to dance salsa, hike through cloud forests, taste Pacific cuisine, and study Spanish—the vast majority leaving with unforgettable memories and zero negative experiences. What determines your trip is understanding how the city works.
+      </p>
+
+      <!-- Theft rate graphic -->
+      <figure class="article-image" style="margin: 36px 0;">
+        <img src="/images/blog/ultimate-guide-cali/theft-rate-cities-cali.png" alt="Robbery rates in Colombian cities 2022" loading="lazy" width="1200" height="auto" style="border-radius: 12px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.08);" />
+        <figcaption style="font-size: 0.88rem; color: #666; margin-top: 10px; text-align: center;">
+          Robbery rate per 100,000 inhabitants in Colombia's major metropolitan areas. Contrary to popular perception, Cali ranks outside the top five. Source: Fundación Paz y Reconciliación (PARES), SIEDCO.
+        </figcaption>
+      </figure>
+
+      <h2 style="font-size: 2rem; margin-top: 40px; margin-bottom: 16px;">1. Understanding Cali's Geographic Reality</h2>
+      <p>
+        Like many major Latin American cities, safety in Cali is intensely geographic. Crime statistics in Cali are heavily concentrated in peripheral, low-income districts in the city's east (Distrito de Aguablanca) and steep hillside settlements in the far west—neighborhoods where tourists have virtually no reason to go.
+      </p>
+
+      <p>
+        The traditional visitor corridor—spanning <strong>San Antonio, El Peñón, Granada, and the modern south in Ciudad Jardín</strong>—functions in a completely different reality, with active street life, café culture, private security, and routine police presence.
+      </p>
+
+      <!-- Income distribution map -->
+      <figure class="article-image" style="margin: 36px 0;">
+        <img src="/images/blog/ultimate-guide-cali/cali-income-distribution-poverty-map.png" alt="Spatial distribution of income levels in Cali" loading="lazy" width="1200" height="auto" style="border-radius: 12px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.08);" />
+        <figcaption style="font-size: 0.88rem; color: #666; margin-top: 10px; text-align: center;">
+          Income distribution in Cali. Visitors spend 95% of their time in the lighter-shaded sectors along the western hills and south.
+        </figcaption>
+      </figure>
+
+      <h2 style="font-size: 2rem; margin-top: 40px; margin-bottom: 16px;">2. The Essential Rules: "No Dar Papaya"</h2>
+      <p>
+        Colombians have a famous idiom: <em>"No dar papaya"</em> (literally, don't give papaya). In travel terms, it means: <strong>don't make yourself an easy or obvious target.</strong>
+      </p>
+      <ul style="padding-left: 24px; margin-bottom: 24px;">
+        <li style="margin-bottom: 10px;"><strong>Keep your smartphone discreet:</strong> Avoid walking along busy avenues with your iPhone held out in one hand for long periods. If you need to check Google Maps, step inside a café or look around before pulling it out.</li>
+        <li style="margin-bottom: 10px;"><strong>Leave luxury jewelry and watches at home:</strong> High-end luxury watches, gold chains, and flashy cameras attract unwanted attention anywhere in South America.</li>
+        <li style="margin-bottom: 10px;"><strong>Carry only what you need for the day:</strong> Leave your physical passport, backup credit cards, and excess cash in your hotel safe. A color copy or digital photo of your passport is sufficient for daily outings.</li>
+      </ul>
+
+      <h2 style="font-size: 2rem; margin-top: 40px; margin-bottom: 16px;">3. Transportation: Taxis vs. Uber</h2>
+      <p>
+        During daylight hours, walking through San Antonio, El Peñón, Granada, and along the Bulevar del Río is pleasant and safe.
+      </p>
+      <p>
+        However, <strong>at night, do not walk between distant neighborhoods</strong> (for example, walking from Granada back to San Antonio across the river after 9:00 p.m.). Always order a ride-hailing car. <strong>Uber, DiDi, and Cabify work reliably in Cali</strong> and eliminate the friction of language barriers or negotiating cash fares.
+      </p>
+
+      <!-- Local guide bubble -->
+      <div class="experience-bubble" style="background: #fff0f5; border-left: 4px solid var(--cct-primary); padding: 24px; border-radius: 14px; margin: 36px 0; display: flex; gap: 20px; align-items: center;">
+        <img src="/images/juan-camilo.webp" alt="Juan Camilo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" />
+        <div>
+          <strong style="color: var(--cct-primary); font-size: 1.1rem; display: block; margin-bottom: 6px;">Juan Camilo's Local Insight:</strong>
+          <p style="margin: 0; font-size: 1rem; color: #333; line-height: 1.5;">
+            "Whenever travelers ask me if they should take a yellow taxi on the street late at night, I always tell them: stick to Uber or have your restaurant/hotel call a radio taxi. It removes all ambiguity, logs your route via GPS, and keeps your journey stress-free."
+          </p>
+        </div>
+      </div>
+
+      <h2 style="font-size: 2rem; margin-top: 40px; margin-bottom: 16px;">4. Solo Travelers & Women Visiting Cali</h2>
+      <p>
+        Solo female travelers and backpackers routinely visit Cali. Staying in social hostels or boutique guest houses in San Antonio makes it very easy to meet fellow travelers and dance partners for salsa nights at La Topa Tolondra or MalaMaña. Joining organized day tours is also the most efficient way to access nature spots like Pance River or San Cipriano without having to navigate rural public transport solo.
+      </p>
+
+      <!-- CTA to tours & full guide -->
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 16px; padding: 32px 24px; margin: 40px 0; text-align: center;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 10px;">Explore Cali with Certified Local Guides</h3>
+        <p style="font-size: 1rem; color: #555; max-width: 600px; margin: 0 auto 20px auto;">
+          Want to experience the best food markets, salsa clubs, and mountain waterfalls with round-trip transport and zero logistics stress?
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="/tours" class="btn btn-primary">Browse Our Guided Tours</a>
+          <a href="/guides/cali-colombia-travel-guide" class="btn btn-outline">Read The Ultimate Guide to Cali</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

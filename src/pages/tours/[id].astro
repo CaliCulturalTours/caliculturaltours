@@ -33,6 +33,8 @@ const durationToISO = (duration) => {
 
 const schemaDuration = durationToISO(tour.duration);
 
+const tourPriceNumeric = pricing[tour.id]?.from_price || parseInt(String(tour.price).replace(/[^0-9]/g, ''), 10) || 105000;
+
 const tourSchema = {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
@@ -41,6 +43,20 @@ const tourSchema = {
   "url": `https://www.caliculturaltours.com/tours/${tour.id}`,
   "image": `https://www.caliculturaltours.com/${tour.image}`,
   "duration": schemaDuration,
+  "offers": {
+    "@type": "Offer",
+    "price": tourPriceNumeric,
+    "priceCurrency": "COP",
+    "availability": "https://schema.org/InStock",
+    "url": `https://www.caliculturaltours.com/book?tour=${tour.id}`
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "48",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
   "provider": {
     "@type": "LocalBusiness",
     "additionalType": "https://en.wikipedia.org/wiki/Tour_operator",

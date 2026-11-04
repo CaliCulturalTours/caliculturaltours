@@ -1,4 +1,107 @@
 ---
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Cali, Colombia worth visiting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Cali is particularly worth visiting if you're interested in salsa, local culture, food, nightlife and easy access to mountains, rivers and biodiversity. It's a less conventional choice than Cartagena or Medellín, but that's part of its appeal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many days should you spend in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend three to five days for a first visit. One or two days can work if Cali is part of a larger itinerary, while five days or more gives you time for both the city and longer regional excursions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cali expensive to visit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cali is generally a good-value destination, with affordable options for accommodation, food and transportation at almost every budget level."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cali safe for tourists?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cali requires normal big-city precautions, particularly at night. Choosing your neighborhood carefully, using reliable transportation and keeping valuables discreet are the main things we recommend to visitors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you drink tap water in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Cali's municipal tap water is generally considered safe to drink, and many locals drink it every day. Bottled or filtered water is also widely available if you prefer it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need cash in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's a good idea to carry some Colombian pesos. Cards are widely accepted, but cash remains useful for street food, markets, bakeries, small businesses and other everyday purchases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Uber available in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Uber is widely used in Cali, alongside apps such as DiDi, inDrive, Yango and Cabify. Waiting times can vary, so allow extra time when you have an important appointment or reservation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do people speak English in Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "English is not widely spoken outside the tourism and hospitality sectors. Learning a few basic Spanish phrases and having a translation app will make your trip considerably easier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best time of year to visit Cali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cali can be visited year round. The relatively drier periods are generally better for outdoor activities, while August, October and late December are especially interesting because of major cultural and salsa events."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Cali famous for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cali is best known as the Salsa Capital of the World. It's also known for its Afro-Colombian culture, distinctive food, nightlife and unusually close connection to the mountains, rivers and biodiversity surrounding the city."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cali good for solo travelers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. San Antonio, El Peñón and Granada are popular choices for solo travelers because they are relatively walkable and have plenty of restaurants, nightlife and accommodation options."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cali good for a first trip to Colombia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your interests. If salsa, nightlife, Afro-Colombian culture, food and nature appeal to you, Cali can be an excellent introduction to Colombia beyond its more established tourist destinations."
+      }
+    }
+  ]
+};
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -43,7 +146,7 @@ import GuideNav from "../../components/blog/GuideNav.astro";
     title="Cali Colombia Travel Guide: Safety, Salsa, Food & More"
     description="A local guide to Cali, Colombia covering safety, salsa, nightlife, food, nature, neighborhoods, transportation, weather, costs and how long to stay."
     ogImage="/images/blog/ultimate-guide-cali/hero.webp"
-    schema={articleSchema}
+    schema={[articleSchema, faqPageSchema]}
 >
 
 <BlogHero
@@ -239,7 +342,7 @@ items={[
         <h2>Is Cali Safe?</h2>
     </div>
 
-    <p>We debated whether this should appear at the beginning of the guide.</p>
+    <p>We debated whether this should appear at the beginning of the guide. (For our complete, in-depth analysis with safe neighborhood maps and solo travel advice, see our dedicated guide: <a href="/guides/is-cali-colombia-safe"><strong>Is Cali Colombia Safe for Tourists?</strong></a>).</p>
     
     <p>As locals, safety isn't something that dominates our everyday conversations. We go to work, meet friends, enjoy restaurants, dance salsa, hike in the mountains, and live our lives much like people do in any other large city.</p>
     
