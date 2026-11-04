@@ -44,19 +44,63 @@ export async function POST({ request }) {
 // GET TOUR INFO
 // --------------------------------
 
-const tourInfoResponse = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.GOOGLE_SHEET_ID,
-    range: "TOUR INFO!A:C",
-});
+// Fallback dictionary in case Google Sheet TOUR INFO isn't yet updated or network blips
+const FALLBACK_TOUR_DEFAULTS = {
+    "pance-waterfalls-tour": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "waterfalls": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "cali-salsa-tour": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "salsa-tour": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "km18-cloud-forest-tour": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "hummingbirds": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "cali-market-fruit-tour": { duration: "03:00:00", meeting: "Galería Alameda main entrance or urban Cali pickup" },
+    "market-tour": { duration: "03:00:00", meeting: "Galería Alameda main entrance or urban Cali pickup" },
+    "colombian-coffee-tasting-cali": { duration: "02:30:00", meeting: "San Antonio neighborhood or urban Cali pickup" },
+    "coffee-tasting": { duration: "02:30:00", meeting: "San Antonio neighborhood or urban Cali pickup" },
+    "cali-street-food-tour": { duration: "03:00:00", meeting: "San Antonio historic area or urban Cali pickup" },
+    "street-food": { duration: "03:00:00", meeting: "San Antonio historic area or urban Cali pickup" },
+    "coffee-farm-day-trip": { duration: "06:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "coffee-farm": { duration: "06:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "chocolate-farm-tour": { duration: "05:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "chocotour": { duration: "05:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "cristo-rey-city-tour": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "cristo-rey": { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "pacific-whale-watching-tour": { duration: "12:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "whale-watching": { duration: "12:00:00", meeting: "Pickup anywhere within urban Cali" },
+    "san-cipriano-river-tubing": { duration: "09:30:00", meeting: "Pickup anywhere within urban Cali" }
+};
 
-const tourInfoRows = tourInfoResponse.data.values || [];
+let durationHours = "";
+let meetingPoint = "";
 
-const tourInfo = tourInfoRows.find(
-    row => row[0] === body.tour_id
-);
+try {
+    const tourInfoResponse = await sheets.spreadsheets.values.get({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: "TOUR INFO!A:C",
+    });
 
-const durationHours = tourInfo ? tourInfo[1] : "";
-const meetingPoint = tourInfo ? tourInfo[2] : "";
+    const tourInfoRows = tourInfoResponse.data.values || [];
+
+    // Match either by exact tour_id (new or old slug) or by title search
+    const tourInfo = tourInfoRows.find(row => {
+        if (!row || !row[0]) return false;
+        const cell = String(row[0]).trim().toLowerCase();
+        const incomingId = String(body.tour_id || "").trim().toLowerCase();
+        const incomingTitle = String(body.tour || "").trim().toLowerCase();
+        return cell === incomingId || incomingTitle.includes(cell) || cell.includes(incomingId);
+    });
+
+    if (tourInfo) {
+        durationHours = tourInfo[1] || "";
+        meetingPoint = tourInfo[2] || "";
+    }
+} catch (infoErr) {
+    console.warn("Could not fetch TOUR INFO from sheet, will use fallbacks:", infoErr.message);
+}
+
+// Apply fallbacks if sheet did not return data
+const fallback = FALLBACK_TOUR_DEFAULTS[body.tour_id] || { duration: "04:00:00", meeting: "Pickup anywhere within urban Cali" };
+if (!durationHours) durationHours = fallback.duration;
+if (!meetingPoint) meetingPoint = fallback.meeting;
 
 console.log("Tour info:", {
     tour_id: body.tour_id,
@@ -383,17 +427,21 @@ try {
         hours = 0;
     }
 
-    // Parse duration such as "4:00:00" or "1:30:00"
-    const durationMatch = String(durationHours).match(
-        /^(\d+):(\d{2}):(\d{2})$/
-    );
+    // Robust duration parsing: handles "4:00:00", "04:00", "4 hours", "3.5", etc.
+    let durationH = 4;
+    let durationM = 0;
 
-    if (!durationMatch) {
-        throw new Error(`Invalid duration: ${durationHours}`);
+    const timeParts = String(durationHours).match(/^(\d+):(\d{2})(?::(\d{2}))?$/);
+    if (timeParts) {
+        durationH = Number(timeParts[1]);
+        durationM = Number(timeParts[2]);
+    } else {
+        const hoursNumber = parseFloat(String(durationHours).replace(/[^0-9.]/g, ''));
+        if (!isNaN(hoursNumber) && hoursNumber > 0) {
+            durationH = Math.floor(hoursNumber);
+            durationM = Math.round((hoursNumber - durationH) * 60);
+        }
     }
-
-    const durationH = Number(durationMatch[1]);
-    const durationM = Number(durationMatch[2]);
 
     // Create ISO-like local date/time strings.
     // Calendar receives the explicit America/Bogota timezone.
