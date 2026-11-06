@@ -5,6 +5,10 @@ export default defineConfig({
   site: 'https://www.caliculturaltours.com',
   output: 'server',
   adapter: vercel(),
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: 'hover'
+  },
   redirects: {
     '/tours/waterfalls': '/tours/pance-waterfalls-tour',
     '/tours/salsa-tour': '/tours/cali-salsa-tour',

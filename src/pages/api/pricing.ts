@@ -6,7 +6,7 @@ export async function GET() {
   return new Response(JSON.stringify(pricing), {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=300"
+      "Cache-Control": "public, s-maxage=900, stale-while-revalidate=3600"
     }
   });
 }
