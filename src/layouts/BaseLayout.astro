@@ -140,8 +140,16 @@ const fullTitle = title.includes(brandSuffix) ? title : `${title} | ${brandSuffi
         <slot />
     </main>
 
-    <a href="https://wa.me/573162543554" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
+    <!-- Single, Ultra-Optimized Floating WhatsApp Button with pre-filled greeting -->
+    <a 
+        href="https://wa.me/573162543554?text=Hi%20Juan%20Camilo!%20I'm%20planning%20a%20trip%20to%20Cali%20and%20have%20a%20question" 
+        class="wa-float" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        aria-label="Chat with local guide Juan Camilo on WhatsApp"
+        id="globalFloatingWhatsAppBtn"
+    >
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
     </a>
 
     <footer class="footer">

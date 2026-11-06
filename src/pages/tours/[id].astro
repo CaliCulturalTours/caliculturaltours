@@ -92,7 +92,7 @@ const relatedTours = [
     ogImage={`/${tour.image}`}
     schema={tourSchema}
 >
-    <section class="section section-light" style="background: white;">
+    <section class="section tour-detail-section tour-inverted">
         <div class="container">
             <nav class="reveal" style="margin-bottom: 40px;">
                 <a href="/tours" class="back-link" style="margin: 0;">
@@ -190,11 +190,11 @@ const relatedTours = [
     </div>
 )}
                             {(tour.physical_level || tour.languages || tour.meeting_point || tour.discount) && (
-                                <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; color: var(--cct-text-light);">
-                                    {tour.physical_level && <span><i class="fas fa-hiking" style="width:16px; color: var(--cct-primary);"></i> {tour.physical_level}</span>}
-                                    {tour.languages && <span><i class="fas fa-language" style="width:16px; color: var(--cct-primary);"></i> {tour.languages}</span>}
-                                    {tour.meeting_point && <span><i class="fas fa-map-marker-alt" style="width:16px; color: var(--cct-primary);"></i> {tour.meeting_point}</span>}
-                                    {tour.discount && <span><i class="fas fa-tag" style="width:16px; color: var(--cct-primary);"></i> {tour.discount}</span>}
+                                <div class="tour-extra-meta">
+                                    {tour.physical_level && <span><i class="fas fa-hiking"></i> {tour.physical_level}</span>}
+                                    {tour.languages && <span><i class="fas fa-language"></i> {tour.languages}</span>}
+                                    {tour.meeting_point && <span><i class="fas fa-map-marker-alt"></i> {tour.meeting_point}</span>}
+                                    {tour.discount && <span><i class="fas fa-tag"></i> {tour.discount}</span>}
                                 </div>
                             )}
                         </div>
@@ -329,8 +329,8 @@ const relatedTours = [
                             <h4>Good to Know</h4>
                             <ul class="inclusion-list" style="list-style: none; padding: 0;">
                                 {(tour.notes as string[]).map((note: string) => (
-                                    <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; color: var(--cct-text-light);">
-                                        <i class="fas fa-info-circle" style="color: var(--cct-primary); margin-right: 8px;"></i>{note}
+                                    <li class="good-to-know-item">
+                                        <i class="fas fa-info-circle"></i> {note}
                                     </li>
                                 ))}
                             </ul>
@@ -343,7 +343,7 @@ const relatedTours = [
     </section>
 
     <!-- RELATED TOURS SECTION -->
-    <section class="section section-light" style="border-top: 1px solid #eaeaea;">
+    <section class="section tour-related-section">
         <div class="container reveal">
             <h2 class="text-serif" style="text-align: center; margin-bottom: 48px; font-size: 2.5rem;">You may also like</h2>
             

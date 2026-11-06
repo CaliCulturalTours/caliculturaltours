@@ -1174,29 +1174,49 @@ img {
    INTERACTIVE ELEMENTS (Floating & Animated)
    ========================================================================== */
 
-/* Floating WhatsApp Button */
+/* Floating WhatsApp Button (Optimized Single Button with Pre-filled Text) */
 .wa-float {
   position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
+  width: 58px;
+  height: 58px;
+  bottom: 26px;
+  right: 26px;
   background-color: #25d366;
-  color: #FFF;
-  border-radius: 50px;
+  color: #ffffff;
+  border-radius: 50%;
   text-align: center;
-  font-size: 30px;
-  box-shadow: 2px 2px 3px #999;
-  z-index: 10000;
+  font-size: 32px;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, background-color 0.25s ease;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wa-float:hover {
-  transform: scale(1.1);
-  color: white;
+  background-color: #20ba5a;
+  color: #ffffff;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
+}
+
+.wa-float:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .wa-float {
+    width: 52px;
+    height: 52px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 28px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
 }
 
 /* Navbar Book Now Button */
@@ -1729,4 +1749,376 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+
+/* ==========================================================================
+   INVERTED COLOR PALETTE FOR TOUR PAGES (Rich Brand Pink Theme)
+   ========================================================================== */
+.tour-detail-section.tour-inverted {
+  background: linear-gradient(168deg, #E8005A 0%, #D80053 38%, #B80045 100%);
+  color: #ffffff;
+  padding-top: 36px;
+  padding-bottom: 72px;
+  position: relative;
+}
+
+.tour-detail-section.tour-inverted::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  background: radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Back Link */
+.tour-inverted .back-link {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 8px 18px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tour-inverted .back-link:hover {
+  background: #ffffff;
+  color: var(--cct-primary, #e8005a);
+  transform: translateX(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* Tour Header & Typography */
+.tour-inverted .tour-category-tag {
+  background: #ffffff;
+  color: var(--cct-primary, #e8005a);
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+}
+
+.tour-inverted .tour-info-header h1 {
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  font-size: clamp(1.85rem, 3.6vw, 2.45rem);
+}
+
+.tour-inverted .tour-meta-row {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+.tour-inverted .tour-meta-row i {
+  color: #ffffff;
+}
+
+.tour-inverted .tour-extra-meta {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.tour-inverted .tour-extra-meta span i {
+  width: 18px;
+  color: #ffffff;
+  margin-right: 6px;
+}
+
+/* Tour Highlight Box */
+.tour-inverted .tour-highlight {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-left: 5px solid #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  color: #ffffff;
+}
+
+.tour-inverted .tour-highlight-title {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.tour-inverted .tour-highlight p {
+  color: #ffffff;
+  line-height: 1.7;
+}
+
+/* Price Card - Crisp White Contrast Card with Vibrant Pink Conversion */
+.tour-inverted .price-card-floating {
+  background: #ffffff;
+  border: none;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  margin-bottom: 24px;
+}
+
+.tour-inverted .price-card-floating .price-label {
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 0.85rem;
+}
+
+.tour-inverted .price-card-floating .price-value {
+  color: var(--cct-primary, #e8005a);
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.tour-inverted .price-card-floating .btn-primary {
+  background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 800;
+  font-size: 1.08rem;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.38);
+  transition: all 0.25s ease;
+}
+
+.tour-inverted .price-card-floating .btn-primary:hover {
+  background: linear-gradient(135deg, #ff1a75 0%, #d8005a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(232, 0, 90, 0.5);
+}
+
+.tour-inverted .price-card-floating .price-footer-note {
+  color: #64748b;
+  margin-top: 12px;
+}
+
+/* Tour Share Button */
+.tour-inverted .tour-share-container {
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.tour-inverted .tour-share-btn {
+  background: #ffffff;
+  color: var(--cct-primary, #e8005a);
+  border: none;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s ease;
+}
+
+.tour-inverted .tour-share-btn i {
+  color: var(--cct-primary, #e8005a);
+}
+
+.tour-inverted .tour-share-btn:hover {
+  background: #ffffff;
+  color: #c4004c;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* Description Box */
+.tour-inverted .tour-description-box {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  padding: 26px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  margin-bottom: 32px;
+}
+
+.tour-inverted .tour-description-box p {
+  color: #ffffff;
+  line-height: 1.75;
+  font-size: 1.08rem;
+  margin-bottom: 0;
+}
+
+/* Inclusions Grid */
+.tour-inverted .inclusions-grid-v2 {
+  border-top: none;
+  margin-top: 36px;
+  padding-top: 0;
+  gap: 24px;
+}
+
+.tour-inverted .inclusion-block {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tour-inverted .inclusion-block h4 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tour-inverted .inclusion-list li {
+  color: #ffffff;
+  margin-bottom: 14px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tour-inverted .inclusion-list i.fa-check {
+  color: #34d399;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 0.85rem;
+}
+
+.tour-inverted .inclusion-list i.fa-times {
+  color: #fca5a5;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  padding: 4px 6px;
+  font-size: 0.85rem;
+}
+
+/* Itinerary Section & Notes */
+.tour-inverted .itinerary-section {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border-top: none;
+  margin-top: 32px;
+}
+
+.tour-inverted .itinerary-section h4 {
+  color: #ffffff;
+  font-size: 1.35rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tour-inverted .itinerary-list {
+  margin-top: 0;
+}
+
+.tour-inverted .itinerary-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.tour-inverted .itinerary-time {
+  background: #ffffff;
+  color: var(--cct-primary, #e8005a);
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 85px;
+  text-align: center;
+}
+
+.tour-inverted .itinerary-desc {
+  color: #ffffff;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.tour-inverted .good-to-know-item {
+  color: #ffffff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 10px 0 !important;
+  font-size: 0.98rem !important;
+}
+
+.tour-inverted .good-to-know-item i {
+  color: #ffffff !important;
+}
+
+/* Gallery & Thumbnails on Inverted Page */
+.tour-inverted .thumb-img {
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+}
+
+.tour-inverted .thumb-img.active {
+  border: 3px solid #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Related Tours Section with Deep Wine Gradient Flow */
+.tour-related-section {
+  background: linear-gradient(180deg, #b80045 0%, #18050d 100%);
+  color: #ffffff;
+  padding: 70px 0 85px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.tour-related-section h2 {
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tour-related-section .tour-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.tour-related-section .tour-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.tour-related-section .btn-outline {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  background: transparent;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+.tour-related-section .btn-outline:hover {
+  background: #ffffff;
+  color: var(--cct-primary, #e8005a);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
