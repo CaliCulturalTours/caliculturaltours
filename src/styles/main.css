@@ -1753,75 +1753,78 @@ img {
 
 
 /* ==========================================================================
-   INVERTED COLOR PALETTE FOR TOUR PAGES (Rich Brand Pink Theme)
+   INTERMEDIATE PINK PALETTE FOR TOUR PAGES (High Legibility & Brand Harmony)
    ========================================================================== */
 .tour-detail-section.tour-inverted {
-  background: linear-gradient(168deg, #E8005A 0%, #D80053 38%, #B80045 100%);
-  color: #ffffff;
+  background: linear-gradient(175deg, #fff5f8 0%, #fde4ee 45%, #fcd6e5 100%);
+  color: #2d3748;
   padding-top: 36px;
   padding-bottom: 72px;
   position: relative;
 }
 
+/* Subtle decorative ambient radial glow */
 .tour-detail-section.tour-inverted::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 280px;
-  background: radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+  height: 240px;
+  background: radial-gradient(circle at 50% -10%, rgba(232, 0, 90, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
-/* Back Link */
+/* Back to Tours Link */
 .tour-inverted .back-link {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--cct-primary, #e8005a);
+  background: #ffffff;
+  border: 1px solid #fae1ec;
   padding: 8px 18px;
   border-radius: 30px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.92rem;
   text-decoration: none;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(232, 0, 90, 0.07);
 }
 
 .tour-inverted .back-link:hover {
-  background: #ffffff;
-  color: var(--cct-primary, #e8005a);
+  background: var(--cct-primary, #e8005a);
+  color: #ffffff;
+  border-color: var(--cct-primary, #e8005a);
   transform: translateX(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 16px rgba(232, 0, 90, 0.22);
 }
 
-/* Tour Header & Typography */
+/* Tour Header & Headings in Intense Brand Pink */
 .tour-inverted .tour-category-tag {
-  background: #ffffff;
-  color: var(--cct-primary, #e8005a);
+  background: var(--cct-primary, #e8005a);
+  color: #ffffff;
   font-weight: 800;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(232, 0, 90, 0.2);
   border-radius: 6px;
 }
 
 .tour-inverted .tour-info-header h1 {
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  color: #ba0047;
   font-size: clamp(1.85rem, 3.6vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  text-shadow: none;
 }
 
 .tour-inverted .tour-meta-row {
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 500;
+  color: #4a5568;
+  font-weight: 600;
 }
 
 .tour-inverted .tour-meta-row i {
-  color: #ffffff;
+  color: var(--cct-primary, #e8005a);
 }
 
 .tour-inverted .tour-extra-meta {
@@ -1830,44 +1833,42 @@ img {
   flex-direction: column;
   gap: 8px;
   font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.95);
+  color: #4a5568;
 }
 
 .tour-inverted .tour-extra-meta span i {
   width: 18px;
-  color: #ffffff;
+  color: var(--cct-primary, #e8005a);
   margin-right: 6px;
 }
 
 /* Tour Highlight Box */
 .tour-inverted .tour-highlight {
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-left: 5px solid #ffffff;
+  background: #ffffff;
+  border: 1px solid #fae1ec;
+  border-left: 5px solid var(--cct-primary, #e8005a);
   border-radius: 14px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.08);
+  color: #2d3748;
 }
 
 .tour-inverted .tour-highlight-title {
-  color: #ffffff;
+  color: #ba0047;
   font-weight: 800;
 }
 
 .tour-inverted .tour-highlight p {
-  color: #ffffff;
+  color: #374151;
   line-height: 1.7;
 }
 
-/* Price Card - Crisp White Contrast Card with Vibrant Pink Conversion */
+/* Price Card - Crisp White Card with High-Impact Contrast */
 .tour-inverted .price-card-floating {
   background: #ffffff;
-  border: none;
+  border: 1px solid #fae1ec;
   border-radius: 22px;
   padding: 30px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 16px 40px rgba(232, 0, 90, 0.12);
   margin-bottom: 24px;
 }
 
@@ -1894,14 +1895,14 @@ img {
   font-size: 1.08rem;
   padding: 16px;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.38);
+  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.35);
   transition: all 0.25s ease;
 }
 
 .tour-inverted .price-card-floating .btn-primary:hover {
   background: linear-gradient(135deg, #ff1a75 0%, #d8005a 100%);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(232, 0, 90, 0.5);
+  box-shadow: 0 12px 30px rgba(232, 0, 90, 0.45);
 }
 
 .tour-inverted .price-card-floating .price-footer-note {
@@ -1918,11 +1919,11 @@ img {
 .tour-inverted .tour-share-btn {
   background: #ffffff;
   color: var(--cct-primary, #e8005a);
-  border: none;
+  border: 1px solid #fae1ec;
   font-weight: 700;
   padding: 14px 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 18px rgba(232, 0, 90, 0.08);
   transition: all 0.25s ease;
 }
 
@@ -1931,28 +1932,27 @@ img {
 }
 
 .tour-inverted .tour-share-btn:hover {
-  background: #ffffff;
-  color: #c4004c;
+  background: #fdf2f7;
+  border-color: var(--cct-primary, #e8005a);
+  color: #ba0047;
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 24px rgba(232, 0, 90, 0.16);
 }
 
 /* Description Box */
 .tour-inverted .tour-description-box {
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #ffffff;
+  border: 1px solid #fae1ec;
   border-radius: 18px;
   padding: 26px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 30px rgba(232, 0, 90, 0.07);
   margin-bottom: 32px;
 }
 
 .tour-inverted .tour-description-box p {
-  color: #ffffff;
+  color: #2d3748;
   line-height: 1.75;
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   margin-bottom: 0;
 }
 
@@ -1965,43 +1965,42 @@ img {
 }
 
 .tour-inverted .inclusion-block {
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #ffffff;
+  border: 1px solid #fae1ec;
   border-radius: 18px;
   padding: 28px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 30px rgba(232, 0, 90, 0.07);
 }
 
 .tour-inverted .inclusion-block h4 {
-  color: #ffffff;
+  color: #ba0047;
   font-size: 1.3rem;
+  font-weight: 800;
   margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid #fce7f3;
 }
 
 .tour-inverted .inclusion-list li {
-  color: #ffffff;
+  color: #374151;
   margin-bottom: 14px;
-  font-size: 1rem;
+  font-size: 0.98rem;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .tour-inverted .inclusion-list i.fa-check {
-  color: #34d399;
-  background: rgba(255, 255, 255, 0.22);
+  color: #059669;
+  background: #ecfdf5;
   border-radius: 50%;
   padding: 4px;
   font-size: 0.85rem;
 }
 
 .tour-inverted .inclusion-list i.fa-times {
-  color: #fca5a5;
-  background: rgba(255, 255, 255, 0.22);
+  color: #dc2626;
+  background: #fef2f2;
   border-radius: 50%;
   padding: 4px 6px;
   font-size: 0.85rem;
@@ -2009,23 +2008,22 @@ img {
 
 /* Itinerary Section & Notes */
 .tour-inverted .itinerary-section {
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #ffffff;
+  border: 1px solid #fae1ec;
   border-radius: 18px;
   padding: 32px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 30px rgba(232, 0, 90, 0.07);
   border-top: none;
   margin-top: 32px;
 }
 
 .tour-inverted .itinerary-section h4 {
-  color: #ffffff;
+  color: #ba0047;
   font-size: 1.35rem;
+  font-weight: 800;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid #fce7f3;
 }
 
 .tour-inverted .itinerary-list {
@@ -2040,85 +2038,86 @@ img {
 }
 
 .tour-inverted .itinerary-time {
-  background: #ffffff;
-  color: var(--cct-primary, #e8005a);
+  background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+  color: #ffffff;
   font-weight: 800;
   padding: 6px 14px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(232, 0, 90, 0.25);
   min-width: 85px;
   text-align: center;
 }
 
 .tour-inverted .itinerary-desc {
-  color: #ffffff;
-  font-size: 1.05rem;
+  color: #374151;
+  font-size: 1.02rem;
   line-height: 1.6;
 }
 
 .tour-inverted .good-to-know-item {
-  color: #ffffff !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #4a5568 !important;
+  border-bottom: 1px solid #fce7f3 !important;
   padding: 10px 0 !important;
   font-size: 0.98rem !important;
 }
 
 .tour-inverted .good-to-know-item i {
-  color: #ffffff !important;
+  color: var(--cct-primary, #e8005a) !important;
 }
 
 /* Gallery & Thumbnails on Inverted Page */
 .tour-inverted .thumb-img {
-  border: 2px solid rgba(255, 255, 255, 0.35);
+  border: 2px solid transparent;
   border-radius: 10px;
 }
 
 .tour-inverted .thumb-img.active {
-  border: 3px solid #ffffff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border: 3px solid var(--cct-primary, #e8005a);
+  box-shadow: 0 6px 18px rgba(232, 0, 90, 0.25);
 }
 
-/* Related Tours Section with Deep Wine Gradient Flow */
+/* Related Tours Section with Soft Rosy Gradient Flow */
 .tour-related-section {
-  background: linear-gradient(180deg, #b80045 0%, #18050d 100%);
-  color: #ffffff;
+  background: linear-gradient(180deg, #fcd6e5 0%, #fdeef5 50%, #ffffff 100%);
+  color: #2d3748;
   padding: 70px 0 85px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid #fae1ec;
 }
 
 .tour-related-section h2 {
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: #ba0047;
+  font-weight: 800;
 }
 
 .tour-related-section .tour-card {
   background: #ffffff;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 30px rgba(232, 0, 90, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: none;
+  border: 1px solid #fae1ec;
 }
 
 .tour-related-section .tour-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 18px 38px rgba(232, 0, 90, 0.16);
 }
 
 .tour-related-section .btn-outline {
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  background: transparent;
+  border: 2px solid var(--cct-primary, #e8005a);
+  color: var(--cct-primary, #e8005a);
+  background: #ffffff;
   font-weight: 700;
   padding: 14px 32px;
   border-radius: 12px;
   font-size: 1rem;
   transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(232, 0, 90, 0.08);
 }
 
 .tour-related-section .btn-outline:hover {
-  background: #ffffff;
-  color: var(--cct-primary, #e8005a);
+  background: var(--cct-primary, #e8005a);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.28);
 }
