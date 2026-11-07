@@ -1,5 +1,6 @@
 ---
 import '../styles/main.css';
+import SpeedInsights from '@vercel/speed-insights/astro';
 const {
     title,
     description,
@@ -205,6 +206,9 @@ const fullTitle = title.includes(brandSuffix) ? title : `${title} | ${brandSuffi
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
+
+    <!-- Vercel Speed Insights -->
+    <SpeedInsights />
 
     <!-- Vercel Web Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
