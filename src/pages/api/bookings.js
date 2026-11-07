@@ -527,6 +527,46 @@ ${meetingPoint}
 }
 
         // --------------------------------
+        // OPENAI ADS CONVERSIONS API (Server-Side)
+        // --------------------------------
+        if (process.env.OPENAI_ADS_API_KEY) {
+            try {
+                const oaiResponse = await fetch("https://bzr.openai.com/v1/events?pid=VRzKnHH2T6PTpcTW6iwEDM", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${process.env.OPENAI_ADS_API_KEY}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        validate_only: false,
+                        events: [
+                            {
+                                id: bookingReference,
+                                type: "appointment_scheduled",
+                                timestamp_ms: Date.now(),
+                                source_url: "https://www.caliculturaltours.com/book",
+                                action_source: "web",
+                                data: {
+                                    type: "customer_action"
+                                }
+                            }
+                        ]
+                    }),
+                });
+
+                if (!oaiResponse.ok) {
+                    const errText = await oaiResponse.text();
+                    console.error("OpenAI Ads Conversions API error:", errText);
+                } else {
+                    console.log("OpenAI Ads Conversions API event recorded:", bookingReference);
+                }
+            } catch (oaiError) {
+                // Conversions API failure must NOT invalidate the booking
+                console.error("OpenAI Ads Conversions API request failed:", oaiError);
+            }
+        }
+
+        // --------------------------------
         // RESPONSE
         // --------------------------------
 

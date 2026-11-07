@@ -93,6 +93,25 @@ document.getElementById("summary-discount").textContent =
 
 document.getElementById("summary-final").textContent =
     formatCOP(reservation.finalPrice);
+
+// OpenAI Ads Conversion (Deduplicated verification)
+if (reservation && reservation.bookingReference) {
+    try {
+        const sentKey = "oai_conversion_sent_" + reservation.bookingReference;
+        if (!sessionStorage.getItem(sentKey)) {
+            if (typeof window.oaiq === "function") {
+                window.oaiq("measure", "appointment_scheduled", {
+                    id: reservation.bookingReference,
+                    event_id: reservation.bookingReference,
+                    type: "customer_action"
+                });
+                sessionStorage.setItem(sentKey, "true");
+            }
+        }
+    } catch (oaiErr) {
+        console.error("OpenAI Ads measurement error:", oaiErr);
+    }
+}
 </script>
 
     <div style="margin:50px 0;">

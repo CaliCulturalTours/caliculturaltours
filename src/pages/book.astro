@@ -665,6 +665,23 @@ perPersonSection.style.display = "block";
             })
         );
 
+        // OpenAI Ads Conversion Trigger (Pixel) - Confirmed Booking
+        try {
+            const sentKey = "oai_conversion_sent_" + data.booking_reference;
+            if (!sessionStorage.getItem(sentKey)) {
+                if (typeof window.oaiq === "function") {
+                    window.oaiq("measure", "appointment_scheduled", {
+                        id: data.booking_reference,
+                        event_id: data.booking_reference,
+                        type: "customer_action"
+                    });
+                    sessionStorage.setItem(sentKey, "true");
+                }
+            }
+        } catch (oaiErr) {
+            console.error("OpenAI Ads measurement error:", oaiErr);
+        }
+
         const overlay = document.getElementById("loading-overlay");
 
         overlay.classList.add("show");
