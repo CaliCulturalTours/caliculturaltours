@@ -73,12 +73,20 @@ let durationHours = "";
 let meetingPoint = "";
 
 try {
-    const tourInfoResponse = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: "TOUR INFO!A:C",
-    });
-
-    const tourInfoRows = tourInfoResponse.data.values || [];
+    // The tab has been called both "TOUR_INFO" and "TOUR INFO"; try both.
+    let tourInfoRows = [];
+    for (const tabName of ["TOUR_INFO", "TOUR INFO"]) {
+        try {
+            const tourInfoResponse = await sheets.spreadsheets.values.get({
+                spreadsheetId: process.env.GOOGLE_SHEET_ID,
+                range: `${tabName}!A:C`,
+            });
+            tourInfoRows = tourInfoResponse.data.values || [];
+            if (tourInfoRows.length) break;
+        } catch (tabErr) {
+            console.warn(`Tab "${tabName}" not readable:`, tabErr.message);
+        }
+    }
 
     // Match either by exact tour_id (new or old slug) or by title search
     const tourInfo = tourInfoRows.find(row => {
@@ -404,30 +412,32 @@ if (!customerEmailResponse.ok) {
 // --------------------------------
 
 let calendarEventCreated = false;
+let calendarErrorMessage = "";
+let calendarErrorCode = "";
+
+const CALENDAR_ID =
+    process.env.GOOGLE_CALENDAR_ID ||
+    "065ab151764dd23fe55535b74252ec1b553a43c9918a47d7957e9db771a96d18@group.calendar.google.com";
 
 try {
-    // Convert date + time into a local Cali/Bogotá date
-    const timeMatch = String(tourTime).match(
-        /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
-    );
-
+    // ---- Parse start time ("06:00 AM", "6:00 PM" or 24h "18:00") ----
+    const timeMatch = String(tourTime).trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
     if (!timeMatch) {
-        throw new Error(`Invalid tour time: ${tourTime}`);
+        throw new Error(`Invalid tour time: "${tourTime}"`);
     }
 
     let hours = Number(timeMatch[1]);
     const minutes = Number(timeMatch[2]);
-    const period = timeMatch[3].toUpperCase();
+    const period = (timeMatch[3] || "").toUpperCase();
 
-    if (period === "PM" && hours !== 12) {
-        hours += 12;
+    if (period === "PM" && hours !== 12) hours += 12;
+    if (period === "AM" && hours === 12) hours = 0;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(tourDate))) {
+        throw new Error(`Invalid tour date: "${tourDate}"`);
     }
 
-    if (period === "AM" && hours === 12) {
-        hours = 0;
-    }
-
-    // Robust duration parsing: handles "4:00:00", "04:00", "4 hours", "3.5", etc.
+    // ---- Parse duration: "4:00:00", "04:00", "4 hours", "3.5" ... ----
     let durationH = 4;
     let durationM = 0;
 
@@ -436,54 +446,39 @@ try {
         durationH = Number(timeParts[1]);
         durationM = Number(timeParts[2]);
     } else {
-        const hoursNumber = parseFloat(String(durationHours).replace(/[^0-9.]/g, ''));
+        const hoursNumber = parseFloat(String(durationHours).replace(/[^0-9.]/g, ""));
         if (!isNaN(hoursNumber) && hoursNumber > 0) {
             durationH = Math.floor(hoursNumber);
             durationM = Math.round((hoursNumber - durationH) * 60);
         }
     }
 
-    // Create ISO-like local date/time strings.
-    // Calendar receives the explicit America/Bogota timezone.
-    const startDateTime =
-        `${tourDate}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
+    // ---- Start / end in America/Bogota (UTC-5, no daylight saving) ----
+    const [year, month, day] = String(tourDate).split("-").map(Number);
+    const BOGOTA_OFFSET_MS = 5 * 60 * 60 * 1000;
 
-    const startDate = new Date(`${startDateTime}-05:00`);
+    const startUtcMs = Date.UTC(year, month - 1, day, hours, minutes) + BOGOTA_OFFSET_MS;
+    const endUtcMs = startUtcMs + (durationH * 60 + durationM) * 60 * 1000;
 
-    const endDate = new Date(
-    startDate.getTime() +
-    (durationH * 60 + durationM) * 60 * 1000
-);
+    // Wall-clock time in Bogota, e.g. "2026-11-20T09:30:00"
+    const toBogotaLocal = (ms) => new Date(ms - BOGOTA_OFFSET_MS).toISOString().slice(0, 19);
 
-const pad = (value) => String(value).padStart(2, "0");
+    const startDateTime = toBogotaLocal(startUtcMs);
+    const endDateTime = toBogotaLocal(endUtcMs);
 
-// Convert the calculated UTC time back to America/Bogota local time.
-// Cali/Bogota is UTC-5 year-round.
-const endYear = endDate.getUTCFullYear();
-const endMonth = endDate.getUTCMonth() + 1;
-const endDay = endDate.getUTCDate();
-const endHour = endDate.getUTCHours() - 5;
-const endMinute = endDate.getUTCMinutes();
-
-// Because the end time may cross midnight, use a proper local-date
-// calculation rather than simply subtracting 5 from the hour.
-const endLocalDate = new Date(
-    Date.UTC(endYear, endMonth - 1, endDay, endHour, endMinute)
-);
-
-const endDateTime =
-    `${endLocalDate.getUTCFullYear()}-${pad(endLocalDate.getUTCMonth() + 1)}-${pad(endLocalDate.getUTCDate())}` +
-    `T${pad(endLocalDate.getUTCHours())}:${pad(endLocalDate.getUTCMinutes())}:00`;
+    const durationLabel = `${durationH}h${durationM ? ` ${durationM}m` : ""}`;
 
     const calendarDescription = `
 Booking reference: ${bookingReference}
+Source: Direct booking (caliculturaltours.com)
 
 Guest: ${guestName}
+Guests: ${guests}
 Email: ${body.email || ""}
 WhatsApp: ${body.phone || ""}
-Guests: ${guests}
 
 Tour: ${tourName}
+Duration: ${durationLabel}
 Payment: ${body.payment_status || "Pending"}
 Total: ${Number(body.total || 0).toLocaleString("en-US")} COP
 
@@ -491,26 +486,31 @@ Meeting point:
 ${meetingPoint}
 `.trim();
 
-    await calendar.events.insert({
-        calendarId:
-            "065ab151764dd23fe55535b74252ec1b553a43c9918a47d7957e9db771a96d18@group.calendar.google.com",
+    const eventBody = {
+        summary: `${tourName} — ${guestName} (${guests} pax)`,
+        location: meetingPoint,
+        description: calendarDescription,
+        start: { dateTime: startDateTime, timeZone: "America/Bogota" },
+        end: { dateTime: endDateTime, timeZone: "America/Bogota" },
+        extendedProperties: { private: { bookingReference } },
+    };
 
-        requestBody: {
-            summary: `${tourName} — ${guestName}`,
-
-            description: calendarDescription,
-
-            start: {
-                dateTime: startDateTime,
-                timeZone: "America/Bogota",
-            },
-
-            end: {
-                dateTime: endDateTime,
-                timeZone: "America/Bogota",
-            },
-        },
-    });
+    // ---- Insert, retrying only transient failures (network / 429 / 5xx) ----
+    let lastError;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+            await calendar.events.insert({ calendarId: CALENDAR_ID, requestBody: eventBody });
+            lastError = null;
+            break;
+        } catch (insertError) {
+            lastError = insertError;
+            const status = Number(insertError?.code || insertError?.response?.status || 0);
+            const transient = !status || status === 429 || status >= 500;
+            if (!transient || attempt === 3) break;
+            await new Promise((r) => setTimeout(r, 400 * attempt));
+        }
+    }
+    if (lastError) throw lastError;
 
     calendarEventCreated = true;
 
@@ -522,8 +522,58 @@ ${meetingPoint}
 
 } catch (calendarError) {
 
-    // Calendar failure must NOT invalidate the booking
-    console.error("Google Calendar error:", calendarError);
+    // Calendar failure must NOT invalidate the booking, but it must NOT be silent either.
+    calendarErrorCode = String(calendarError?.code || calendarError?.response?.status || "");
+    calendarErrorMessage =
+        calendarError?.response?.data?.error?.message ||
+        calendarError?.message ||
+        String(calendarError);
+    console.error("Google Calendar error:", calendarErrorCode, calendarErrorMessage);
+}
+
+// If the event could not be created, alert the owner by email so it can be added manually.
+if (!calendarEventCreated) {
+    try {
+        const esc = (v) =>
+            String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        const permissionHint =
+            ["403", "404"].includes(calendarErrorCode)
+                ? `<p><strong>Most likely cause:</strong> the Google service account
+                   (<code>${esc(process.env.GOOGLE_CLIENT_EMAIL || "unknown")}</code>) does not have
+                   permission to edit this calendar. In Google Calendar &rarr; Settings for the calendar
+                   &rarr; <em>Share with specific people</em> &rarr; add that email with
+                   <strong>"Make changes to events"</strong>.</p>`
+                : "";
+
+        await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                from: "Cali Cultural Tours <bookings@caliculturaltours.com>",
+                to: ["info.caliculturaltours@gmail.com"],
+                subject: `⚠️ Calendar event NOT created — ${bookingReference}`,
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #222;">
+                        <h2>⚠️ Calendar event was not created</h2>
+                        <p>The booking <strong>was saved</strong> and the emails were sent, but the Google
+                        Calendar event could not be created. Please add it manually.</p>
+                        <p><strong>Reference:</strong> ${esc(bookingReference)}<br>
+                           <strong>Tour:</strong> ${esc(tourName)}<br>
+                           <strong>Date / time:</strong> ${esc(tourDate)} ${esc(tourTime)}<br>
+                           <strong>Guest:</strong> ${esc(guestName)} (${esc(guests)} pax)<br>
+                           <strong>Phone:</strong> ${esc(body.phone || "")}</p>
+                        <p><strong>Error:</strong> ${esc(calendarErrorCode)} ${esc(calendarErrorMessage)}</p>
+                        ${permissionHint}
+                    </div>`,
+            }),
+        });
+    } catch (alertError) {
+        console.error("Could not send calendar alert email:", alertError);
+    }
 }
 
         // --------------------------------
@@ -576,6 +626,7 @@ ${meetingPoint}
                 message: "Booking saved successfully",
                 booking_reference: bookingReference,
                 email_sent: resendResponse.ok,
+                calendar_event_created: calendarEventCreated,
             }),
             {
                 status: 200,
