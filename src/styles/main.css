@@ -1986,8 +1986,14 @@ img {
   margin-bottom: 14px;
   font-size: 0.98rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  line-height: 1.55;
+}
+
+.tour-inverted .inclusion-list li i {
+  margin-top: 3px;
+  flex-shrink: 0;
 }
 
 .tour-inverted .inclusion-list i.fa-check {
@@ -2044,7 +2050,9 @@ img {
   padding: 6px 14px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(232, 0, 90, 0.25);
-  min-width: 85px;
+  min-width: 112px;
+  white-space: nowrap;
+  flex-shrink: 0;
   text-align: center;
 }
 
@@ -2052,6 +2060,208 @@ img {
   color: #374151;
   font-size: 1.02rem;
   line-height: 1.6;
+}
+
+.tour-inverted .itinerary-step-title {
+  color: #ba0047;
+}
+
+.itinerary-map-wrap {
+  margin-top: 8px;
+}
+
+.itinerary-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cct-primary, #e8005a);
+  background: #fdf2f7;
+  border: 1px solid #fae1ec;
+  padding: 5px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.itinerary-map-link:hover {
+  background: var(--cct-primary, #e8005a);
+  color: #ffffff;
+  border-color: var(--cct-primary, #e8005a);
+}
+
+/* Multi-bullet Tour Highlights */
+.tour-highlight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tour-highlight-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: #374151;
+}
+
+.tour-highlight-list li i {
+  color: var(--cct-primary, #e8005a);
+  margin-top: 4px;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+/* Why Book Direct Trust Banner */
+.tour-trust-banner {
+  width: 100%;
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #fae1ec;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 24px rgba(232, 0, 90, 0.08);
+}
+
+.tour-trust-banner-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: #ba0047;
+  margin-bottom: 12px;
+}
+
+.tour-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tour-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  background: #fdf2f7;
+  border: 1px solid #fce7f3;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.tour-trust-item i {
+  font-size: 1.15rem;
+  color: var(--cct-primary, #e8005a);
+}
+
+.tour-trust-item span {
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #1f2937;
+}
+
+@media (max-width: 640px) {
+  .tour-trust-grid {
+    grid-template-columns: 1fr;
+  }
+  .tour-trust-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  .itinerary-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tour-inverted .itinerary-time {
+    min-width: auto;
+    align-self: flex-start;
+  }
+}
+
+/* Editorial Gastronomic Context Title */
+.tour-editorial-title {
+  margin: 0 0 10px 0;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #ba0047;
+}
+
+/* FAQ Accordion on Tour Page */
+.tour-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tour-faq-item {
+  border: 1px solid #fce7f3;
+  border-radius: 12px;
+  background: #fffafc;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tour-faq-item[open] {
+  border-color: #f9a8d4;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(232, 0, 90, 0.06);
+}
+
+.tour-faq-question {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1f2937;
+  user-select: none;
+}
+
+.tour-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.tour-faq-chevron {
+  color: var(--cct-primary, #e8005a);
+  font-size: 0.85rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.tour-faq-item[open] .tour-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.tour-faq-answer {
+  padding: 0 18px 16px 18px;
+  border-top: 1px solid #fce7f3;
+}
+
+.tour-faq-answer p {
+  margin: 12px 0 0 0;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: #4b5563;
+}
+
+.tour-related-subtitle {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 40px auto;
+  font-size: 1.05rem;
+  color: #4b5563;
+  line-height: 1.55;
 }
 
 .tour-inverted .good-to-know-item {

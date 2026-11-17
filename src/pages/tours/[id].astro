@@ -38,8 +38,8 @@ const tourPriceNumeric = pricing[tour.id]?.from_price || parseInt(String(tour.pr
 const tourSchema = {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
-  "name": tour.title,
-  "description": tour.description,
+  "name": tour.h1 || tour.title,
+  "description": tour.meta_description || tour.description,
   "url": `https://www.caliculturaltours.com/tours/${tour.id}`,
   "image": `https://www.caliculturaltours.com/${tour.image}`,
   "duration": schemaDuration,
@@ -65,32 +65,53 @@ const tourSchema = {
   }
 };
 
-// Related tours: prioritize same category, then fill with others
-const relatedTours = [
-  ...allTours
-    .filter(
-      t =>
-        t.id !== tour.id &&
-        t.category === tour.category
-    )
-    .sort((a, b) => a.display_order - b.display_order),
+const faqSchema = Array.isArray(tour.faqs) && tour.faqs.length > 0
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": tour.faqs.map((faq: { question: string; answer: string }) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  : null;
 
-  ...allTours
-    .filter(
-      t =>
-        t.id !== tour.id &&
-        t.category !== tour.category
-    )
-    .sort((a, b) => a.display_order - b.display_order)
+const pageSchemas = faqSchema ? [tourSchema, faqSchema] : tourSchema;
 
-].slice(0, 2);
+// Related tours: use explicit cross_sell list when provided, else prioritize same category
+const relatedTours = tour.cross_sell?.tour_ids?.length
+  ? tour.cross_sell.tour_ids
+      .map((id: string) => allTours.find(t => t.id === id))
+      .filter(Boolean)
+  : [
+      ...allTours
+        .filter(
+          t =>
+            t.id !== tour.id &&
+            t.category === tour.category
+        )
+        .sort((a, b) => a.display_order - b.display_order),
+
+      ...allTours
+        .filter(
+          t =>
+            t.id !== tour.id &&
+            t.category !== tour.category
+        )
+        .sort((a, b) => a.display_order - b.display_order)
+    ].slice(0, 2);
 ---
 
 <BaseLayout
-    title={tour.title}
-    description={tour.description}
+    title={tour.meta_title || tour.title}
+    exactTitle={Boolean(tour.meta_title)}
+    description={tour.meta_description || tour.description}
     ogImage={`/${tour.image}`}
-    schema={tourSchema}
+    schema={pageSchemas}
 >
     <section class="section tour-detail-section tour-inverted">
         <div class="container">
@@ -162,7 +183,7 @@ const relatedTours = [
                     <div class="conversion-sticky-wrapper">
                         <div class="tour-info-header">
                             <span class="tour-category-tag">{tour.category}</span>
-                            <h1 class="text-serif">{tour.title}</h1>
+                            <h1 class="text-serif">{tour.h1 || tour.title}</h1>
                             <div class="tour-meta-row">
     <span>
         <i class="fas fa-person-walking"></i>
@@ -179,17 +200,40 @@ const relatedTours = [
         {tour.feature}
     </span>
 </div>
-{tour.highlight && (
+{(tour.highlights || tour.highlight) && (
     <div class="tour-highlight">
         <div class="tour-highlight-title">
             <i class="fas fa-wand-magic-sparkles"></i>
-            Tour Highlight
+            {Array.isArray(tour.highlights) ? 'Tour Highlights' : 'Tour Highlight'}
         </div>
 
-        <p>{tour.highlight}</p>
+        {Array.isArray(tour.highlights) && tour.highlights.length > 0 ? (
+            <ul class="tour-highlight-list">
+                {tour.highlights.map((item: string) => (
+                    <li>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span>{item}</span>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>{tour.highlight}</p>
+        )}
     </div>
 )}
-                            {(tour.physical_level || tour.languages || tour.meeting_point || tour.discount) && (
+                            {Array.isArray(tour.trust_badges) && tour.trust_badges.length > 0 ? (
+                                <div class="tour-trust-banner" aria-label="Why Book Direct with Us">
+                                    <div class="tour-trust-banner-title">Why Book Direct with Us</div>
+                                    <div class="tour-trust-grid">
+                                        {tour.trust_badges.map((badge: { icon: string; label: string }) => (
+                                            <div class="tour-trust-item">
+                                                <i class={`fas ${badge.icon}`} aria-hidden="true"></i>
+                                                <span>{badge.label}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (tour.physical_level || tour.languages || tour.meeting_point || tour.discount) && (
                                 <div class="tour-extra-meta">
                                     {tour.physical_level && <span><i class="fas fa-hiking"></i> {tour.physical_level}</span>}
                                     {tour.languages && <span><i class="fas fa-language"></i> {tour.languages}</span>}
@@ -271,7 +315,14 @@ const relatedTours = [
                         </div>
                         
                         <div class="tour-description-box reveal">
-                            <p>{tour.description}</p>
+                            {tour.editorial_box ? (
+                                <>
+                                    <h4 class="tour-editorial-title">{tour.editorial_box.title}</h4>
+                                    <p>{tour.editorial_box.text}</p>
+                                </>
+                            ) : (
+                                <p>{tour.description}</p>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -283,7 +334,7 @@ const relatedTours = [
                             <h4>What's Included</h4>
                             <ul class="inclusion-list">
                                 {(tour.included || []).map((item: string) => (
-                                    <li><i class="fas fa-check"></i> {item}</li>
+                                    <li><i class="fas fa-check"></i> <span>{item}</span></li>
                                 ))}
                             </ul>
                         </div>
@@ -291,7 +342,7 @@ const relatedTours = [
                             <h4>Not Included</h4>
                             <ul class="inclusion-list">
                                 {(tour.not_included || []).map((item: string) => (
-                                    <li><i class="fas fa-times"></i> {item}</li>
+                                    <li><i class="fas fa-times"></i> <span>{item}</span></li>
                                 ))}
                             </ul>
                         </div>
@@ -300,12 +351,33 @@ const relatedTours = [
                     <div class="itinerary-section reveal">
                         <h4>Itinerary</h4>
                         <ul class="itinerary-list">
-                            {(tour.itinerary || []).map((step: string, idx: number) => (
-                                <div class="itinerary-item">
-                                    <span class="itinerary-time">Step {idx + 1}</span>
-                                    <span class="itinerary-desc">{step}</span>
-                                </div>
-                            ))}
+                            {(tour.itinerary || []).map((step: any, idx: number) => {
+                                const isObj = step && typeof step === 'object';
+                                const badgeText = isObj ? (step.badge || `Step ${idx + 1}`) : `Step ${idx + 1}`;
+                                return (
+                                    <li class="itinerary-item">
+                                        <span class="itinerary-time">{badgeText}</span>
+                                        <div class="itinerary-desc">
+                                            {isObj ? (
+                                                <>
+                                                    {step.title && <strong class="itinerary-step-title">{step.title}: </strong>}
+                                                    <span>{step.text}</span>
+                                                    {step.mapUrl && (
+                                                        <div class="itinerary-map-wrap">
+                                                            <a href={step.mapUrl} target="_blank" rel="noopener noreferrer" class="itinerary-map-link">
+                                                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                                                {step.mapLabel || "View on Google Maps"}
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            ) : (
+                                                step
+                                            )}
+                                        </div>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
 
@@ -328,12 +400,38 @@ const relatedTours = [
                         <div class="itinerary-section reveal" style="margin-top: 24px;">
                             <h4>Good to Know</h4>
                             <ul class="inclusion-list" style="list-style: none; padding: 0;">
-                                {(tour.notes as string[]).map((note: string) => (
-                                    <li class="good-to-know-item">
-                                        <i class="fas fa-info-circle"></i> {note}
-                                    </li>
-                                ))}
+                                {(tour.notes as string[]).map((note: string) => {
+                                    const colonIdx = note.indexOf(':');
+                                    const hasPrefix = colonIdx > 0 && colonIdx < 35;
+                                    const prefix = hasPrefix ? note.slice(0, colonIdx + 1) : '';
+                                    const bodyText = hasPrefix ? note.slice(colonIdx + 1).trim() : note;
+                                    return (
+                                        <li class="good-to-know-item">
+                                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                            <span>{prefix && <strong>{prefix} </strong>}{bodyText}</span>
+                                        </li>
+                                    );
+                                })}
                             </ul>
+                        </div>
+                    )}
+
+                    {Array.isArray(tour.faqs) && tour.faqs.length > 0 && (
+                        <div class="itinerary-section tour-faq-section reveal" style="margin-top: 24px;">
+                            <h4>Frequently Asked Questions</h4>
+                            <div class="tour-faq-list">
+                                {tour.faqs.map((faq: { question: string; answer: string }, fIdx: number) => (
+                                    <details class="tour-faq-item" open={fIdx === 0}>
+                                        <summary class="tour-faq-question">
+                                            <span>{faq.question}</span>
+                                            <i class="fas fa-chevron-down tour-faq-chevron" aria-hidden="true"></i>
+                                        </summary>
+                                        <div class="tour-faq-answer">
+                                            <p>{faq.answer}</p>
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>
@@ -342,10 +440,15 @@ const relatedTours = [
         </div>
     </section>
 
-    <!-- RELATED TOURS SECTION -->
+    <!-- RELATED TOURS / CROSS-SELL SECTION -->
     <section class="section tour-related-section">
         <div class="container reveal">
-            <h2 class="text-serif" style="text-align: center; margin-bottom: 48px; font-size: 2.5rem;">You may also like</h2>
+            <h2 class="text-serif" style={`text-align: center; margin-bottom: ${tour.cross_sell?.subtitle ? '14px' : '48px'}; font-size: 2.5rem;`}>
+                {tour.cross_sell?.heading || "You may also like"}
+            </h2>
+            {tour.cross_sell?.subtitle && (
+                <p class="tour-related-subtitle">{tour.cross_sell.subtitle}</p>
+            )}
             
             <div class="tours-grid" style="max-width: 800px; margin: 0 auto;">
                 {relatedTours.map((relatedTour, index) => (
@@ -375,7 +478,7 @@ const relatedTours = [
 </div>
                             <p style="font-size: 0.95rem; color: var(--cct-text-light); line-height: 1.5;">{relatedTour.description}</p>
                             <div class="tour-card-footer">
-                                <span class="tour-price">{relatedTour.price}</span>
+                                <span class="tour-price">{getTourDisplayPrice(relatedTour, pricing)}</span>
                                 <span class="tour-card-link" style="color: var(--cct-primary); font-weight: 600; font-size: 0.9rem;">View Details <i class="fas fa-arrow-right"></i></span>
                             </div>
                         </div>

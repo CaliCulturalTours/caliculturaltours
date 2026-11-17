@@ -6,11 +6,12 @@ const {
     description,
     ogImage = '/images/logo.jpg',
     schema,
-    noindex = false
+    noindex = false,
+    exactTitle = false
 } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, 'https://www.caliculturaltours.com').toString();
 const brandSuffix = 'Cali Cultural Tours';
-const fullTitle = title.includes(brandSuffix) ? title : `${title} | ${brandSuffix}`;
+const fullTitle = exactTitle || title.includes(brandSuffix) ? title : `${title} | ${brandSuffix}`;
 ---
 <!DOCTYPE html>
 <html lang="en">

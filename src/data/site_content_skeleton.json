@@ -67,35 +67,107 @@
       "highlight": "A flavorful walking journey exploring the authentic street foods and neighborhood stories that define daily life in Cali.",
       "physical_level": "Easy walk",
       "languages": "Guides available in English, Spanish & Portuguese",
-      "meeting_point": "Subway Sandwich store on Boulevard del Río (Calle 8 crossing)",
-      "meeting_point_map": "https://maps.app.goo.gl/b5dD1nQnCME2vFDD9",
+      "meeting_point": "Main entrance of Teatro Municipal Enrique Buenaventura",
+      "meeting_point_map": "https://maps.app.goo.gl/MyfCSmkEfh3L7w58A",
       "included": [
-        "Local guide",
-        "Fritanga stop (fried snacks) empanadas, marranitas, aborrajados, papa rellena.",
-        "Bakery stop: pandebono, buñuelos, empanada de cambray, almojábana, hot coffee.",
-        "Shaved ice with fruits stop: cholado, raspado, lulada, champús and more.",
-        "Some surprises along the way!"
+        "Expert bilingual local guide.",
+        "Two food tastings at every main stop.",
+        "Three main culinary stations plus surprise local stops along the way.",
+        "100% guaranteed departure with no minimum group size."
       ],
       "not_included": [
-        "More than 3 items per person per stop (promise you will be full!)",
-        "Personal purchases (souvenirs, water)",
-        "Transportation",
-        "Gratuities / Tips"
+        "Hotel pickup or drop-off (centrally located meeting point).",
+        "Third portions or extra food at the tasting stations.",
+        "Optional gratuities."
       ],
       "itinerary": [
-        "Boulevard del Río — Cali's most iconic riverside walk. Local vendors, street art, and city life; the perfect introduction to the rhythm of the city.",
-        "Café Boulevard — We will show you one of the most active spots in the city; a place where locals gather to dance, socialize, and enjoy salsa music.",
-        "Fritanga Los Paisas — Our first food stop is hearty and warm, with plenty of fried snacks to choose from.",
-        "La Curva Bar — Decorated with a mural of 3 of the most legendary salsa musicians, because this tour is much more than just food; it's a cultural experience.",
-        "La Calle del Sabor — calle de la salsa? salsa street? calle del sabor? What's the difference? Let us show you.",
-        "BuoPan — Second food stop to choose amongst different local breads, or even a hot coffee.",
-        "Plaza Cayzedo — a historical stop at what used to be Cali's main square.",
-        "Historical Downtown — Teatro Jorge Isaacs, Edificio Coltabaco, Parque de los Poetas, Iglesia La Ermita, Puente Ortiz and some modern nightlife recommendations.",
-        "Cholados Nancy — Our final stop for a refreshing treat."
+        {
+          "badge": "Meeting Point",
+          "title": "Teatro Municipal Enrique Buenaventura",
+          "text": "Meet your guide at the main entrance of the iconic Teatro Municipal Enrique Buenaventura.",
+          "mapUrl": "https://maps.app.goo.gl/MyfCSmkEfh3L7w58A",
+          "mapLabel": "Open Meeting Point on Google Maps"
+        },
+        {
+          "badge": "Stop 1",
+          "title": "Traditional Baked Goods",
+          "text": "Start with a taste of Valle del Cauca's famous pastries. Enjoy warm pandebono, fluffy buñuelos, and sweet empanadas de cambray."
+        },
+        {
+          "badge": "Surprise",
+          "title": "Surprise Stops",
+          "text": "Walk at a very relaxed pace while your guide shares cultural insights and introduces you to off-the-beaten-path culinary secrets & hidden gems of the neighborhood."
+        },
+        {
+          "badge": "Stop 2",
+          "title": "The Authentic Fritanga",
+          "text": "Dive into savory local favorites. Taste classic empanadas, pork-stuffed marranitas, hearty papas rellenas, and sweet-and-savory aborrajados."
+        },
+        {
+          "badge": "Stop 3",
+          "title": "Tropical Refreshments",
+          "text": "After a slight incline at the end of our short 700-meter route, cool down with a delicious ice cream made from Colombia's exotic fruits."
+        }
       ],
       "notes": [
-        "We can adapt to most dietary restrictions, except veganism — just let us know in advance."
-      ]
+        "Accessibility: The walking distance is only 700 meters over 2 hours on mostly flat terrain. It is designed to be gentle and accessible for older adults and families.",
+        "Guaranteed Departure: We value your vacation time. If you book, you go. We never cancel due to low numbers, making this the most reliable option for solo travelers.",
+        "Preparation: Wear comfortable walking shoes and casual clothes. Sunscreen and a hat are recommended for the 9:30 AM, 12:30 PM, and 3:30 PM departures. We also offer a 6:00 PM evening version.",
+        "Dietary Needs: Please note that traditional Colombian street food heavily features meats and fried items, meaning strict vegetarian or vegan options are limited."
+      ],
+      "meta_title": "Cali Street Food Tour: Authentic Tastings & Local Culture",
+      "meta_description": "Taste authentic Colombian snacks on a safe, 2-hour walking food tour in Cali. Gentle pace, guaranteed departures, and expert guides. Book securely now!",
+      "h1": "Authentic Cali Street Food Walking Tour",
+      "highlights": [
+        "Savor traditional baked goods like pandebono and sweet empanadas de cambray.",
+        "Taste authentic savory treats like marranitas, papas rellenas, and classic empanadas at local spots.",
+        "Enjoy a safe, leisurely 2-hour walk (700m) at a slow pace, ideal for families and senior travelers.",
+        "Never worry about cancellations: this tour operates guaranteed, even for one person."
+      ],
+      "trust_badges": [
+        {
+          "icon": "fa-circle-check",
+          "label": "100% Guaranteed Departures"
+        },
+        {
+          "icon": "fa-person-walking",
+          "label": "Senior & Family Friendly Pace"
+        },
+        {
+          "icon": "fa-hand-holding-heart",
+          "label": "Support Local Micro-Entrepreneurs"
+        }
+      ],
+      "editorial_box": {
+        "title": "The Flavors of Valle del Cauca",
+        "text": "Cali's street food reflects centuries of Afro-Colombian, Indigenous, and Andean traditions unique to Valle del Cauca. On this tour, you'll learn the story behind beloved regional classics like the Marranita — a crispy golden sphere of sweet ripe plantain stuffed with savory, crunchy pork chicharrón — and refreshing ancestral specialties like Champús, a traditional sweet-and-tangy drink crafted from lulo fruit, crushed corn, pineapple, panela syrup, cinnamon, and clove leaves."
+      },
+      "faqs": [
+        {
+          "question": "Is street food safe to eat in Cali?",
+          "answer": "Yes. Every vendor on our Cali Street Food Walking Tour is personally vetted by our local team for hygiene, ingredient freshness, and turnover. We only take you to trusted, high-traffic family stalls and bakeries where locals eat every day, so you can enjoy authentic flavors with complete peace of mind."
+        },
+        {
+          "question": "How much walking is involved in the Cali food tour?",
+          "answer": "The entire route covers only about 700 meters (less than half a mile) spread evenly over 2 hours on mostly flat downtown sidewalks. We keep a relaxed, unhurried pace with frequent seated or shaded tasting breaks, making it comfortable for families with children and senior travelers."
+        },
+        {
+          "question": "Can solo travelers book this tour?",
+          "answer": "Absolutely! Solo travelers are welcome and never face last-minute cancellations due to low group numbers. All departures are 100% guaranteed to run even for a single traveler."
+        },
+        {
+          "question": "Are vegetarian or vegan options available?",
+          "answer": "Traditional Vallecaucano street snacks heavily rely on cheese (such as pandebono and aborrajados) and fried pork or beef fillings (such as marranitas and classic empanadas). While cheese-loving vegetarians can enjoy several stops, strict vegan options are very limited on this specific route."
+        }
+      ],
+      "cross_sell": {
+        "heading": "Complete your Cali Experience",
+        "subtitle": "Continue discovering Cali's iconic viewpoints, colonial history, and world-famous salsa culture with our locally led experiences.",
+        "tour_ids": [
+          "cristo-rey-city-tour",
+          "cali-salsa-tour"
+        ]
+      }
     },
     {
       "id": "cali-market-fruit-tour",
