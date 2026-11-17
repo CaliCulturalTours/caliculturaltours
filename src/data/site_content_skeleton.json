@@ -62,7 +62,12 @@
         "images/tours/Street Food Tour/FinalSelects20230122_1793.webp",
         "images/tours/Street Food Tour/IMG_20231123_160225453.webp",
         "images/tours/Street Food Tour/IMG_20240104_172340978.webp",
-        "images/tours/Street Food Tour/IMG_20240210_150501488.webp"
+        "images/tours/Street Food Tour/IMG_20240210_150501488.webp",
+        "images/tours/Street Food Tour/cali-food-tour-local-guide-travelers.webp",
+        "images/tours/Street Food Tour/cali-street-food-lulada-fritanga-platter.webp",
+        "images/tours/Street Food Tour/cali-traditional-bakery-pastries-display.webp",
+        "images/tours/Street Food Tour/cali-street-food-tour-panaderia-stop.webp",
+        "images/tours/Street Food Tour/cali-crispy-papa-rellena-aji-sauce.webp"
       ],
       "highlight": "A flavorful walking journey exploring the authentic street foods and neighborhood stories that define daily life in Cali.",
       "physical_level": "Easy walk",
@@ -72,11 +77,10 @@
       "included": [
         "Expert bilingual local guide.",
         "Two food tastings at every main stop.",
-        "Three main culinary stations plus surprise local stops along the way.",
-        "100% guaranteed departure with no minimum group size."
+        "Three main culinary stations plus surprise local stops along the way."
       ],
       "not_included": [
-        "Hotel pickup or drop-off (centrally located meeting point).",
+        "Hotel pickup or drop-off (centrally located meeting point; private hotel pickup and drop-off is available as an optional add-on, including for large groups).",
         "Third portions or extra food at the tasting stations.",
         "Optional gratuities."
       ],
@@ -104,14 +108,27 @@
           "text": "Dive into savory local favorites. Taste classic empanadas, pork-stuffed marranitas, hearty papas rellenas, and sweet-and-savory aborrajados."
         },
         {
+          "badge": "Bonus Stop",
+          "title": "La Báscula (Local Spice Shop)",
+          "text": "Step into La Báscula, a hidden neighborhood gem specializing in global spices grown right here in Colombia, and enjoy a sweet tasting of caramelized Colombian cacao (cacao garrapiñado)."
+        },
+        {
+          "badge": "Bonus Stop",
+          "title": "Ekia Artesanías",
+          "text": "Browse handmade regional crafts with the chance to pick up authentic souvenirs, accompanied by a tasting of traditional regional candies and artisanal Colombian liqueurs."
+        },
+        {
+          "badge": "Bonus Stop",
+          "title": "La Linterna Living Print Museum",
+          "text": "Visit La Linterna, a living lithographic print shop operating since 1934 where heritage wood and metal presses still roll by hand. Watch master printmakers craft Cali's iconic, bold cultural posters right in front of you."
+        },
+        {
           "badge": "Stop 3",
           "title": "Tropical Refreshments",
           "text": "After a slight incline at the end of our short 700-meter route, cool down with a delicious ice cream made from Colombia's exotic fruits."
         }
       ],
       "notes": [
-        "Accessibility: The walking distance is only 700 meters over 2 hours on mostly flat terrain. It is designed to be gentle and accessible for older adults and families.",
-        "Guaranteed Departure: We value your vacation time. If you book, you go. We never cancel due to low numbers, making this the most reliable option for solo travelers.",
         "Preparation: Wear comfortable walking shoes and casual clothes. Sunscreen and a hat are recommended for the 9:30 AM, 12:30 PM, and 3:30 PM departures. We also offer a 6:00 PM evening version.",
         "Dietary Needs: Please note that traditional Colombian street food heavily features meats and fried items, meaning strict vegetarian or vegan options are limited."
       ],
@@ -140,7 +157,7 @@
       ],
       "editorial_box": {
         "title": "The Flavors of Valle del Cauca",
-        "text": "Cali's street food reflects centuries of Afro-Colombian, Indigenous, and Andean traditions unique to Valle del Cauca. On this tour, you'll learn the story behind beloved regional classics like the Marranita — a crispy golden sphere of sweet ripe plantain stuffed with savory, crunchy pork chicharrón — and refreshing ancestral specialties like Champús, a traditional sweet-and-tangy drink crafted from lulo fruit, crushed corn, pineapple, panela syrup, cinnamon, and clove leaves."
+        "text": "Cali's street food reflects centuries of Afro-Colombian, Indigenous, and Andean traditions unique to Valle del Cauca. On this tour, you'll learn the story behind beloved regional classics like the Marranita (a crispy golden sphere of sweet ripe plantain stuffed with savory, crunchy pork chicharrón) and refreshing ancestral specialties like Champús: a traditional sweet-and-tangy drink crafted from lulo fruit, crushed corn, pineapple, panela syrup, cinnamon, and clove leaves."
       },
       "faqs": [
         {

@@ -150,10 +150,12 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                             return (
                                 <img 
                                     src={`/${img}`} 
-                                    alt={`thumbnail ${idx + 1}`} 
+                                    alt={`${tour.h1 || tour.title} photo ${idx + 1}`} 
                                     class={`thumb-img ${isMainImage ? 'active' : ''}`}
                                     data-src={`/${img}`}
                                     data-index={idx}
+                                    loading="lazy"
+                                    decoding="async"
                                     onclick="setActiveThumb(this)"
                                 />
                             );
