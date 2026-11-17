@@ -2,9 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
 import { getPricing, getTourDisplayPrice } from '../lib/pricing';
+import { getPhotoStatsMap, rankTourGallery } from '../lib/photoStats';
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
 
 const { business, content: siteContent, tours } = content;
-const pricing = await getPricing();
+const [pricing, photoStats] = await Promise.all([
+  getPricing(),
+  getPhotoStatsMap(),
+]);
 
 // Top 4 featured tours for the home showcase
 const featuredTours = tours.slice(0, 4);
@@ -120,10 +126,12 @@ const reviews = [
             </div>
 
             <div class="tours-grid">
-                {featuredTours.map((tour, index) => (
+                {featuredTours.map((tour, index) => {
+                    const heroImg = rankTourGallery(tour, photoStats).heroImage || tour.image;
+                    return (
                     <a href={`/tours/${tour.id}`} class={`tour-card reveal delay-${index + 1}`}>
                         <div class="tour-image-wrap">
-                            <img src={`/${tour.image}`} alt={tour.title} loading="lazy" />
+                            <img src={`/${heroImg}`} alt={tour.title} loading="lazy" />
                             <span class="tour-badge">{tour.category}</span>
                         </div>
                         <div class="tour-card-body">
@@ -139,7 +147,8 @@ const reviews = [
                             </div>
                         </div>
                     </a>
-                ))}
+                    );
+                })}
             </div>
 
             <div style="text-align: center; margin-top: 48px;" class="reveal">

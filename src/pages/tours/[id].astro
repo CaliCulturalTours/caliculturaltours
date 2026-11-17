@@ -5,22 +5,33 @@ import {
   getPricing,
   getTourDisplayPrice
 } from '../../lib/pricing';
+import {
+  getPhotoStatsMap,
+  rankTourGallery
+} from '../../lib/photoStats';
 
-export const prerender = true;
+export const prerender = false;
 
-export function getStaticPaths() {
-  const { tours } = content;
-  return tours.map((tour) => ({
-    params: { id: tour.id },
-    props: { tour },
-  }));
+const { id } = Astro.params;
+const { business, tours: allTours } = content;
+const tour = (allTours as any[]).find((t) => t.id === id);
+
+if (!tour) {
+  return new Response('Tour not found', { status: 404 });
 }
 
-const { tour } = Astro.props;
-const { business, tours: allTours } = content;
-const pricing = await getPricing();
+// Cache rendered tour page at Vercel Edge CDN (30 min fresh, 24h stale-while-revalidate)
+// Keeps SEO/LCP fast while letting the photo popularity order update automatically
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
 
-const durationToISO = (duration) => {
+const [pricing, photoStats] = await Promise.all([
+  getPricing(),
+  getPhotoStatsMap(),
+]);
+
+const { heroImage, gallery: rankedGallery } = rankTourGallery(tour, photoStats);
+
+const durationToISO = (duration: string) => {
   const match = duration.match(/(\d+(?:\.\d+)?)\s*hours?/i);
   if (!match) return undefined;
 
@@ -41,7 +52,7 @@ const tourSchema = {
   "name": tour.h1 || tour.title,
   "description": tour.meta_description || tour.description,
   "url": `https://www.caliculturaltours.com/tours/${tour.id}`,
-  "image": `https://www.caliculturaltours.com/${tour.image}`,
+  "image": `https://www.caliculturaltours.com/${heroImage}`,
   "duration": schemaDuration,
   "offers": {
     "@type": "Offer",
@@ -110,7 +121,7 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
     title={tour.meta_title || tour.title}
     exactTitle={Boolean(tour.meta_title)}
     description={tour.meta_description || tour.description}
-    ogImage={`/${tour.image}`}
+    ogImage={`/${heroImage}`}
     schema={pageSchemas}
 >
     <section class="section tour-detail-section tour-inverted">
@@ -125,8 +136,8 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                 
                 <!-- 1. GALLERY (Area: gallery) -->
                 <div class="tour-gallery-area">
-                    <div class="tour-gallery-viewer" id="galleryViewer">
-                        <img id="mainImage" src={`/${tour.image}`} alt={tour.title} class="main-tour-img" />
+                    <div class="tour-gallery-viewer" id="galleryViewer" data-tour-id={tour.id}>
+                        <img id="mainImage" src={`/${heroImage}`} alt={tour.h1 || tour.title} class="main-tour-img" />
                         
                         <button type="button" class="gallery-nav-btn prev" id="galleryPrevBtn" aria-label="Previous photo">
                             <i class="fas fa-chevron-left"></i>
@@ -140,13 +151,13 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                         </button>
 
                         <div class="gallery-counter" id="galleryCounter">
-                            1 / {(tour.gallery || [tour.image]).length}
+                            1 / {rankedGallery.length}
                         </div>
                     </div>
 
                     <div class="tour-thumbnails" id="thumbnailContainer">
-                        {(tour.gallery || [tour.image]).map((img, idx, arr) => {
-                            const isMainImage = img === tour.image || `/${img}` === `/${tour.image}`;
+                        {rankedGallery.map((img, idx) => {
+                            const isMainImage = idx === 0;
                             return (
                                 <img 
                                     src={`/${img}`} 
@@ -154,7 +165,7 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                                     class={`thumb-img ${isMainImage ? 'active' : ''}`}
                                     data-src={`/${img}`}
                                     data-index={idx}
-                                    loading="lazy"
+                                    loading={idx < 4 ? 'eager' : 'lazy'}
                                     decoding="async"
                                     onclick="setActiveThumb(this)"
                                 />
@@ -453,10 +464,12 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
             )}
             
             <div class="tours-grid" style="max-width: 800px; margin: 0 auto;">
-                {relatedTours.map((relatedTour, index) => (
+                {relatedTours.map((relatedTour, index) => {
+                    const relatedHero = rankTourGallery(relatedTour, photoStats).heroImage || relatedTour.image;
+                    return (
                     <a href={`/tours/${relatedTour.id}`} class={`tour-card reveal delay-${index + 1}`}>
                         <div class="tour-card-img">
-                            <img src={`/${relatedTour.image}`} alt={relatedTour.title} />
+                            <img src={`/${relatedHero}`} alt={relatedTour.title} />
                             {relatedTour.popular && <span class="tour-badge">Popular</span>}
                         </div>
                         <div class="tour-card-body">
@@ -485,7 +498,8 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                             </div>
                         </div>
                     </a>
-                ))}
+                    );
+                })}
             </div>
 
             <div style="text-align: center; margin-top: 48px;">
@@ -497,21 +511,96 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
     <script is:inline>
         let currentPhotoIndex = 0;
         let photosList = [];
+        let galleryInitialized = false;
+        let activeTourId = '';
+        let dwellTimer = null;
+
+        // Per-visit deduplicated telemetry buffers
+        const sentMetrics = {
+            thumb: new Set(),
+            lightbox: new Set(),
+            dwell: new Set(),
+        };
+        const pendingDelta = new Map();
+
+        function queuePhotoSignal(photoSrc, kind) {
+            if (!photoSrc || !activeTourId || navigator.webdriver) return;
+            const set = sentMetrics[kind];
+            if (!set || set.has(photoSrc)) return;
+            set.add(photoSrc);
+
+            const entry = pendingDelta.get(photoSrc) || {
+                photo: photoSrc,
+                thumbClick: 0,
+                lightboxOpen: 0,
+                dwellView: 0,
+            };
+            if (kind === 'thumb') entry.thumbClick = 1;
+            if (kind === 'lightbox') entry.lightboxOpen = 1;
+            if (kind === 'dwell') entry.dwellView = 1;
+            pendingDelta.set(photoSrc, entry);
+
+            if (kind === 'lightbox' && typeof window.clarity === 'function') {
+                try {
+                    window.clarity('event', 'tour_photo_lightbox_open');
+                } catch {}
+            }
+        }
+
+        function scheduleDwellCheck(photoSrc) {
+            if (dwellTimer) clearTimeout(dwellTimer);
+            if (!photoSrc) return;
+            dwellTimer = setTimeout(() => {
+                if (document.visibilityState === 'visible') {
+                    queuePhotoSignal(photoSrc, 'dwell');
+                }
+            }, 1500);
+        }
+
+        function flushPhotoTelemetry() {
+            if (dwellTimer) {
+                clearTimeout(dwellTimer);
+                dwellTimer = null;
+            }
+            if (!activeTourId || pendingDelta.size === 0) return;
+
+            const events = Array.from(pendingDelta.values());
+            pendingDelta.clear();
+
+            const payload = JSON.stringify({ tourId: activeTourId, events });
+            try {
+                if (navigator.sendBeacon) {
+                    const blob = new Blob([payload], { type: 'application/json' });
+                    navigator.sendBeacon('/api/photo-stats', blob);
+                } else {
+                    fetch('/api/photo-stats', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: payload,
+                        keepalive: true,
+                    });
+                }
+            } catch {}
+        }
 
         function initGallery() {
+            if (galleryInitialized) return;
             const thumbs = document.querySelectorAll('#thumbnailContainer .thumb-img');
             photosList = Array.from(thumbs).map(t => t.dataset.src);
             if (photosList.length === 0) return;
 
-            // Find current active index
+            const viewer = document.getElementById('galleryViewer');
+            activeTourId = viewer?.dataset?.tourId || '';
+            galleryInitialized = true;
+
+            // Find current active index (initial load is never tracked as a click)
             const activeThumb = document.querySelector('#thumbnailContainer .thumb-img.active');
             if (activeThumb && activeThumb.dataset.index) {
                 currentPhotoIndex = parseInt(activeThumb.dataset.index, 10);
             }
-            updateGalleryUI();
+            updateGalleryUI(false);
 
             // Swipe on main viewer
-            const viewer = document.getElementById('galleryViewer');
             if (viewer) {
                 let touchStartX = 0;
                 let touchStartY = 0;
@@ -600,6 +689,15 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                     closeLightbox();
                 }
             });
+
+            // Flush accumulated telemetry cleanly when visitor leaves/hides tab
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'hidden') {
+                    flushPhotoTelemetry();
+                }
+            });
+            window.addEventListener('pagehide', flushPhotoTelemetry);
+            document.querySelector('.price-card-floating a')?.addEventListener('click', flushPhotoTelemetry);
         }
 
         function handleSwipeGesture(startX, startY, endX, endY) {
@@ -618,24 +716,24 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
         function navigateGallery(direction) {
             if (photosList.length <= 1) return;
             currentPhotoIndex = (currentPhotoIndex + direction + photosList.length) % photosList.length;
-            updateGalleryUI();
+            updateGalleryUI(true, 'navigate');
         }
 
         function setActiveThumb(thumb) {
             const idx = parseInt(thumb.dataset.index, 10);
             if (!isNaN(idx)) {
                 currentPhotoIndex = idx;
-                updateGalleryUI();
+                updateGalleryUI(true, 'thumb');
             }
         }
 
-        function updateGalleryUI() {
+        function updateGalleryUI(isUserAction = false, interactionKind = 'thumb') {
             if (photosList.length === 0) return;
             const currentSrc = photosList[currentPhotoIndex];
 
             // Update main image
             const mainImg = document.getElementById('mainImage');
-            if (mainImg && mainImg.src !== currentSrc) {
+            if (mainImg && mainImg.getAttribute('src') !== currentSrc) {
                 mainImg.style.opacity = '0.7';
                 setTimeout(() => {
                     mainImg.src = currentSrc;
@@ -649,22 +747,36 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                 counter.textContent = `${currentPhotoIndex + 1} / ${photosList.length}`;
             }
 
-            // Update thumbnails active state & scroll into view
+            // Update thumbnails active state & scroll into view only on user action
             const thumbs = document.querySelectorAll('#thumbnailContainer .thumb-img');
             thumbs.forEach((t, i) => {
                 if (i === currentPhotoIndex) {
                     t.classList.add('active');
-                    t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    if (isUserAction) {
+                        t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
                 } else {
                     t.classList.remove('active');
                 }
             });
 
             // Update lightbox if open
+            const lightbox = document.getElementById('galleryLightbox');
+            const isLbOpen = lightbox && lightbox.classList.contains('active');
             const lbImg = document.getElementById('lightboxImage');
             const lbCounter = document.getElementById('lightboxCounter');
             if (lbImg) lbImg.src = currentSrc;
             if (lbCounter) lbCounter.textContent = `${currentPhotoIndex + 1} / ${photosList.length}`;
+
+            // Record engagement signal only on explicit user interaction
+            if (isUserAction && currentSrc) {
+                if (isLbOpen || interactionKind === 'lightbox') {
+                    queuePhotoSignal(currentSrc, 'lightbox');
+                } else {
+                    queuePhotoSignal(currentSrc, 'thumb');
+                }
+                scheduleDwellCheck(currentSrc);
+            }
         }
 
         function openLightbox() {
@@ -673,7 +785,7 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
             lightbox.classList.add('active');
             lightbox.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
-            updateGalleryUI();
+            updateGalleryUI(true, 'lightbox');
         }
 
         function closeLightbox() {
@@ -682,6 +794,7 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
             lightbox.classList.remove('active');
             lightbox.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
+            flushPhotoTelemetry();
         }
 
         // Initialize on load and on Astro view transitions

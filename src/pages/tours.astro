@@ -2,8 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
 import { getPricing, getTourDisplayPrice } from '../lib/pricing';
+import { getPhotoStatsMap, rankTourGallery } from '../lib/photoStats';
 
-const pricing = await getPricing();
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
+
+const [pricing, photoStats] = await Promise.all([
+  getPricing(),
+  getPhotoStatsMap(),
+]);
 
 const tours = [...content.tours].sort(
   (a, b) => a.display_order - b.display_order
@@ -34,10 +40,12 @@ const tours = [...content.tours].sort(
             </div>
 
             <div class="tours-grid" id="tours-grid">
-                {tours.map((tour, index) => (
+                {tours.map((tour, index) => {
+                    const heroImg = rankTourGallery(tour, photoStats).heroImage || tour.image;
+                    return (
                     <a href={`/tours/${tour.id}`} class={`tour-card reveal delay-${(index % 3) + 1}`} data-category={tour.category}>
                         <div class="tour-card-img">
-                            <img src={tour.image} alt={tour.title} />
+                            <img src={`/${heroImg}`} alt={tour.title} />
                             {tour.popular && <span class="tour-badge">Popular</span>}
                         </div>
                         <div class="tour-card-body">
@@ -68,7 +76,8 @@ const tours = [...content.tours].sort(
                             </div>
                         </div>
                     </a>
-                ))}
+                    );
+                })}
             </div>
         </div>
     </section>
