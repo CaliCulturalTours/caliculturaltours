@@ -213,34 +213,141 @@
       "highlight": "Taste over a dozen rare Pacific and Andean fruits, explore traditional medicinal herb stalls, and experience Cali's central culinary marketplace with a passionate local guide.",
       "physical_level": "Easy walk",
       "languages": "Guides available in English, Spanish & Portuguese",
-      "meeting_point": "Front of 'Artesanías La Caleñita'",
-      ",meeting_point_map": "https://maps.app.goo.gl/jcZb3Ppq6knefDhi7",
+      "meeting_point": "In front of 'Artesanias La Calenita'",
       "included": [
-        "Local guide",
-        "+7 exotic fruit tastings (\"Taste the Rainbow\")",
-        "2 Colombian cheeses",
-        "Coconut water or coconut/fruit ice cream",
-        "1 traditional fried snack (e.g. empanada)",
-        "Flowers section visit",
-        "Witchcraft & souvenir stops"
+        "Passionate bilingual local guide.",
+        "Premium tasting of 7+ exotic tropical fruits.",
+        "Traditional chontaduro tasting.",
+        "Pipilongo pepper and candied cacao tastings.",
+        "Guided route including the city mural, spice stalls, tamale factory, and souvenir area.",
+        "Guaranteed departure for every confirmed booking."
       ],
       "not_included": [
-        "Transportation",
-        "Personal purchases",
-        "Additional food & drinks",
-        "Gratuities / Tips"
+        "Hotel pickup or drop-off (centrally located meeting point).",
+        "Coffee bags, extra snacks, or souvenir purchases.",
+        "Optional gratuities for your guide."
       ],
       "itinerary": [
-        "El Sabor de Doña Teresa — famous for tamales, morcilla, and corn envueltos.",
-        "Exotic Fruit Tasting Hall — taste a colorful selection of tropical fruits (mangosteen, cherimoya, anón, curuba, chachairú, gooseberry, loquat, chontaduro, guama, and more depending on season). Includes one sour cocktail made with the most sour fruits of the region.",
-        "Cheese Stand — taste fresh cheeses directly from local vendors (cuajada, campesino, costeño).",
-        "Coconut Specialty Section — coconut sweets, oils, and local artisanal products.",
-        "Flowers Aisle — Colombia is the world's second largest flower exporter; meet heliconia, roses, orchids, and more, straight from the growers.",
-        "Witchcraft / Esoteric Zone — stalls where locals buy traditional remedies, amulets, and ritual tools. A unique glimpse into Colombian beliefs.",
-        "Souvenir Stands — optional browsing before wrapping up."
+        {
+          "badge": "Meeting Point",
+          "title": "Artesanias La Calenita",
+          "text": "Meet your friendly guide right in front of 'Artesanias La Calenita'.",
+          "mapUrl": "https://maps.app.goo.gl/jcZb3Ppq6knefDhi7",
+          "mapLabel": "Open Meeting Point on Google Maps"
+        },
+        {
+          "badge": "Step 1",
+          "title": "Chontaduro & Culture",
+          "text": "Next, taste the iconic chontaduro with honey and salt, followed by a stop to admire a colorful mural depicting Cali's cultural icons."
+        },
+        {
+          "badge": "Step 2",
+          "title": "Doña Tere & The Spices",
+          "text": "Enter the bustling market aisles to visit Doña Tere's corner. Taste pipilongo, a regional pepper with aphrodisiac properties, and walk through the aromatic spice stalls."
+        },
+        {
+          "badge": "Step 3",
+          "title": "The Exotic Fruit Rainbow",
+          "text": "We head straight to the market's vibrant fruit stalls. This is the core of your experience: you will taste more than 7 unique, tropical fruits while learning about their origins and flavors."
+        },
+        {
+          "badge": "Step 4",
+          "title": "Sweet & Savory Traditions",
+          "text": "Enjoy crunchy candied cacao (cacao garrapiñado) before heading to Las Delicias de Ara to see the fascinating inner workings of Cali's largest public tamale factory."
+        },
+        {
+          "badge": "Step 5",
+          "title": "Coffee & Souvenirs",
+          "text": "We conclude the easy 2-hour stroll by visiting a local coffee shop (perfect for buying Colombian beans) and exploring one of the city's most complete souvenir zones."
+        }
       ],
       "notes": [
-        "We can adapt to most dietary restrictions — just let us know in advance."
+        "Accessibility & Facilities: This is an easy, 2-hour walk on mostly flat surfaces. For your peace of mind, clean restrooms and an ATM are conveniently located along the route.",
+        "Guaranteed Departure: We never cancel on you. Whether you are a solo traveler or a family booking at the last minute, your tour is 100% guaranteed to operate.",
+        "Preparation: Bring comfortable walking shoes, a camera, and some local cash (COP) if you wish to buy coffee beans or souvenirs at the end of the tour."
+      ],
+      "meta_title": "Galeria Alameda Tour: Exotic Fruits, Chontaduro & Culture",
+      "meta_description": "Safely explore Cali's Galeria Alameda! Taste 7+ exotic fruits, chontaduro & pipilongo on an easy 2-hour walk. Guaranteed departures. Book your spot today.",
+      "h1": "Authentic Galeria Alameda Exotic Fruit & Culture Tour",
+      "meeting_point_map": "https://maps.app.goo.gl/jcZb3Ppq6knefDhi7",
+      "highlights": [
+        "Taste the Rainbow: The heart of our tour is a generous tasting of over 7 rare exotic fruits from the Andes and the Pacific coast.",
+        "Discover local secrets like chontaduro (a traditional palm fruit) and pipilongo, an aphrodisiac pepper at Doña Tere's corner.",
+        "See traditional cooking in action at Las Delicias de Ara, Cali's largest public tamale factory.",
+        "Explore safely at a gentle, easy walking pace perfectly tailored for senior travelers and families (restrooms and ATMs available).",
+        "Book with absolute confidence: this tour features 100% guaranteed departures with no minimum group size."
+      ],
+      "peace_of_mind": {
+        "title": "Peace of Mind Along the Route",
+        "items": [
+          {
+            "icon": "fa-restroom",
+            "label": "Restrooms Available",
+            "sub": "Clean facilities accessible along the route"
+          },
+          {
+            "icon": "fa-money-bill-wave",
+            "label": "ATM Nearby",
+            "sub": "Convenient cash access right by the market"
+          },
+          {
+            "icon": "fa-circle-check",
+            "label": "Guaranteed Departures",
+            "sub": "100% confirmed, even for solo travelers"
+          }
+        ]
+      },
+      "discovery_grid": {
+        "title": "Exotic Fruits You Will Discover",
+        "subtitle": "From tart Andean citrus to sweet Pacific palm delicacies, here is a preview of the iconic Colombian fruits you can taste at Galeria Alameda (selection adapts to the freshest daily harvest):",
+        "items": [
+          {
+            "name": "Lulo",
+            "flavor": "Tart & Citrusy",
+            "image": "images/tours/Galeria Alameda Exotic Market Tour/fruits/lulo-cali-colombia.webp",
+            "alt": "Fresh Colombian Lulo fruit sliced open showing bright lime-green pulp",
+            "description": "Bright orange outside with translucent lime-green pulp inside. Lulo bursts with a zesty, tangy flavor (like a cross between kiwi, lime, and rhubarb) and is the heart of Cali's beloved lulada drink."
+          },
+          {
+            "name": "Mangostino (Mangosteen)",
+            "flavor": "Sweet & Juicy",
+            "image": "images/tours/Galeria Alameda Exotic Market Tour/fruits/mangostino-colombia.webp",
+            "alt": "Deep purple Colombian mangosteen split open showing snowy white segments",
+            "description": "Known across the tropics as the 'Queen of Fruits.' Beneath its deep purple rind lie delicate, snow-white segments with a velvety, honeyed flavor reminiscent of peach and strawberry."
+          },
+          {
+            "name": "Granadilla",
+            "flavor": "Sweet & Delicate",
+            "image": "images/tours/Galeria Alameda Exotic Market Tour/fruits/granadilla-colombia.webp",
+            "alt": "Golden Colombian granadilla cracked open revealing sweet translucent seeds",
+            "description": "A smooth, golden cousin of passion fruit with zero sourness. Crack open its crisp shell to spoon out glossy, pearl-like seeds packed with gentle floral sweetness."
+          },
+          {
+            "name": "Chontaduro",
+            "flavor": "Creamy & Savory-Sweet",
+            "image": "images/tours/Galeria Alameda Exotic Market Tour/fruits/chontaduro-cali-honey-salt.webp",
+            "alt": "Traditional Cali chontaduro palm fruit served with honey and sea salt",
+            "description": "Cali's iconic Pacific palm fruit, boiled until tender and traditionally enjoyed with a drizzle of golden honey and a pinch of salt. Its rich, creamy texture tastes like a warm blend of sweet potato and chestnut."
+          }
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Are there restrooms during the Galeria Alameda tour?",
+          "answer": "Yes. Clean, accessible restrooms are available right inside and along the Galeria Alameda route, and your guide will happily point them out whenever you need a stop."
+        },
+        {
+          "question": "Are the exotic fruits safe to eat?",
+          "answer": "Yes, completely safe. We exclusively partner with trusted, long-standing fruit vendors inside Galeria Alameda who maintain high hygiene standards, wash all produce carefully, and serve only fresh, hand-picked seasonal fruit."
+        },
+        {
+          "question": "What is a chontaduro?",
+          "answer": "Chontaduro (peach palm fruit) is one of Cali's most iconic regional foods, harvested mainly along Colombia's Pacific coast. It is boiled until soft and starchy, peeled, and served with honey and salt for a creamy, slightly nutty, sweet-and-savory bite packed with nutrients."
+        },
+        {
+          "question": "Is the Galeria Alameda tour suitable for seniors and solo travelers?",
+          "answer": "Absolutely. The tour lasts 2 hours over flat, easy-to-walk market aisles at a relaxed pace tailored for families and older adults. All departures are 100% guaranteed to run with no minimum group size, making it ideal for solo travelers."
+        }
       ]
     },
     {

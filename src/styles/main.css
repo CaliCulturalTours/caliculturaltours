@@ -2264,6 +2264,160 @@ img {
   line-height: 1.55;
 }
 
+/* Peace of Mind Banner (below Itinerary) */
+.tour-peace-banner {
+  margin-top: 24px;
+  background: #ffffff;
+  border: 1px solid #fae1ec;
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: 0 10px 30px rgba(232, 0, 90, 0.07);
+}
+
+.tour-peace-banner-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: #ba0047;
+  margin-bottom: 16px;
+}
+
+.tour-peace-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.tour-peace-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fdf2f7;
+  border: 1px solid #fce7f3;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.tour-peace-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(232, 0, 90, 0.22);
+}
+
+.tour-peace-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tour-peace-text strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.25;
+}
+
+.tour-peace-text span {
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.35;
+}
+
+/* Exotic Fruits Discovery Grid */
+.tour-discovery-subtitle {
+  margin: -10px 0 22px 0;
+  font-size: 0.98rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.tour-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tour-discovery-card {
+  background: #fffafc;
+  border: 1px solid #fce7f3;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tour-discovery-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(232, 0, 90, 0.1);
+}
+
+.tour-discovery-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fdf2f7;
+}
+
+.tour-discovery-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tour-discovery-flavor {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(186, 0, 71, 0.92);
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.tour-discovery-body {
+  padding: 16px 18px 18px 18px;
+}
+
+.tour-discovery-body h5 {
+  margin: 0 0 8px 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #ba0047;
+}
+
+.tour-discovery-body p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .tour-peace-grid {
+    grid-template-columns: 1fr;
+  }
+  .tour-discovery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .tour-inverted .good-to-know-item {
   color: #4a5568 !important;
   border-bottom: 1px solid #fce7f3 !important;

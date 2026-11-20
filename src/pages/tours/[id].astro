@@ -394,6 +394,50 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                         </ul>
                     </div>
 
+                    {tour.peace_of_mind && Array.isArray(tour.peace_of_mind.items) && tour.peace_of_mind.items.length > 0 && (
+                        <div class="tour-peace-banner reveal" aria-label={tour.peace_of_mind.title || "Peace of Mind"}>
+                            {tour.peace_of_mind.title && (
+                                <div class="tour-peace-banner-title">{tour.peace_of_mind.title}</div>
+                            )}
+                            <div class="tour-peace-grid">
+                                {tour.peace_of_mind.items.map((item: { icon: string; label: string; sub?: string }) => (
+                                    <div class="tour-peace-item">
+                                        <div class="tour-peace-icon">
+                                            <i class={`fas ${item.icon}`} aria-hidden="true"></i>
+                                        </div>
+                                        <div class="tour-peace-text">
+                                            <strong>{item.label}</strong>
+                                            {item.sub && <span>{item.sub}</span>}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {tour.discovery_grid && Array.isArray(tour.discovery_grid.items) && tour.discovery_grid.items.length > 0 && (
+                        <div class="itinerary-section tour-discovery-section reveal" style="margin-top: 24px;">
+                            <h4>{tour.discovery_grid.title}</h4>
+                            {tour.discovery_grid.subtitle && (
+                                <p class="tour-discovery-subtitle">{tour.discovery_grid.subtitle}</p>
+                            )}
+                            <div class="tour-discovery-grid">
+                                {tour.discovery_grid.items.map((item: { name: string; flavor: string; image: string; alt: string; description: string }) => (
+                                    <article class="tour-discovery-card">
+                                        <div class="tour-discovery-img-wrap">
+                                            <img src={`/${item.image}`} alt={item.alt || item.name} loading="lazy" decoding="async" />
+                                            <span class="tour-discovery-flavor">{item.flavor}</span>
+                                        </div>
+                                        <div class="tour-discovery-body">
+                                            <h5>{item.name}</h5>
+                                            <p>{item.description}</p>
+                                        </div>
+                                    </article>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {tour.youtube_video_id && (
                         <div class="itinerary-section reveal" style="margin-top: 32px;">
                             <h4>{tour.video_title || "Watch the Experience"}</h4>
