@@ -741,7 +741,49 @@ const relatedTours = tour.cross_sell?.tour_ids?.length
                 }
             });
             window.addEventListener('pagehide', flushPhotoTelemetry);
-            document.querySelector('.price-card-floating a')?.addEventListener('click', flushPhotoTelemetry);
+
+            // Global Tour Popularity Tracking (counts visits from /tours, Travel Guides, Google, Ads, WhatsApp, etc.)
+            function sendTourSignal(payloadObj) {
+                if (!activeTourId || navigator.webdriver) return;
+                const payload = JSON.stringify({ tourId: activeTourId, ...payloadObj });
+                try {
+                    if (navigator.sendBeacon) {
+                        const blob = new Blob([payload], { type: 'application/json' });
+                        navigator.sendBeacon('/api/tour-stats', blob);
+                    } else {
+                        fetch('/api/tour-stats', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: payload,
+                            keepalive: true,
+                        });
+                    }
+                } catch {}
+            }
+
+            if (activeTourId && !navigator.webdriver) {
+                const viewKey = 'cct_tour_viewed_' + activeTourId;
+                if (!sessionStorage.getItem(viewKey)) {
+                    setTimeout(() => {
+                        if (document.visibilityState === 'visible' && !sessionStorage.getItem(viewKey)) {
+                            sessionStorage.setItem(viewKey, '1');
+                            const fromGuide = /\/guides\//i.test(document.referrer || '');
+                            sendTourSignal({ view: 1, fromGuide });
+                        }
+                    }, 800);
+                }
+            }
+
+            document.querySelector('.price-card-floating a')?.addEventListener('click', () => {
+                flushPhotoTelemetry();
+                if (activeTourId && !navigator.webdriver) {
+                    const bookKey = 'cct_tour_book_' + activeTourId;
+                    if (!sessionStorage.getItem(bookKey)) {
+                        sessionStorage.setItem(bookKey, '1');
+                        sendTourSignal({ bookClick: 1 });
+                    }
+                }
+            });
         }
 
         function handleSwipeGesture(startX, startY, endX, endY) {

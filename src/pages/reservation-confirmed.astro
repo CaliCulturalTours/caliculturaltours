@@ -46,8 +46,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <strong id="summary-original"></strong>
     </div>
 
+    <div class="price-row savings" id="summary-coupon-row" style="display:none;">
+        <span id="summary-coupon-label">Partner coupon discount</span>
+        <strong id="summary-coupon-discount"></strong>
+    </div>
+
     <div class="price-row savings">
-        <span>Your savings (10% discount)</span>
+        <span>Cash discount (10% off)</span>
         <strong id="summary-discount"></strong>
     </div>
 
@@ -88,8 +93,17 @@ document.getElementById("summary-time").textContent =
 document.getElementById("summary-original").textContent =
     formatCOP(reservation.originalPrice);
 
+if (reservation.couponCode && Number(reservation.couponDiscount) > 0) {
+    const cRow = document.getElementById("summary-coupon-row");
+    const cLbl = document.getElementById("summary-coupon-label");
+    const cVal = document.getElementById("summary-coupon-discount");
+    if (cRow) cRow.style.display = "flex";
+    if (cLbl) cLbl.textContent = `Partner code (${reservation.couponCode} · ${reservation.couponPercent}% off)`;
+    if (cVal) cVal.textContent = "-" + formatCOP(reservation.couponDiscount);
+}
+
 document.getElementById("summary-discount").textContent =
-    "-" + formatCOP(reservation.discount);
+    "-" + formatCOP(reservation.cashDiscount ?? reservation.discount);
 
 document.getElementById("summary-final").textContent =
     formatCOP(reservation.finalPrice);

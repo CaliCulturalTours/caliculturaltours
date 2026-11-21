@@ -90,6 +90,29 @@ const tourData = tours.map(t => {
                         </div>
                     </div>
 
+                    <div class="form-group coupon-group">
+                        <label class="form-label" for="coupon-input">
+                            Promo / Partner Code <span style="font-weight:400; color:var(--cct-text-light);">(Optional)</span>
+                        </label>
+                        <div class="coupon-input-row">
+                            <input
+                                type="text"
+                                id="coupon-input"
+                                class="form-control"
+                                placeholder="Enter partner code"
+                                autocomplete="off"
+                                maxlength="40"
+                            />
+                            <button type="button" id="btn-apply-coupon" class="btn btn-outline coupon-btn">
+                                Apply
+                            </button>
+                            <button type="button" id="btn-remove-coupon" class="btn btn-outline coupon-btn coupon-remove-btn" style="display:none;">
+                                Remove
+                            </button>
+                        </div>
+                        <div id="coupon-feedback" class="coupon-feedback" aria-live="polite"></div>
+                    </div>
+
                     <div
     id="price-breakdown"
     style="
@@ -121,6 +144,19 @@ const tourData = tours.map(t => {
         ">
         <span>Group discount</span>
         <span id="breakdown-discount"></span>
+    </div>
+
+    <div
+        id="breakdown-coupon-row"
+        style="
+            display:none;
+            justify-content:space-between;
+            color:#198754;
+            font-weight:600;
+            margin-bottom:12px;
+        ">
+        <span id="breakdown-coupon-label">Partner coupon</span>
+        <span id="breakdown-coupon-value"></span>
     </div>
 
     <hr style="border:none;border-top:1px solid #ddd;margin:12px 0;">
@@ -237,6 +273,18 @@ const tourData = tours.map(t => {
         Select your country code and enter your WhatsApp number.
     </small>
 </div>
+
+                    <div id="step2-summary" class="step2-summary" style="display:none;">
+                        <div class="step2-summary-row">
+                            <span>Online payment total</span>
+                            <strong id="step2-online-total"></strong>
+                        </div>
+                        <div class="step2-summary-row step2-cash-row">
+                            <span>Cash total (extra 10% off)</span>
+                            <strong id="step2-cash-total"></strong>
+                        </div>
+                        <div id="step2-coupon-pill" class="step2-coupon-pill" style="display:none;"></div>
+                    </div>
 
                     <div class="form-row-buttons">
     <button type="button" class="btn btn-outline" id="btn-back-1" style="flex: 1;">
@@ -408,6 +456,71 @@ const tourData = tours.map(t => {
             gap: 0;
         }
     }
+
+    .coupon-input-row {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+    }
+    .coupon-input-row .form-control {
+        flex: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .coupon-btn {
+        padding: 10px 18px !important;
+        white-space: nowrap;
+        flex-shrink: 0;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+    .coupon-remove-btn {
+        color: #dc2626 !important;
+        border-color: #fecaca !important;
+    }
+    .coupon-remove-btn:hover {
+        background: #fef2f2 !important;
+    }
+    .coupon-feedback {
+        font-size: 0.88rem;
+        margin-top: 8px;
+        min-height: 1.2em;
+    }
+    .coupon-feedback.success {
+        color: #15803d;
+        font-weight: 600;
+    }
+    .coupon-feedback.error {
+        color: #dc2626;
+        font-weight: 500;
+    }
+    .step2-summary {
+        background: #fdf2f7;
+        border: 1px solid #fae1ec;
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-bottom: 18px;
+    }
+    .step2-summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.94rem;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+    .step2-cash-row {
+        color: #15803d;
+        margin-bottom: 0;
+    }
+    .step2-coupon-pill {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px dashed #f5b8d0;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #15803d;
+    }
 </style>
 
 <div id="loading-overlay" class="loading-overlay">
@@ -450,7 +563,24 @@ const totalValue = document.getElementById("breakdown-total");
 
 const perPersonSection = document.getElementById("breakdown-per-person");
 const perPersonValue = document.getElementById("breakdown-per-person-value");
+
+const couponInput = document.getElementById("coupon-input");
+const btnApplyCoupon = document.getElementById("btn-apply-coupon");
+const btnRemoveCoupon = document.getElementById("btn-remove-coupon");
+const couponFeedback = document.getElementById("coupon-feedback");
+const couponRow = document.getElementById("breakdown-coupon-row");
+const couponRowLabel = document.getElementById("breakdown-coupon-label");
+const couponRowValue = document.getElementById("breakdown-coupon-value");
+
+const step2Summary = document.getElementById("step2-summary");
+const step2OnlineTotal = document.getElementById("step2-online-total");
+const step2CashTotal = document.getElementById("step2-cash-total");
+const step2CouponPill = document.getElementById("step2-coupon-pill");
+
         let pricing = {};
+        let appliedCoupon = null; // { code, discountPercent, partnerName }
+        let baseTotalBeforeCoupon = 0;
+        let couponDiscountAmount = 0;
 
         const btnNext1 = document.getElementById("btn-next-1");
         const btnBack1 = document.getElementById("btn-back-1");
@@ -470,13 +600,14 @@ const perPersonValue = document.getElementById("breakdown-per-person-value");
         tomorrow.setDate(tomorrow.getDate() + 1);
         dateInput.value = tomorrow.toISOString().split('T')[0];
 
-        // Read URL query parameter "?tour=street-food"
+        // Read URL query parameters "?tour=...&coupon=..."
         const urlParams = new URLSearchParams(window.location.search);
         const tourQuery = urlParams.get('tour');
         if (tourQuery) {
             tourSelect.value = tourQuery;
         }
-        
+        const couponQuery = urlParams.get('coupon') || urlParams.get('code');
+
         fetch("/api/pricing")
     .then(response => response.json())
     .then(data => {
@@ -487,85 +618,174 @@ const perPersonValue = document.getElementById("breakdown-per-person-value");
     .catch(error => {
         console.error("Pricing API failed:", error);
     });
+
         let currentTotal = 0;
-       function calculateTotal() {
 
-    const guests = parseInt(tourGuests.value, 10) || 1;
-    const tourId = tourSelect.value;
+        function updateStep2Summary() {
+            if (!step2Summary || currentTotal <= 0) {
+                if (step2Summary) step2Summary.style.display = "none";
+                return;
+            }
+            const cashTotal = Math.round(currentTotal * 0.90);
+            step2Summary.style.display = "block";
+            step2OnlineTotal.textContent = `${currentTotal.toLocaleString("en-US")} COP`;
+            step2CashTotal.textContent = `${cashTotal.toLocaleString("en-US")} COP`;
 
-    // ---------- Dynamic pricing ----------
-    if (pricing[tourId] && pricing[tourId][guests]) {
-
-        const total = pricing[tourId][guests];
-        currentTotal = total;
-
-        const regularPerPerson = pricing[tourId][1];
-
-        breakdown.style.display = "block";
-
-        baseValue.textContent =
-            `${regularPerPerson.toLocaleString("en-US")} pesos`;
-
-        if (guests === 1) {
-
-            document.getElementById("breakdown-total-row").style.display = "flex";
-perPersonSection.style.display = "none";
-            discountRow.style.display = "none";
-            perPersonSection.style.display = "none";
-
-            totalLabel.textContent = "Total";
-
-        } else {
-
-            document.getElementById("breakdown-total-row").style.display = "flex";
-perPersonSection.style.display = "block";
-
-            const newPerPerson =
-                Math.round(total / guests);
-
-            const savingsPerPerson =
-                regularPerPerson - newPerPerson;
-
-            discountRow.style.display = "flex";
-
-            perPersonSection.style.display = "block";
-
-            discountValue.textContent =
-                `− ${savingsPerPerson.toLocaleString("en-US")} pesos per person`;
-
-            perPersonValue.textContent =
-                `${newPerPerson.toLocaleString("en-US")} pesos`;
-
-            totalLabel.textContent =
-                `Total for ${guests} guests`;
-
+            if (appliedCoupon) {
+                step2CouponPill.style.display = "block";
+                step2CouponPill.textContent = `✓ Code ${appliedCoupon.code} applied (-${appliedCoupon.discountPercent}% · stacks with 10% cash discount)`;
+            } else {
+                step2CouponPill.style.display = "none";
+                step2CouponPill.textContent = "";
+            }
         }
 
-        totalValue.textContent =
-            `${total.toLocaleString("en-US")} pesos`;
+        function calculateTotal() {
+            const guests = parseInt(tourGuests.value, 10) || 1;
+            const tourId = tourSelect.value;
 
-        return;
-    }
+            let subtotal = 0;
+            let regularPerPerson = 0;
+            let hasDynamicPricing = false;
 
-    // ---------- Fallback ----------
-    const selectedOption =
-        tourSelect.options[tourSelect.selectedIndex];
+            if (pricing[tourId] && pricing[tourId][guests]) {
+                subtotal = pricing[tourId][guests];
+                regularPerPerson = pricing[tourId][1];
+                hasDynamicPricing = true;
+            } else {
+                const selectedOption = tourSelect.options[tourSelect.selectedIndex];
+                if (!selectedOption || !selectedOption.dataset.price) {
+                    baseTotalBeforeCoupon = 0;
+                    couponDiscountAmount = 0;
+                    currentTotal = 0;
+                    breakdown.style.display = "none";
+                    updateStep2Summary();
+                    return;
+                }
+                regularPerPerson = parseInt(selectedOption.dataset.price, 10);
+                subtotal = guests * regularPerPerson;
+            }
 
-    if (!selectedOption || !selectedOption.dataset.price) {
+            baseTotalBeforeCoupon = subtotal;
+            couponDiscountAmount = appliedCoupon
+                ? Math.round(subtotal * (appliedCoupon.discountPercent / 100))
+                : 0;
+            currentTotal = Math.max(0, subtotal - couponDiscountAmount);
 
-        breakdown.style.display = "none";
-        return;
+            breakdown.style.display = "block";
+            baseValue.textContent = `${regularPerPerson.toLocaleString("en-US")} pesos`;
+            document.getElementById("breakdown-total-row").style.display = "flex";
 
-    }
+            // Group discount row (when dynamic pricing offers multi-guest savings)
+            if (hasDynamicPricing && guests > 1) {
+                const groupPerPerson = Math.round(subtotal / guests);
+                const savingsPerPerson = regularPerPerson - groupPerPerson;
+                if (savingsPerPerson > 0) {
+                    discountRow.style.display = "flex";
+                    discountValue.textContent = `− ${savingsPerPerson.toLocaleString("en-US")} pesos per person`;
+                } else {
+                    discountRow.style.display = "none";
+                }
+            } else {
+                discountRow.style.display = "none";
+            }
 
-    const total =
-        guests * parseInt(selectedOption.dataset.price, 10);
+            // Partner coupon row (cumulative on top of group price)
+            if (appliedCoupon && couponDiscountAmount > 0) {
+                couponRow.style.display = "flex";
+                couponRowLabel.textContent = `Promo code (${appliedCoupon.code} · ${appliedCoupon.discountPercent}% off)`;
+                couponRowValue.textContent = `− ${couponDiscountAmount.toLocaleString("en-US")} pesos`;
+            } else {
+                couponRow.style.display = "none";
+            }
 
-    currentTotal = total;
+            // Per-person display (show when > 1 guest OR when coupon reduces the single-guest price)
+            if (guests > 1 || appliedCoupon) {
+                const finalPerPerson = Math.round(currentTotal / guests);
+                perPersonSection.style.display = "block";
+                perPersonValue.textContent = `${finalPerPerson.toLocaleString("en-US")} pesos`;
+            } else {
+                perPersonSection.style.display = "none";
+            }
 
-    breakdown.style.display = "none";
+            totalLabel.textContent = guests === 1 ? "Total" : `Total for ${guests} guests`;
+            totalValue.textContent = `${currentTotal.toLocaleString("en-US")} pesos`;
 
-}
+            updateStep2Summary();
+        }
+
+        async function applyCouponCode(rawCode) {
+            const code = String(rawCode || "").trim().toUpperCase();
+            if (!code) {
+                couponFeedback.className = "coupon-feedback error";
+                couponFeedback.textContent = "Please enter a promo code.";
+                return;
+            }
+
+            btnApplyCoupon.disabled = true;
+            btnApplyCoupon.textContent = "Checking...";
+            couponFeedback.className = "coupon-feedback";
+            couponFeedback.textContent = "";
+
+            try {
+                const res = await fetch("/api/validate-coupon", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ code })
+                });
+                const result = await res.json();
+
+                if (result.valid) {
+                    appliedCoupon = {
+                        code: result.code,
+                        discountPercent: result.discountPercent,
+                        partnerName: result.partnerName || ""
+                    };
+                    couponInput.value = result.code;
+                    couponInput.readOnly = true;
+                    btnApplyCoupon.style.display = "none";
+                    btnRemoveCoupon.style.display = "inline-block";
+                    couponFeedback.className = "coupon-feedback success";
+                    couponFeedback.textContent = `✓ Code ${result.code} applied: ${result.discountPercent}% off! (Stacks with our 10% cash discount)`;
+                    calculateTotal();
+                } else {
+                    appliedCoupon = null;
+                    couponFeedback.className = "coupon-feedback error";
+                    couponFeedback.textContent = result.error || "Invalid promo code.";
+                    calculateTotal();
+                }
+            } catch (err) {
+                console.error("Coupon validation failed:", err);
+                couponFeedback.className = "coupon-feedback error";
+                couponFeedback.textContent = "Could not verify code right now. Please try again.";
+            } finally {
+                btnApplyCoupon.disabled = false;
+                btnApplyCoupon.textContent = "Apply";
+            }
+        }
+
+        btnApplyCoupon?.addEventListener("click", () => applyCouponCode(couponInput.value));
+        couponInput?.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                if (!appliedCoupon) applyCouponCode(couponInput.value);
+            }
+        });
+        btnRemoveCoupon?.addEventListener("click", () => {
+            appliedCoupon = null;
+            couponInput.readOnly = false;
+            couponInput.value = "";
+            btnRemoveCoupon.style.display = "none";
+            btnApplyCoupon.style.display = "inline-block";
+            couponFeedback.className = "coupon-feedback";
+            couponFeedback.textContent = "";
+            calculateTotal();
+        });
+
+        if (couponQuery) {
+            couponInput.value = couponQuery.trim().toUpperCase();
+            applyCouponCode(couponQuery);
+        }
 
         tourSelect.addEventListener("change", calculateTotal);
 
@@ -640,6 +860,8 @@ perPersonSection.style.display = "block";
             name: document.getElementById("user-name").value,
             email: document.getElementById("user-email").value,
             phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
+            base_total: baseTotalBeforeCoupon,
+            coupon_code: appliedCoupon ? appliedCoupon.code : "",
             total: Math.round(currentTotal * 0.90),
             payment_status: "Cash"
             })
@@ -651,6 +873,9 @@ perPersonSection.style.display = "block";
             throw new Error(data.error || "Booking could not be saved.");
         }
 
+        const cashOnlyDiscount = Math.round(currentTotal * 0.10);
+        const finalCashAmount = Math.round(currentTotal * 0.90);
+
         sessionStorage.setItem(
             "cashReservation",
             JSON.stringify({
@@ -658,9 +883,13 @@ perPersonSection.style.display = "block";
                 guests: Number(tourGuests.value),
                 date: document.getElementById("tour-date").value,
                 time: document.getElementById("tour-time").value,
-                originalPrice: currentTotal,
-                discount: Math.round(currentTotal * 0.10),
-                finalPrice: Math.round(currentTotal * 0.90),
+                originalPrice: baseTotalBeforeCoupon || currentTotal,
+                couponCode: appliedCoupon ? appliedCoupon.code : "",
+                couponPercent: appliedCoupon ? appliedCoupon.discountPercent : 0,
+                couponDiscount: couponDiscountAmount,
+                cashDiscount: cashOnlyDiscount,
+                discount: cashOnlyDiscount,
+                finalPrice: finalCashAmount,
                 bookingReference: data.booking_reference
             })
         );
@@ -736,6 +965,8 @@ const bookingResponse = await fetch("/api/bookings", {
         name: document.getElementById("user-name").value,
         email: document.getElementById("user-email").value,
         phone: `${document.getElementById("phone-country").value}${document.getElementById("user-phone").value.replace(/\D/g, "")}`,
+        base_total: baseTotalBeforeCoupon,
+        coupon_code: appliedCoupon ? appliedCoupon.code : "",
         total: currentTotal,
         payment_status: "Pending"
     })
@@ -752,6 +983,8 @@ if (!bookingResponse.ok) {
     },
     body: JSON.stringify({
     amount: currentTotal,
+    base_amount: baseTotalBeforeCoupon,
+    coupon_code: appliedCoupon ? appliedCoupon.code : "",
     name: document.getElementById("user-name").value
 })
 });

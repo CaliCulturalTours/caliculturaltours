@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import { randomUUID } from "crypto";
+import { validateCouponCode } from "../../lib/coupons";
 
 export async function POST({ request }) {
     try {
@@ -117,12 +118,44 @@ console.log("Tour info:", {
 });
 
         // --------------------------------
+        // VALIDATE OPTIONAL PARTNER COUPON (Server-Side)
+        // --------------------------------
+        let appliedCouponCode = "";
+        let appliedCouponPercent = 0;
+        let appliedPartnerName = "";
+
+        if (body.coupon_code && String(body.coupon_code).trim()) {
+            try {
+                const couponResult = await validateCouponCode(String(body.coupon_code));
+                if (couponResult.valid) {
+                    appliedCouponCode = couponResult.code || "";
+                    appliedCouponPercent = couponResult.discountPercent || 0;
+                    appliedPartnerName = couponResult.partnerName || "";
+                }
+            } catch (couponErr) {
+                console.warn("Coupon re-validation skipped:", couponErr?.message || couponErr);
+            }
+        }
+
+        // Compute verified total if base_total is supplied; cumulative with 10% Cash discount
+        const parsedBaseTotal = Number(body.base_total || 0);
+        let verifiedTotal = Number(body.total || 0);
+        if (parsedBaseTotal > 0) {
+            const afterCoupon = appliedCouponPercent > 0
+                ? Math.round(parsedBaseTotal * (1 - appliedCouponPercent / 100))
+                : parsedBaseTotal;
+            verifiedTotal = body.payment_status === "Cash"
+                ? Math.round(afterCoupon * 0.90)
+                : afterCoupon;
+        }
+
+        // --------------------------------
         // SAVE BOOKING TO GOOGLE SHEETS
         // --------------------------------
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: "Sheet1!A:L",
+            range: "Sheet1!A:O",
             valueInputOption: "USER_ENTERED",
             insertDataOption: "INSERT_ROWS",
             requestBody: {
@@ -135,10 +168,13 @@ console.log("Tour info:", {
                     body.name || "",
                     body.email || "",
                     body.phone || "",
-                    body.total || "",
+                    verifiedTotal || "",
                     bookingReference,
                     body.payment_status || "Pending",
                     body.bold_transaction_id || "",
+                    appliedCouponCode,
+                    appliedCouponPercent ? `${appliedCouponPercent}%` : "",
+                    appliedPartnerName,
                 ]],
             },
         });
@@ -244,8 +280,14 @@ const whatsappUrl = whatsappNumber
                 <h3>Total</h3>
 
                 <p style="font-size: 20px;">
-                    <strong>${Number(body.total || 0).toLocaleString("en-US")} COP</strong>
+                    <strong>${Number(verifiedTotal || 0).toLocaleString("en-US")} COP</strong>
                 </p>
+
+                ${appliedCouponCode ? `
+                <p style="color: #059669;">
+                    🏷️ <strong>Partner Coupon:</strong> ${appliedCouponCode} (${appliedCouponPercent}% off${appliedPartnerName ? ` · ${appliedPartnerName}` : ""})
+                </p>
+                ` : ""}
 
                 <p>
                     <strong>Payment status:</strong>
@@ -350,13 +392,22 @@ ${whatsappNumber ? `
 
         <p>
             <strong>Total:</strong><br>
-            ${Number(body.total || 0).toLocaleString("en-US")} COP
+            ${Number(verifiedTotal || 0).toLocaleString("en-US")} COP
         </p>
+
+        ${appliedCouponCode ? `
+        <p style="color: #059669;">
+            <strong>Promo code applied:</strong><br>
+            ${appliedCouponCode} (${appliedCouponPercent}% discount)
+        </p>
+        ` : ""}
 
         <p>
             <strong>Payment:</strong><br>
             ${body.payment_status === "Cash"
-                ? "Cash payment — 10% discount applied"
+                ? (appliedCouponCode
+                    ? `Cash payment (10% cash discount stacked with ${appliedCouponCode})`
+                    : "Cash payment — 10% discount applied")
                 : "Online payment"}
         </p>
 
@@ -480,7 +531,7 @@ WhatsApp: ${body.phone || ""}
 Tour: ${tourName}
 Duration: ${durationLabel}
 Payment: ${body.payment_status || "Pending"}
-Total: ${Number(body.total || 0).toLocaleString("en-US")} COP
+Total: ${Number(verifiedTotal || 0).toLocaleString("en-US")} COP${appliedCouponCode ? `\nPartner coupon: ${appliedCouponCode} (${appliedCouponPercent}% off${appliedPartnerName ? ` · ${appliedPartnerName}` : ""})` : ""}
 
 Meeting point:
 ${meetingPoint}

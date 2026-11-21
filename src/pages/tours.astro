@@ -3,17 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../data/site_content_skeleton.json';
 import { getPricing, getTourDisplayPrice } from '../lib/pricing';
 import { getPhotoStatsMap, rankTourGallery } from '../lib/photoStats';
+import { getTourStatsMap, rankToursForCatalog } from '../lib/tourStats';
 
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
 
-const [pricing, photoStats] = await Promise.all([
+const [pricing, photoStats, tourStats] = await Promise.all([
   getPricing(),
   getPhotoStatsMap(),
+  getTourStatsMap(),
 ]);
 
-const tours = [...content.tours].sort(
-  (a, b) => a.display_order - b.display_order
-);
+const tours = rankToursForCatalog(content.tours, tourStats);
 ---
 
 <BaseLayout title="Best Cali Tours & Cultural Experiences" description="Explore handpicked small-group and private tours in Cali, Colombia. Salsa dancing, street food, Andes coffee farms, and birdwatching with local guides.">
