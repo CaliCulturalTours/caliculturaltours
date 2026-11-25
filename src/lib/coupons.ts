@@ -19,6 +19,26 @@ export interface CouponValidationResult {
 const SHEET_TAB = 'COUPONS';
 const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes so newly created partner codes go live quickly
 
+// Built-in partner defaults so key alliances work immediately even before manual Sheet edits.
+// Any row with the same code in Google Sheets' COUPONS tab overrides these values (including setting active = FALSE).
+const DEFAULT_PARTNER_COUPONS: CouponRecord[] = [
+  {
+    code: 'HOSTEE',
+    discountPercent: 7,
+    active: true,
+    partnerName: 'Hostee',
+    expiresAt: '',
+  },
+];
+
+function createDefaultCouponsMap(): Map<string, CouponRecord> {
+  const map = new Map<string, CouponRecord>();
+  for (const coupon of DEFAULT_PARTNER_COUPONS) {
+    map.set(coupon.code, { ...coupon });
+  }
+  return map;
+}
+
 let couponsCache: { data: Map<string, CouponRecord>; expiresAt: number } | null = null;
 let pendingFetch: Promise<Map<string, CouponRecord>> | null = null;
 let tabVerified = false;
@@ -78,7 +98,7 @@ async function ensureCouponsTab(sheets: any, spreadsheetId: string): Promise<voi
       requestBody: {
         values: [
           ['code', 'discount_percent', 'active', 'partner_name', 'expires_at'],
-          ['EXAMPLE10', '10', 'FALSE', 'Example Partner (set active to TRUE to enable)', ''],
+          ['HOSTEE', '7', 'TRUE', 'Hostee', ''],
         ],
       },
     });
@@ -119,7 +139,7 @@ export async function getCouponsMap(forceRefresh = false): Promise<Map<string, C
   pendingFetch = (async () => {
     const client = getSheetsClient();
     if (!client) {
-      return new Map<string, CouponRecord>();
+      return createDefaultCouponsMap();
     }
 
     try {
@@ -132,7 +152,7 @@ export async function getCouponsMap(forceRefresh = false): Promise<Map<string, C
       });
 
       const rows = res.data.values || [];
-      const map = new Map<string, CouponRecord>();
+      const map = createDefaultCouponsMap();
 
       for (let i = 1; i < rows.length; i++) {
         const row = rows[i];
@@ -162,7 +182,7 @@ export async function getCouponsMap(forceRefresh = false): Promise<Map<string, C
       return map;
     } catch (err: any) {
       console.warn('Could not read COUPONS from Google Sheets:', err?.message || err);
-      return couponsCache?.data || new Map<string, CouponRecord>();
+      return couponsCache?.data || createDefaultCouponsMap();
     } finally {
       pendingFetch = null;
     }
