@@ -87,12 +87,24 @@ const reviews = [
     <div class="hostee-hero-overlay"></div>
     <div class="container hostee-hero-inner">
       <div class="hostee-hero-content reveal">
+        <div class="hostee-cobrand-lockup">
+          <img
+            src="/images/partners/hostee-logo-white.webp"
+            alt="Hostee — Rent a Place"
+            class="hostee-partner-logo"
+            width="420"
+            height="333"
+          />
+          <span class="cobrand-x" aria-hidden="true">×</span>
+          <div class="cct-cobrand-mark">
+            <img src="/images/logo.jpg" alt="Cali Cultural Tours" width="44" height="44" />
+            <span>Cali Cultural Tours</span>
+          </div>
+        </div>
+
         <div class="hostee-partner-pill">
-          <span class="pill-brand">HOSTEE</span>
-          <span class="pill-x">×</span>
-          <span class="pill-brand">CALI CULTURAL TOURS</span>
-          <span class="pill-divider">·</span>
-          <span>Exclusive Guest Perk</span>
+          <i class="fas fa-star" style="color: #ff7ab0;"></i>
+          <span>Exclusive Hostee Guest Perk</span>
         </div>
 
         <h1 class="text-serif hostee-hero-title">
@@ -430,6 +442,51 @@ const reviews = [
     grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.9fr);
     gap: 44px;
     align-items: center;
+  }
+
+  .hostee-cobrand-lockup {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .hostee-partner-logo {
+    height: 62px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+  }
+
+  .cobrand-x {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ff7ab0;
+    line-height: 1;
+  }
+
+  .cct-cobrand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cct-cobrand-mark img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+  }
+
+  .cct-cobrand-mark span {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #ffffff;
+    letter-spacing: 0.2px;
   }
 
   .hostee-partner-pill {
@@ -1324,6 +1381,9 @@ const reviews = [
   }
 
   @media (max-width: 768px) {
+    .hostee-partner-logo {
+      height: 50px;
+    }
     .hostee-steps-grid {
       grid-template-columns: 1fr;
       gap: 20px;
