@@ -1,25 +1,1356 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  ACTIVITIES_CALENDAR_ID,
+  SUBSCRIBE_CALENDAR_URL,
+  getUpcomingActivities,
+} from '../lib/activitiesCalendar';
+
+export const prerender = false;
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=3600');
+
+const { days, todayKey, totalEvents } = await getUpcomingActivities();
+
+// Pick initial default day: Today if it has events, otherwise the first upcoming day with events, else 'week'
+const firstDayWithEvents = days.find((d) => d.events.length > 0);
+const defaultSelection =
+  days[0]?.events.length > 0
+    ? days[0].dateKey
+    : firstDayWithEvents
+      ? firstDayWithEvents.dateKey
+      : 'week';
+
+const weekKeys = new Set(days.slice(0, 7).map((d) => d.dateKey));
+const weekTotalCount = days
+  .slice(0, 7)
+  .reduce((sum, d) => sum + d.events.length, 0);
+
+// Build SEO JSON-LD schema from real upcoming events (first 25 upcoming items)
+const upcomingFlat = days.flatMap((d) => d.events).slice(0, 25);
+const activitiesSchema = upcomingFlat.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Cali Weekly Calendar of Cultural Activities & Events',
+      description:
+        'Live weekly schedule of salsa nights, free dance classes, hikes, live music, and cultural activities in Cali, Colombia.',
+      itemListElement: upcomingFlat.map((ev, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Event',
+          name: ev.cleanTitle,
+          startDate: ev.startIso,
+          endDate: ev.endIso,
+          eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+          eventStatus: 'https://schema.org/EventScheduled',
+          ...(ev.location
+            ? {
+                location: {
+                  '@type': 'Place',
+                  name: ev.shortVenue || ev.location,
+                  address: ev.location,
+                },
+              }
+            : {
+                location: {
+                  '@type': 'Place',
+                  name: 'Cali, Colombia',
+                  address: 'Cali, Valle del Cauca, Colombia',
+                },
+              }),
+          ...(ev.isFree ? { isAccessibleForFree: true } : {}),
+        },
+      })),
+    }
+  : undefined;
+
+const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(
+  ACTIVITIES_CALENDAR_ID
+)}&ctz=America%2FBogota&mode=AGENDA`;
 ---
 
-<BaseLayout title="Things to Do in Cali: Daily Events & Activities" description="Stay in the know with cultural activities, salsa nights, live music, and events happening every day and week in Cali, Colombia.">
-    <section class="section section-light" style="text-align: center; background: white;">
-        <div class="container reveal">
-            <h1 class="text-serif" style="font-size: 3rem; margin-bottom: 16px;">Cali Cultural <span class="text-serif" style="color: var(--cct-primary);">Calendar</span></h1>
-            <p style="font-size: 1.15rem; max-width: 700px; margin: 0 auto 48px; color: #555;">
-                Stay in the know with different activities going on everyday, every week.
-            </p>
+<BaseLayout
+  title="Things to Do in Cali: Daily Events & Weekly Calendar"
+  description="Live mobile-friendly calendar of daily activities in Cali, Colombia: free salsa classes, live music, hikes, language exchanges, yoga, and cultural events."
+  schema={activitiesSchema}
+>
+  <section class="act-hero">
+    <div class="container">
+      <div class="act-hero-inner reveal">
+        <span class="act-eyebrow">
+          <span class="act-live-dot"></span> LIVE WEEKLY AGENDA · CALI (GMT-5)
+        </span>
+        <h1 class="text-serif act-title">
+          Cali Cultural <span class="act-title-accent">Calendar</span>
+        </h1>
+        <p class="act-subtitle">
+          Stay in the know with salsa nights, free dance classes, hikes, live music, and local gatherings happening every week in Cali.
+        </p>
 
-            <div style="width: 100%; max-width: 1000px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.1); background: #fff; padding: 10px;">
-                <!-- We make the iframe responsive for mobile -->
-                <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=e36bf6f2b2e2451f1c72fc6e9f9f6dc5ca390232df6522eeeb90f456c6c97687%40group.calendar.google.com&ctz=America%2FBogota&mode=AGENDA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" frameborder="0" scrolling="no"></iframe>
-                </div>
-            </div>
-
-            <div style="margin-top: 60px;">
-                <a href="/contact" class="btn btn-primary">Join One of Our Tours</a>
-            </div>
+        <div class="act-hero-links">
+          <a
+            href={SUBSCRIBE_CALENDAR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="act-sub-pill"
+          >
+            <i class="far fa-calendar-plus"></i> Add Full Calendar to Google
+          </a>
+          <a href="/tours" class="act-tours-pill">
+            <i class="fas fa-compass"></i> Explore Our Guided Tours
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="act-main-section">
+    <div class="container act-container">
+      {totalEvents > 0 ? (
+        <>
+          <!-- Sticky Mobile Controls: Day Strip + Category Chips + Search -->
+          <div class="act-controls-sticky" id="actControls">
+            <!-- Horizontal Day Picker -->
+            <div
+              class="act-day-strip"
+              id="actDayStrip"
+              role="tablist"
+              aria-label="Select day"
+              data-default-day={defaultSelection}
+              data-today-key={todayKey}
+            >
+              <button
+                type="button"
+                class={`act-day-pill act-week-pill ${defaultSelection === 'week' ? 'active' : ''}`}
+                data-day="week"
+                role="tab"
+                aria-selected={defaultSelection === 'week' ? 'true' : 'false'}
+              >
+                <span class="day-top">Next 7</span>
+                <span class="day-main">Week</span>
+                <span class="day-count">{weekTotalCount}</span>
+              </button>
+
+              {days.map((day) => {
+                const isSelected = day.dateKey === defaultSelection;
+                const topLabel = day.isToday
+                  ? 'Today'
+                  : day.isTomorrow
+                    ? 'Tmrw'
+                    : day.weekdayShort;
+                return (
+                  <button
+                    type="button"
+                    class={`act-day-pill ${isSelected ? 'active' : ''} ${day.events.length === 0 ? 'is-empty' : ''}`}
+                    data-day={day.dateKey}
+                    role="tab"
+                    aria-selected={isSelected ? 'true' : 'false'}
+                  >
+                    <span class="day-top">{topLabel}</span>
+                    <span class="day-main">{day.dayNum}</span>
+                    <span class="day-month">{day.monthShort}</span>
+                    <span class="day-count">{day.events.length}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <!-- Filters & Instant Search -->
+            <div class="act-filter-row">
+              <div class="act-chips" role="group" aria-label="Filter activities">
+                <button type="button" class="act-chip active" data-filter="all">
+                  All
+                </button>
+                <button type="button" class="act-chip" data-filter="free">
+                  🆓 Free
+                </button>
+                <button type="button" class="act-chip" data-filter="salsa">
+                  💃 Salsa &amp; Music
+                </button>
+                <button type="button" class="act-chip" data-filter="culture">
+                  🎭 Culture &amp; Social
+                </button>
+                <button type="button" class="act-chip" data-filter="wellness">
+                  ⛰️ Nature &amp; Fitness
+                </button>
+              </div>
+
+              <div class="act-search-wrap">
+                <i class="fas fa-search act-search-icon" aria-hidden="true"></i>
+                <input
+                  type="search"
+                  id="actSearchInput"
+                  class="act-search-input"
+                  placeholder="Search salsa, yoga, free, hike..."
+                  aria-label="Search activities"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Selection Status Bar -->
+          <div class="act-status-bar">
+            <span id="actStatusText">Showing upcoming events in Cali</span>
+            <button type="button" id="actResetFiltersBtn" class="act-reset-btn" style="display:none;">
+              Reset filters
+            </button>
+          </div>
+
+          <!-- Day Groups & Expandable Event Cards -->
+          <div class="act-days-feed" id="actDaysFeed">
+            {days.map((day) => {
+              const inFirstWeek = weekKeys.has(day.dateKey);
+              const isVisibleInitially =
+                defaultSelection === 'week' ? inFirstWeek : day.dateKey === defaultSelection;
+              return (
+                <div
+                  class="act-day-group"
+                  data-day-group={day.dateKey}
+                  data-in-week={inFirstWeek ? '1' : '0'}
+                  style={isVisibleInitially ? '' : 'display:none;'}
+                >
+                  <div class="act-day-heading">
+                    <div class="act-day-heading-left">
+                      <span class="act-day-badge">
+                        {day.dayNum} {day.monthShort}
+                      </span>
+                      <h2>
+                        {day.isToday
+                          ? `Today, ${day.weekdayLong}`
+                          : day.isTomorrow
+                            ? `Tomorrow, ${day.weekdayLong}`
+                            : `${day.weekdayLong}, ${day.monthShort} ${day.dayNum}`}
+                      </h2>
+                    </div>
+                    <span class="act-day-total" data-day-count-label>
+                      {day.events.length} {day.events.length === 1 ? 'activity' : 'activities'}
+                    </span>
+                  </div>
+
+                  {day.events.length === 0 ? (
+                    <div class="act-empty-day">
+                      <p>No scheduled activities listed for this day yet. Tap another day above or check our guided tours!</p>
+                    </div>
+                  ) : (
+                    <div class="act-cards-list">
+                      {day.events.map((ev) => (
+                        <details
+                          class={`act-card ${ev.isFeatured ? 'is-featured' : ''}`}
+                          data-category={ev.category}
+                          data-free={ev.isFree ? '1' : '0'}
+                          data-date={ev.dateKey}
+                          data-start-min={ev.startMinutes}
+                          data-end-min={ev.endMinutes}
+                          data-search={`${ev.cleanTitle} ${ev.location} ${ev.descriptionPlain}`.toLowerCase()}
+                        >
+                          <summary class="act-card-summary">
+                            <div class="act-card-top">
+                              <span class="act-time-pill">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                {ev.startTimeLabel} – {ev.endTimeLabel}
+                              </span>
+
+                              <span class="act-live-status" data-live-badge style="display:none;"></span>
+
+                              {ev.isFree && (
+                                <span class="act-free-badge">FREE</span>
+                              )}
+
+                              {ev.isFeatured && (
+                                <span class="act-featured-badge">⭐ Highlight</span>
+                              )}
+                            </div>
+
+                            <div class="act-card-main-row">
+                              <div class="act-card-title-wrap">
+                                <h3 class="act-card-title">{ev.cleanTitle}</h3>
+                                {ev.shortVenue && (
+                                  <p class="act-card-venue">
+                                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                    <span>{ev.shortVenue}</span>
+                                  </p>
+                                )}
+                              </div>
+                              <span class="act-expand-icon" aria-hidden="true">
+                                <i class="fas fa-chevron-down"></i>
+                              </span>
+                            </div>
+                          </summary>
+
+                          <div class="act-card-details">
+                            {ev.descriptionHtml && (
+                              <div class="act-card-desc" set:html={ev.descriptionHtml} />
+                            )}
+
+                            {ev.location && (
+                              <div class="act-card-full-address">
+                                <i class="fas fa-location-dot" aria-hidden="true"></i>
+                                <span>{ev.location}</span>
+                              </div>
+                            )}
+
+                            <div class="act-card-actions">
+                              {ev.mapsUrl && (
+                                <a
+                                  href={ev.mapsUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  class="act-action-btn act-btn-maps"
+                                >
+                                  <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                                  Google Maps
+                                </a>
+                              )}
+
+                              <a
+                                href={ev.addToCalendarUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="act-action-btn act-btn-cal"
+                              >
+                                <i class="far fa-calendar-plus" aria-hidden="true"></i>
+                                Add to Calendar
+                              </a>
+
+                              <button
+                                type="button"
+                                class="act-action-btn act-btn-share"
+                                data-share-title={ev.cleanTitle}
+                                data-share-time={`${day.weekdayShort} ${day.monthShort} ${day.dayNum} at ${ev.startTimeLabel}`}
+                                data-share-venue={ev.shortVenue || 'Cali, Colombia'}
+                              >
+                                <i class="fas fa-share-nodes" aria-hidden="true"></i>
+                                Share
+                              </button>
+                            </div>
+                          </div>
+                        </details>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Empty State when Search / Filters match nothing -->
+          <div id="actNoResults" class="act-no-results" style="display:none;">
+            <i class="fas fa-calendar-xmark" aria-hidden="true"></i>
+            <h3>No activities match this filter</h3>
+            <p>Try switching to <strong>Next 7 Days (Week)</strong> or clearing your search filter.</p>
+            <div class="act-no-results-actions">
+              <button type="button" id="actShowWeekBtn" class="btn btn-primary">
+                View Full Week
+              </button>
+              <button type="button" id="actClearAllBtn" class="btn btn-outline">
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <!-- Resilient Fallback if Google Calendar feed is temporarily unreachable -->
+        <div class="act-fallback-card">
+          <div class="act-fallback-frame-wrap">
+            <iframe
+              src={fallbackEmbedUrl}
+              title="Cali Weekly Calendar of Activities"
+              loading="lazy"
+              frameborder="0"
+            ></iframe>
+          </div>
+          <p class="act-fallback-note">
+            <a href={SUBSCRIBE_CALENDAR_URL} target="_blank" rel="noopener noreferrer">
+              Open directly in Google Calendar <i class="fas fa-external-link-alt"></i>
+            </a>
+          </p>
+        </div>
+      )}
+
+      <!-- Bottom Tour Conversion CTA -->
+      <div class="act-bottom-cta reveal">
+        <div class="act-bottom-cta-text">
+          <span class="tour-category-tag">CURATED LOCAL EXPERIENCES</span>
+          <h2 class="text-serif">Want a Local Host to Show You Around?</h2>
+          <p>
+            Pair these weekly community activities with our top-rated street food walks, Galeria Alameda exotic fruit tastings, salsa nights, and Pacific river adventures.
+          </p>
+        </div>
+        <div class="act-bottom-cta-actions">
+          <a href="/tours" class="btn btn-primary act-cta-tours">
+            Explore All 11 Tours <i class="fas fa-arrow-right" style="margin-left: 8px; margin-right: 0;"></i>
+          </a>
+          <a
+            href="https://wa.me/573162543554?text=Hi%20Juan%20Camilo!%20I%20was%20checking%20your%20Cali%20Cultural%20Calendar%20and%20would%20love%20some%20recommendations"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline act-cta-wa"
+          >
+            <i class="fab fa-whatsapp"></i> Ask Juan Camilo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* Compact Hero */
+  .act-hero {
+    background: linear-gradient(170deg, #fff5f8 0%, #fde4ee 100%);
+    padding: clamp(32px, 5vw, 56px) 0 clamp(24px, 4vw, 40px) 0;
+    border-bottom: 1px solid #fae1ec;
+    text-align: center;
+  }
+
+  .act-hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .act-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #fae1ec;
+    color: #ba0047;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.9px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 10px rgba(232, 0, 90, 0.06);
+  }
+
+  .act-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+  }
+
+  .act-title {
+    font-size: clamp(2rem, 5.5vw, 3.1rem);
+    line-height: 1.12;
+    margin: 0 0 12px 0;
+    color: #18050d;
+  }
+
+  .act-title-accent {
+    color: var(--cct-primary, #e8005a);
+  }
+
+  .act-subtitle {
+    font-size: clamp(0.96rem, 2.4vw, 1.1rem);
+    color: #4b5563;
+    line-height: 1.55;
+    margin: 0 auto 20px auto;
+    max-width: 580px;
+  }
+
+  .act-hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .act-sub-pill,
+  .act-tours-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .act-sub-pill {
+    background: #ffffff;
+    color: #1f2937;
+    border: 1px solid #e5d5dc;
+  }
+
+  .act-sub-pill:hover {
+    border-color: #e8005a;
+    color: #ba0047;
+  }
+
+  .act-tours-pill {
+    background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(232, 0, 90, 0.25);
+  }
+
+  .act-tours-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(232, 0, 90, 0.35);
+    color: #ffffff;
+  }
+
+  /* Main Feed Area */
+  .act-main-section {
+    background: #faf7f9;
+    padding: 24px 0 72px 0;
+    min-height: 60vh;
+  }
+
+  .act-container {
+    max-width: 860px;
+  }
+
+  /* Sticky App-Style Controls */
+  .act-controls-sticky {
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+    background: rgba(250, 247, 249, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 0 14px 0;
+    margin: -12px 0 12px 0;
+    border-bottom: 1px solid #f0e1e8;
+  }
+
+  .act-day-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 2px 10px 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .act-day-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .act-day-pill {
+    flex: 0 0 auto;
+    min-width: 66px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    background: #ffffff;
+    border: 1.5px solid #f0dde6;
+    border-radius: 14px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #374151;
+    position: relative;
+  }
+
+  .act-week-pill {
+    min-width: 78px;
+    background: #fff5f8;
+    border-color: #f5b8d0;
+  }
+
+  .act-day-pill:hover {
+    border-color: #e8005a;
+  }
+
+  .act-day-pill.is-empty {
+    opacity: 0.6;
+  }
+
+  .act-day-pill.active {
+    background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(232, 0, 90, 0.28);
+    opacity: 1;
+  }
+
+  .day-top {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    opacity: 0.8;
+  }
+
+  .day-main {
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .day-month {
+    font-size: 0.68rem;
+    font-weight: 600;
+    opacity: 0.75;
+  }
+
+  .day-count {
+    margin-top: 3px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    background: #fdf2f7;
+    color: #ba0047;
+    padding: 1px 7px;
+    border-radius: 999px;
+  }
+
+  .act-day-pill.active .day-count {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+  }
+
+  /* Filter Chips + Search */
+  .act-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .act-chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+
+  .act-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .act-chip {
+    flex: 0 0 auto;
+    background: #ffffff;
+    border: 1px solid #ead8e1;
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .act-chip:hover {
+    border-color: #e8005a;
+    color: #ba0047;
+  }
+
+  .act-chip.active {
+    background: #18050d;
+    border-color: #18050d;
+    color: #ffffff;
+  }
+
+  .act-search-wrap {
+    position: relative;
+    flex: 1 1 200px;
+    max-width: 260px;
+  }
+
+  .act-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
+
+  .act-search-input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border-radius: 999px;
+    border: 1px solid #e5d5dc;
+    background: #ffffff;
+    font-size: 0.86rem;
+    color: #1f2937;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .act-search-input:focus {
+    border-color: #e8005a;
+    box-shadow: 0 0 0 3px rgba(232, 0, 90, 0.12);
+  }
+
+  /* Status Bar */
+  .act-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    color: #6b7280;
+    margin: 6px 0 18px 0;
+  }
+
+  .act-reset-btn {
+    background: none;
+    border: none;
+    color: #ba0047;
+    font-weight: 700;
+    font-size: 0.84rem;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
+
+  /* Day Headings */
+  .act-day-group {
+    margin-bottom: 32px;
+  }
+
+  .act-day-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .act-day-heading-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .act-day-badge {
+    background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .act-day-heading h2 {
+    margin: 0;
+    font-size: clamp(1.12rem, 3vw, 1.35rem);
+    color: #18050d;
+    font-weight: 800;
+  }
+
+  .act-day-total {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+
+  /* Expandable Activity Cards */
+  .act-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .act-card {
+    background: #ffffff;
+    border: 1px solid #f0e1e8;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(24, 5, 13, 0.04);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+
+  .act-card.is-featured {
+    border-left: 4px solid #e8005a;
+  }
+
+  .act-card.is-past {
+    opacity: 0.62;
+  }
+
+  .act-card[open] {
+    border-color: #f5a3c3;
+    box-shadow: 0 10px 26px rgba(232, 0, 90, 0.1);
+    opacity: 1;
+  }
+
+  .act-card-summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 18px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .act-card-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .act-card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .act-time-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fdf2f7;
+    color: #ba0047;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+
+  .act-free-badge {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  .act-featured-badge {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  .act-live-status {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+  }
+
+  .act-live-status.live-now {
+    background: #10b981;
+    color: #ffffff;
+  }
+
+  .act-live-status.past-today {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+
+  .act-card-main-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .act-card-title-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .act-card-title {
+    margin: 0;
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.38;
+    color: #111827;
+    word-break: break-word;
+  }
+
+  .act-card-venue {
+    margin: 6px 0 0 0;
+    font-size: 0.86rem;
+    color: #6b7280;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.35;
+  }
+
+  .act-card-venue i {
+    color: #e8005a;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .act-expand-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #faf5f7;
+    color: #ba0047;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: transform 0.22s ease, background-color 0.2s ease;
+  }
+
+  .act-card[open] .act-expand-icon {
+    transform: rotate(180deg);
+    background: #e8005a;
+    color: #ffffff;
+  }
+
+  /* Expanded Body */
+  .act-card-details {
+    padding: 0 18px 18px 18px;
+    border-top: 1px solid #f7eaf0;
+  }
+
+  .act-card-desc {
+    margin-top: 14px;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: #374151;
+    word-break: break-word;
+  }
+
+  .act-card-desc :global(a) {
+    color: #ba0047;
+    font-weight: 600;
+    text-decoration: underline;
+    word-break: break-all;
+  }
+
+  .act-card-full-address {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: #faf5f7;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    color: #4b5563;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.45;
+  }
+
+  .act-card-full-address i {
+    color: #e8005a;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .act-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .act-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .act-btn-maps {
+    background: #fdf2f7;
+    color: #ba0047;
+    border-color: #fae1ec;
+  }
+
+  .act-btn-maps:hover {
+    background: #e8005a;
+    color: #ffffff;
+  }
+
+  .act-btn-cal {
+    background: #18050d;
+    color: #ffffff;
+  }
+
+  .act-btn-cal:hover {
+    background: #33101e;
+    color: #ffffff;
+  }
+
+  .act-btn-share {
+    background: #ffffff;
+    color: #374151;
+    border-color: #e5e7eb;
+  }
+
+  .act-btn-share:hover {
+    border-color: #e8005a;
+    color: #ba0047;
+  }
+
+  /* Empty States */
+  .act-empty-day,
+  .act-no-results {
+    background: #ffffff;
+    border: 1px dashed #e5c6d4;
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    color: #6b7280;
+  }
+
+  .act-no-results i {
+    font-size: 2rem;
+    color: #e8005a;
+    margin-bottom: 10px;
+  }
+
+  .act-no-results h3 {
+    margin: 0 0 8px 0;
+    color: #111827;
+  }
+
+  .act-no-results-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  /* Fallback iframe if needed */
+  .act-fallback-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .act-fallback-frame-wrap iframe {
+    width: 100%;
+    height: 75vh;
+    min-height: 540px;
+    border-radius: 12px;
+  }
+
+  .act-fallback-note {
+    text-align: center;
+    margin: 12px 0 4px 0;
+    font-size: 0.9rem;
+  }
+
+  /* Bottom Conversion CTA */
+  .act-bottom-cta {
+    margin-top: 44px;
+    background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+    border: 1px solid #fae1ec;
+    border-radius: 20px;
+    padding: 30px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: 0 12px 32px rgba(232, 0, 90, 0.08);
+  }
+
+  .act-bottom-cta-text h2 {
+    margin: 8px 0 8px 0;
+    font-size: clamp(1.45rem, 3vw, 1.85rem);
+    color: #18050d;
+  }
+
+  .act-bottom-cta-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.55;
+    max-width: 500px;
+  }
+
+  .act-bottom-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    min-width: 210px;
+  }
+
+  .act-cta-tours {
+    background: linear-gradient(135deg, #e8005a 0%, #c4004c 100%);
+    text-align: center;
+    font-weight: 800;
+    border-radius: 12px;
+    padding: 13px 20px;
+  }
+
+  .act-cta-wa {
+    text-align: center;
+    border: 1.5px solid #25d366;
+    color: #15803d;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 11px 18px;
+    font-weight: 700;
+  }
+
+  .act-cta-wa:hover {
+    background: #ecfdf5;
+    color: #15803d;
+  }
+
+  @media (max-width: 768px) {
+    .act-controls-sticky {
+      top: 68px;
+      padding: 10px 0 12px 0;
+    }
+    .act-search-wrap {
+      max-width: none;
+      flex: 1 1 100%;
+    }
+    .act-card-summary {
+      padding: 14px 14px;
+    }
+    .act-card-details {
+      padding: 0 14px 16px 14px;
+    }
+    .act-action-btn {
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+    .act-bottom-cta {
+      flex-direction: column;
+      text-align: center;
+      padding: 26px 20px;
+    }
+    .act-bottom-cta-actions {
+      width: 100%;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const strip = document.getElementById('actDayStrip');
+    if (!strip) return;
+
+    let selectedDay = strip.dataset.defaultDay || 'week';
+    const todayKey = strip.dataset.todayKey || '';
+    let selectedFilter = 'all';
+    let searchTerm = '';
+
+    const dayPills = Array.from(document.querySelectorAll('.act-day-pill'));
+    const filterChips = Array.from(document.querySelectorAll('.act-chip'));
+    const searchInput = document.getElementById('actSearchInput');
+    const dayGroups = Array.from(document.querySelectorAll('.act-day-group'));
+    const statusText = document.getElementById('actStatusText');
+    const resetBtn = document.getElementById('actResetFiltersBtn');
+    const noResults = document.getElementById('actNoResults');
+    const showWeekBtn = document.getElementById('actShowWeekBtn');
+    const clearAllBtn = document.getElementById('actClearAllBtn');
+
+    // Mark "LIVE NOW" and "Earlier today" dynamically based on America/Bogota (UTC-5) time
+    function updateLiveBadges() {
+      const bogotaNow = new Date(Date.now() - 5 * 60 * 60 * 1000);
+      const bogotaDateKey = bogotaNow.toISOString().slice(0, 10);
+      const nowMins = bogotaNow.getUTCHours() * 60 + bogotaNow.getUTCMinutes();
+
+      document.querySelectorAll('.act-card').forEach((card) => {
+        if (card.dataset.date !== bogotaDateKey) return;
+        const startMin = Number(card.dataset.startMin || 0);
+        const endMin = Number(card.dataset.endMin || startMin + 60);
+        const badge = card.querySelector('[data-live-badge]');
+        if (!badge) return;
+
+        if (nowMins >= startMin && nowMins <= endMin) {
+          badge.textContent = '● LIVE NOW';
+          badge.className = 'act-live-status live-now';
+          badge.style.display = 'inline-block';
+          card.classList.remove('is-past');
+        } else if (nowMins > endMin) {
+          badge.textContent = 'Earlier today';
+          badge.className = 'act-live-status past-today';
+          badge.style.display = 'inline-block';
+          card.classList.add('is-past');
+        }
+      });
+    }
+
+    function applyView() {
+      const q = searchTerm.trim().toLowerCase();
+      let totalVisibleEvents = 0;
+
+      dayGroups.forEach((group) => {
+        const dayKey = group.dataset.dayGroup;
+        const inWeek = group.dataset.inWeek === '1';
+        const dayMatches =
+          q.length > 0
+            ? true // When searching, search across all 14 days automatically!
+            : selectedDay === 'week'
+              ? inWeek
+              : dayKey === selectedDay;
+
+        if (!dayMatches) {
+          group.style.display = 'none';
+          return;
+        }
+
+        const cards = Array.from(group.querySelectorAll('.act-card'));
+        let groupVisibleCount = 0;
+
+        cards.forEach((card) => {
+          const cat = card.dataset.category;
+          const isFree = card.dataset.free === '1';
+          const hay = card.dataset.search || '';
+
+          const filterOk =
+            selectedFilter === 'all' ||
+            (selectedFilter === 'free' ? isFree : cat === selectedFilter);
+          const searchOk = !q || hay.includes(q);
+
+          if (filterOk && searchOk) {
+            card.style.display = '';
+            groupVisibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        const countLabel = group.querySelector('[data-day-count-label]');
+        if (countLabel) {
+          countLabel.textContent = `${groupVisibleCount} ${groupVisibleCount === 1 ? 'activity' : 'activities'}`;
+        }
+
+        // In week or search mode, hide days with 0 matching events
+        if ((selectedDay === 'week' || q.length > 0 || selectedFilter !== 'all') && groupVisibleCount === 0) {
+          group.style.display = 'none';
+        } else {
+          group.style.display = '';
+        }
+
+        totalVisibleEvents += groupVisibleCount;
+      });
+
+      const hasActiveFilters = selectedFilter !== 'all' || q.length > 0;
+      if (resetBtn) resetBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
+
+      if (statusText) {
+        if (q.length > 0) {
+          statusText.textContent = `${totalVisibleEvents} matching ${totalVisibleEvents === 1 ? 'activity' : 'activities'} across the next 14 days`;
+        } else if (selectedDay === 'week') {
+          statusText.textContent = `Showing ${totalVisibleEvents} activities for the next 7 days`;
+        } else if (selectedDay === todayKey) {
+          statusText.textContent = `Showing ${totalVisibleEvents} ${totalVisibleEvents === 1 ? 'activity' : 'activities'} for today`;
+        } else {
+          statusText.textContent = `Showing ${totalVisibleEvents} ${totalVisibleEvents === 1 ? 'activity' : 'activities'} on selected day`;
+        }
+      }
+
+      if (noResults) {
+        noResults.style.display = totalVisibleEvents === 0 ? 'block' : 'none';
+      }
+    }
+
+    function selectDay(dayKey, scrollPill = false) {
+      selectedDay = dayKey;
+      dayPills.forEach((pill) => {
+        const active = pill.dataset.day === dayKey;
+        pill.classList.toggle('active', active);
+        pill.setAttribute('aria-selected', active ? 'true' : 'false');
+        if (active && scrollPill) {
+          pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+      applyView();
+    }
+
+    dayPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        if (searchInput && searchInput.value) {
+          searchInput.value = '';
+          searchTerm = '';
+        }
+        selectDay(pill.dataset.day || 'week', true);
+      });
+    });
+
+    filterChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        selectedFilter = chip.dataset.filter || 'all';
+        applyView();
+      });
+    });
+
+    searchInput?.addEventListener('input', (e) => {
+      searchTerm = e.target.value || '';
+      applyView();
+    });
+
+    function resetAllFilters() {
+      selectedFilter = 'all';
+      searchTerm = '';
+      if (searchInput) searchInput.value = '';
+      filterChips.forEach((c) => c.classList.toggle('active', c.dataset.filter === 'all'));
+      applyView();
+    }
+
+    resetBtn?.addEventListener('click', resetAllFilters);
+    clearAllBtn?.addEventListener('click', resetAllFilters);
+    showWeekBtn?.addEventListener('click', () => {
+      resetAllFilters();
+      selectDay('week', true);
+    });
+
+    // Native mobile share or clipboard fallback for individual events
+    document.querySelectorAll('.act-btn-share').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const title = btn.dataset.shareTitle || 'Cali Activity';
+        const time = btn.dataset.shareTime || '';
+        const venue = btn.dataset.shareVenue || '';
+        const shareText = `${title} (${time} · ${venue}) — Cali Cultural Calendar`;
+        const shareUrl = window.location.href.split('?')[0];
+
+        if (navigator.share) {
+          try {
+            await navigator.share({ title, text: shareText, url: shareUrl });
+            return;
+          } catch {}
+        }
+
+        try {
+          await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            btn.innerHTML = orig;
+          }, 1800);
+        } catch {}
+      });
+    });
+
+    updateLiveBadges();
+    applyView();
+  });
+</script>
