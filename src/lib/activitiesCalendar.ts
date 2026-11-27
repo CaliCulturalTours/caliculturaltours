@@ -119,8 +119,17 @@ function classifyEvent(summary: string, plainDesc: string): {
   isFeatured: boolean;
 } {
   const combined = `${summary} ${plainDesc}`;
-  const isFree =
-    /\*free\*|🆓|\bfree\b|\bgratis\b|free entry|free entrance|tip[\s-]based/i.test(combined);
+  const titleMarkedFree = /\*free\*|🆓|\bfree\b|\bgratis\b|entrada\s+libre/i.test(summary);
+  const hasExplicitPrice = /💲|\$\s*\d|\b\d{1,3}[.,]\d{3}\s*pesos?\b|\busd\b|sometimes\s+free|free\s+on\s+mondays/i.test(
+    combined
+  );
+  const descExplicitFreeEntry =
+    /\b(?:free\s+entry|free\s+entrance|entrance\s+is\s+free|price:\s*free|entrada\s+libre)\b/i.test(
+      plainDesc
+    );
+
+  // Only tag FREE if explicitly marked in the title, OR clearly states free entry with no ticket/cover price
+  const isFree = titleMarkedFree || (!hasExplicitPrice && descExplicitFreeEntry);
   const isFeatured = /⭐|★/.test(summary);
 
   let category: ActivityCategory = 'culture';

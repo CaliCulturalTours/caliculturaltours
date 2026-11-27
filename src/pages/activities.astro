@@ -69,6 +69,9 @@ const activitiesSchema = upcomingFlat.length > 0
 const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(
   ACTIVITIES_CALENDAR_ID
 )}&ctz=America%2FBogota&mode=AGENDA`;
+
+const reportOutdatedWhatsappUrl =
+  "https://wa.me/573162543554?text=Hi%20Juan%20Camilo!%20I%20was%20checking%20the%20Cali%20Cultural%20Calendar%20and%20wanted%20to%20report%20an%20outdated%20event%3A%20";
 ---
 
 <BaseLayout
@@ -88,6 +91,23 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
         <p class="act-subtitle">
           Stay in the know with salsa nights, free dance classes, hikes, live music, and local gatherings happening every week in Cali.
         </p>
+
+        <div class="act-manual-notice">
+          <div class="act-manual-notice-text">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <span>
+              <strong>Manually maintained calendar:</strong> Our local team curates and updates these weekly events by hand. Since venues and schedules in Cali can occasionally change without notice, if you spot an outdated event please report it directly to our WhatsApp so we can fix it right away!
+            </span>
+          </div>
+          <a
+            href={reportOutdatedWhatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="act-report-wa-btn"
+          >
+            <i class="fab fa-whatsapp" aria-hidden="true"></i> Report an Outdated Event
+          </a>
+        </div>
 
         <div class="act-hero-links">
           <a
@@ -157,7 +177,7 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
               })}
             </div>
 
-            <!-- Filters & Instant Search -->
+            <!-- Filters & Collapsible Compact Search -->
             <div class="act-filter-row">
               <div class="act-chips" role="group" aria-label="Filter activities">
                 <button type="button" class="act-chip active" data-filter="all">
@@ -177,7 +197,18 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
                 </button>
               </div>
 
-              <div class="act-search-wrap">
+              <button
+                type="button"
+                id="actSearchToggleBtn"
+                class="act-search-toggle-btn"
+                aria-label="Search activities"
+                aria-expanded="false"
+                aria-controls="actSearchWrap"
+              >
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </button>
+
+              <div class="act-search-wrap" id="actSearchWrap">
                 <i class="fas fa-search act-search-icon" aria-hidden="true"></i>
                 <input
                   type="search"
@@ -324,6 +355,16 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
                                 <i class="fas fa-share-nodes" aria-hidden="true"></i>
                                 Share
                               </button>
+
+                              <a
+                                href={`https://wa.me/573162543554?text=${encodeURIComponent(`Hi Juan Camilo! I noticed an outdated event on the Cali Cultural Calendar: "${ev.cleanTitle}" (${day.weekdayShort} ${day.monthShort} ${day.dayNum}, ${ev.startTimeLabel}).`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="act-action-btn act-btn-report"
+                              >
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                                Report outdated
+                              </a>
                             </div>
                           </div>
                         </details>
@@ -450,8 +491,65 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
     font-size: clamp(0.96rem, 2.4vw, 1.1rem);
     color: #4b5563;
     line-height: 1.55;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 18px auto;
     max-width: 580px;
+  }
+
+  .act-manual-notice {
+    background: #ffffff;
+    border: 1px solid #f5c6d9;
+    border-left: 4px solid #e8005a;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 0 auto 18px auto;
+    max-width: 660px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    text-align: left;
+    box-shadow: 0 6px 18px rgba(232, 0, 90, 0.06);
+  }
+
+  .act-manual-notice-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 1 300px;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .act-manual-notice-text i {
+    color: #e8005a;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .act-report-wa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: #25d366;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 9px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .act-report-wa-btn:hover {
+    background: #1fb858;
+    color: #ffffff;
+    transform: translateY(-1px);
   }
 
   .act-hero-links {
@@ -508,17 +606,50 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
     max-width: 860px;
   }
 
-  /* Sticky App-Style Controls */
+  /* Sticky App-Style Controls — flush to top (0px) so no gap peeks above */
   .act-controls-sticky {
     position: sticky;
-    top: 72px;
-    z-index: 40;
-    background: rgba(250, 247, 249, 0.96);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 12px 0 14px 0;
-    margin: -12px 0 12px 0;
-    border-bottom: 1px solid #f0e1e8;
+    top: 0;
+    z-index: 60;
+    background: #faf7f9;
+    padding: 10px 0 10px 0;
+    margin: -10px 0 12px 0;
+    border-bottom: 1px solid #ead8e1;
+    box-shadow: 0 4px 14px rgba(24, 5, 13, 0.05);
+  }
+
+  .act-search-toggle-btn {
+    display: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #ead8e1;
+    color: #ba0047;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+  }
+
+  .act-search-toggle-btn.active {
+    background: #e8005a;
+    border-color: #e8005a;
+    color: #ffffff;
+  }
+
+  .act-btn-report {
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+  }
+
+  .act-btn-report:hover {
+    background: #25d366;
+    color: #ffffff;
+    border-color: #25d366;
   }
 
   .act-day-strip {
@@ -1120,13 +1251,65 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
   }
 
   @media (max-width: 768px) {
+    .act-manual-notice {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .act-report-wa-btn {
+      width: 100%;
+    }
     .act-controls-sticky {
-      top: 68px;
-      padding: 10px 0 12px 0;
+      top: 0;
+      margin: -14px -20px 10px -20px;
+      padding: 8px 16px 8px 16px;
+    }
+    .act-day-strip {
+      gap: 6px;
+      padding: 0 0 6px 0;
+    }
+    .act-day-pill {
+      min-width: 56px;
+      padding: 5px 6px;
+      border-radius: 12px;
+    }
+    .act-week-pill {
+      min-width: 64px;
+    }
+    .day-main {
+      font-size: 1rem;
+    }
+    .day-month {
+      display: none;
+    }
+    .day-count {
+      margin-top: 2px;
+      font-size: 0.64rem;
+      padding: 0 6px;
+    }
+    .act-filter-row {
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .act-chips {
+      flex: 1 1 calc(100% - 44px);
+      max-width: calc(100% - 44px);
+    }
+    .act-chip {
+      padding: 6px 11px;
+      font-size: 0.78rem;
+    }
+    .act-search-toggle-btn {
+      display: inline-flex;
     }
     .act-search-wrap {
+      display: none;
       max-width: none;
       flex: 1 1 100%;
+      margin-top: 2px;
+    }
+    .act-search-wrap.is-open {
+      display: block;
     }
     .act-card-summary {
       padding: 14px 14px;
@@ -1162,7 +1345,23 @@ const fallbackEmbedUrl = `https://calendar.google.com/calendar/embed?src=${encod
     const dayPills = Array.from(document.querySelectorAll('.act-day-pill'));
     const filterChips = Array.from(document.querySelectorAll('.act-chip'));
     const searchInput = document.getElementById('actSearchInput');
+    const searchToggleBtn = document.getElementById('actSearchToggleBtn');
+    const searchWrap = document.getElementById('actSearchWrap');
     const dayGroups = Array.from(document.querySelectorAll('.act-day-group'));
+
+    searchToggleBtn?.addEventListener('click', () => {
+      if (!searchWrap) return;
+      const isOpen = searchWrap.classList.toggle('is-open');
+      searchToggleBtn.classList.toggle('active', isOpen);
+      searchToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen && searchInput) {
+        searchInput.focus();
+      } else if (!isOpen && searchInput && searchInput.value) {
+        searchInput.value = '';
+        searchTerm = '';
+        applyView();
+      }
+    });
     const statusText = document.getElementById('actStatusText');
     const resetBtn = document.getElementById('actResetFiltersBtn');
     const noResults = document.getElementById('actNoResults');
